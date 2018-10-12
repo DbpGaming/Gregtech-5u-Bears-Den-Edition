@@ -9,13 +9,14 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static gregtech.api.enums.GT_Values.DEBUG_LEVEL_1;
 
 public class GT_Worldgen_GT_Ore_Layer
         extends GT_Worldgen {
-    public static ArrayList<GT_Worldgen_GT_Ore_Layer> sList = new ArrayList();
+    public static List<GT_Worldgen_GT_Ore_Layer> sList = new ArrayList<>();
     public static int sWeight = 0;
     public final short mMinY;
     public final short mMaxY;
@@ -42,10 +43,10 @@ public class GT_Worldgen_GT_Ore_Layer
         this.mWeight = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "RandomWeight", aWeight));
         this.mDensity = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "Density", aDensity));
         this.mSize = ((short) Math.max(1, GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "Size", aSize)));
-        this.mPrimaryMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OrePrimaryLayer", aPrimary.mMetaItemSubID));
-        this.mSecondaryMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OreSecondaryLayer", aSecondary.mMetaItemSubID));
-        this.mBetweenMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OreSporadiclyInbetween", aBetween.mMetaItemSubID));
-        this.mSporadicMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OreSporaticlyAround", aSporadic.mMetaItemSubID));
+        this.mPrimaryMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OrePrimaryLayer", aPrimary.getSubID()));
+        this.mSecondaryMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OreSecondaryLayer", aSecondary.getSubID()));
+        this.mBetweenMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OreSporadiclyInbetween", aBetween.getSubID()));
+        this.mSporadicMeta = ((short) GregTech_API.sWorldgenFile.get("worldgen." + this.mWorldGenName, "OreSporaticlyAround", aSporadic.getSubID()));
         if (this.mEnabled) {
             GT_Achievements.registerOre(aPrimary, aMinY, aMaxY, aWeight, aOverworld, aNether, aEnd);
             GT_Achievements.registerOre(aSecondary, aMinY, aMaxY, aWeight, aOverworld, aNether, aEnd);

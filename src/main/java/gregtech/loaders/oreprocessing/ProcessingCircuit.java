@@ -13,21 +13,21 @@ public class ProcessingCircuit implements gregtech.api.interfaces.IOreRecipeRegi
     }
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
-        switch (aMaterial) {
-            case Good:
-            case Advanced:
-            case Data:
-            case Elite:
-            case Master:
-            case Ultimate:
+        switch (aMaterial.name()) {
+            case "Good":
+            case "Advanced":
+            case "Data":
+            case "Elite":
+            case "Master":
+            case "Ultimate":
                 if (!gregtech.api.util.GT_OreDictUnificator.isBlacklisted(aStack))
                     GT_ModHandler.removeRecipeByOutput(aStack);
                 break;
-            case Primitive:
+            case "Primitive":
                 GT_ModHandler.removeRecipeByOutput(aStack);
                 GT_ModHandler.addShapelessCraftingRecipe(ItemList.Circuit_Primitive.get(1L), new Object[]{GT_ModHandler.getIC2Item("casingadviron", 1L), OrePrefixes.wireGt01.get(Materials.RedAlloy), OrePrefixes.wireGt01.get(Materials.RedAlloy), OrePrefixes.wireGt01.get(Materials.Tin)});
                 break;
-            case Basic:
+            case "Basic":
                 GT_ModHandler.removeRecipeByOutput(aStack);
                 GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Basic.get(1L), new Object[]{"WWW", "CPC", "WWW", 'C', OrePrefixes.circuit.get(Materials.Primitive), 'W', OreDictNames.craftingWireCopper, 'P', OrePrefixes.plate.get(Materials.Steel)});
                 GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Basic.get(1L), new Object[]{"WCW", "WPW", "WCW", 'C', OrePrefixes.circuit.get(Materials.Primitive), 'W', OreDictNames.craftingWireCopper, 'P', OrePrefixes.plate.get(Materials.Steel)});

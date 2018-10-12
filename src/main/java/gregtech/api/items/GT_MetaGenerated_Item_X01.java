@@ -97,7 +97,7 @@ public abstract class GT_MetaGenerated_Item_X01 extends GT_MetaGenerated_Item {
     }
 
     public IIconContainer getIconContainer(int aMetaData, Materials aMaterial) {
-        return aMaterial.mIconSet.mTextures[mIconSetIndex];
+        return aMaterial.getTextureSet().mTextures[mIconSetIndex];
     }
 	
 	/* ---------- INTERNAL OVERRIDES ---------- */
@@ -117,7 +117,7 @@ public abstract class GT_MetaGenerated_Item_X01 extends GT_MetaGenerated_Item {
     @Override
     public short[] getRGBa(ItemStack aStack) {
         int aMetaData = getDamage(aStack);
-        return aMetaData < GregTech_API.sGeneratedMaterials.length && GregTech_API.sGeneratedMaterials[aMetaData] != null ? GregTech_API.sGeneratedMaterials[aMetaData].mRGBa : Materials._NULL.mRGBa;
+        return aMetaData < GregTech_API.sGeneratedMaterials.length && GregTech_API.sGeneratedMaterials[aMetaData] != null ? GregTech_API.sGeneratedMaterials[aMetaData].getRGBa() : Materials._NULL.getRGBa();
     }
 
     @Override

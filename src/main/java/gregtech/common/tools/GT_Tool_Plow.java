@@ -53,11 +53,11 @@ public class GT_Tool_Plow
     }
 
     public IIconContainer getIcon(boolean aIsToolHead, ItemStack aStack) {
-        return aIsToolHead ? GT_MetaGenerated_Tool.getPrimaryMaterial(aStack).mIconSet.mTextures[gregtech.api.enums.OrePrefixes.toolHeadPlow.mTextureIndex] : GT_MetaGenerated_Tool.getSecondaryMaterial(aStack).mIconSet.mTextures[gregtech.api.enums.OrePrefixes.stick.mTextureIndex];
+        return aIsToolHead ? GT_MetaGenerated_Tool.getPrimaryMaterial(aStack).getTextureSet().mTextures[gregtech.api.enums.OrePrefixes.toolHeadPlow.mTextureIndex] : GT_MetaGenerated_Tool.getSecondaryMaterial(aStack).getTextureSet().mTextures[gregtech.api.enums.OrePrefixes.stick.mTextureIndex];
     }
 
     public short[] getRGBa(boolean aIsToolHead, ItemStack aStack) {
-        return aIsToolHead ? GT_MetaGenerated_Tool.getPrimaryMaterial(aStack).mRGBa : GT_MetaGenerated_Tool.getSecondaryMaterial(aStack).mRGBa;
+        return aIsToolHead ? GT_MetaGenerated_Tool.getPrimaryMaterial(aStack).getRGBa() : GT_MetaGenerated_Tool.getSecondaryMaterial(aStack).getRGBa();
     }
 
     public IChatComponent getDeathMessage(EntityLivingBase aPlayer, EntityLivingBase aEntity) {

@@ -541,7 +541,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 						long tBits = GT_ModHandler.RecipeBits.DO_NOT_CHECK_FOR_COLLISIONS | GT_ModHandler.RecipeBits.BUFFERED
 								| GT_ModHandler.RecipeBits.ONLY_ADD_IF_RESULT_IS_NOT_NULL | GT_ModHandler.RecipeBits.NOT_REMOVABLE;
 						for (Materials aMaterial : Materials.VALUES) {
-							if ((aMaterial.mUnificatable) && (aMaterial.mMaterialInto == aMaterial)) {
+							if ((aMaterial.isUnifiable()) && (aMaterial.getMaterialInto() == aMaterial)) {
 								if (!aMaterial.contains(SubTag.NO_SMASHING)) {
 									if (GregTech_API.sRecipeFile.get(ConfigCategories.Tools.hammerplating, aMaterial.toString(), true)) {
 										GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.plate, aMaterial, 1L), tBits, new Object[]{"h", "X", "X",
@@ -668,12 +668,12 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
                                             'R', OrePrefixes.ring.get(Materials.Steel)});
 									GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.toolHeadDrill, aMaterial, 1L), tBits, new Object[]{"XSX", "XSX",
 										"ShS", 'X', OrePrefixes.plate.get(aMaterial), 'S', OrePrefixes.plate.get(Materials.Steel)});
-									switch (aMaterial) {
-									case Wood:
+									switch (aMaterial.name()) {
+									case "Wood":
 										GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.gearGtSmall, aMaterial, 1L), tBits, new Object[]{"P ", " s",
                                                 'P', OrePrefixes.plank.get(aMaterial)});
 										break;
-									case Stone:
+									case "Stone":
 										GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.gearGtSmall, aMaterial, 1L), tBits, new Object[]{"P ", " f",
                                                 'P', OrePrefixes.stoneSmooth});
 										break;
@@ -681,12 +681,12 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 										GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.gearGtSmall, aMaterial, 1L), tBits,
 												new Object[]{"P ", aMaterial.contains(SubTag.WOOD) ? " s" : " h", 'P', OrePrefixes.plate.get(aMaterial)});
 									}
-									switch (aMaterial) {
-									case Wood:
+									switch (aMaterial.name()) {
+									case "Wood":
 										GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.gearGt, aMaterial, 1L), tBits, new Object[]{"SPS", "PsP", "SPS",
                                                 'P', OrePrefixes.plank.get(aMaterial), 'S', OrePrefixes.stick.get(aMaterial)});
 										break;
-									case Stone:
+									case "Stone":
 										GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.gearGt, aMaterial, 1L), tBits, new Object[]{"SPS", "PfP", "SPS",
                                                 'P', OrePrefixes.stoneSmooth, 'S', new ItemStack(Blocks.stone_button, 1, OreDictionary.WILDCARD_VALUE)});
 										break;
@@ -1150,11 +1150,11 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 					if (Character.isUpperCase(firstChar) || Character.isLowerCase(firstChar) || firstChar == '_') {
 						if (aPrefix.mIsMaterialBased) {
 							aMaterial = Materials.get(tName);
-							if (aMaterial != aMaterial.mMaterialInto) {
-								GT_OreDictUnificator.registerOre(aPrefix, aMaterial.mMaterialInto, aEvent.Ore);
+							if (aMaterial != aMaterial.getMaterialInto()) {
+								GT_OreDictUnificator.registerOre(aPrefix, aMaterial.getMaterialInto(), aEvent.Ore);
 								if (!GT_OreDictUnificator.isRegisteringOres()) {
 									GT_Log.ore.println(tModToName + " uses a deprecated Material and is getting re-registered as "
-											+ aPrefix.get(aMaterial.mMaterialInto));
+											+ aPrefix.get(aMaterial.getMaterialInto()));
 								}
 								return;
 							}
@@ -1190,31 +1190,31 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 									}
 									break;
 								case gem:
-									switch (aMaterial) {
-									case Lapis:
-									case Sodalite:
+									switch (aMaterial.name()) {
+									case "Lapis":
+									case "Sodalite":
 										GT_OreDictUnificator.registerOre(Dyes.dyeBlue, aEvent.Ore);
 										break;
-									case Lazurite:
+									case "Lazurite":
 										GT_OreDictUnificator.registerOre(Dyes.dyeCyan, aEvent.Ore);
 										break;
-									case InfusedAir:
-									case InfusedWater:
-									case InfusedFire:
-									case InfusedEarth:
-									case InfusedOrder:
-									case InfusedEntropy:
+									case "InfusedAir":
+									case "InfusedWater":
+									case "InfusedFire":
+									case "InfusedEarth":
+									case "InfusedOrder":
+									case "InfusedEntropy":
 										GT_OreDictUnificator.registerOre(aMaterial.name().replaceFirst("Infused", "shard"), aEvent.Ore);
 										break;
-									case Chocolate:
+									case "Chocolate":
 										GT_OreDictUnificator.registerOre(Dyes.dyeBrown, aEvent.Ore);
 										break;
-									case CertusQuartz:
-									case NetherQuartz:
+									case "CertusQuartz":
+									case "NetherQuartz":
 										GT_OreDictUnificator.registerOre(OrePrefixes.item.get(aMaterial), aEvent.Ore);
-									case Fluix:
-									case Quartz:
-									case Quartzite:
+									case "Fluix":
+									case "Quartz":
+									case "Quartzite":
 										GT_OreDictUnificator.registerOre(OrePrefixes.crystal, aMaterial, aEvent.Ore);
 										GT_OreDictUnificator.registerOre(OreDictNames.craftingQuartz, aEvent.Ore);
 									default:
@@ -1339,7 +1339,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 								default:
 									break;
 								}
-								if (aPrefix.mIsUnificatable && !aMaterial.mUnificatable) {
+								if (aPrefix.mIsUnificatable && !aMaterial.isUnifiable()) {
 									return;
 								}
 							} else {
@@ -1721,12 +1721,12 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 
 	public Fluid addAutogeneratedMoltenFluid(Materials aMaterial) {
 		return addFluid("molten." + aMaterial.name().toLowerCase(), "molten.autogenerated", "Molten " + aMaterial.mDefaultLocalName, aMaterial,
-				aMaterial.mMoltenRGBa, 4, aMaterial.mMeltingPoint <= 0 ? 1000 : aMaterial.mMeltingPoint, null, null, 0);
+				aMaterial.getMoltenRGBa(), 4, aMaterial.mMeltingPoint <= 0 ? 1000 : aMaterial.mMeltingPoint, null, null, 0);
 	}
 
 	public Fluid addAutogeneratedPlasmaFluid(Materials aMaterial) {
 		return addFluid("plasma." + aMaterial.name().toLowerCase(), "plasma.autogenerated", aMaterial.mDefaultLocalName + " Plasma", aMaterial,
-				aMaterial.mMoltenRGBa, 3, 10000, GT_OreDictUnificator.get(OrePrefixes.cellPlasma, aMaterial, 1L), ItemList.Cell_Empty.get(1L),
+				aMaterial.getMoltenRGBa(), 3, 10000, GT_OreDictUnificator.get(OrePrefixes.cellPlasma, aMaterial, 1L), ItemList.Cell_Empty.get(1L),
 				1000);
 	}
 
@@ -1735,14 +1735,14 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 	}
 
 	public Fluid addFluid(String aName, String aLocalized, Materials aMaterial, int aState, int aTemperatureK, ItemStack aFullContainer,
-			ItemStack aEmptyContainer, int aFluidAmount) {
+						  ItemStack aEmptyContainer, int aFluidAmount) {
 		return addFluid(aName, aName.toLowerCase(), aLocalized, aMaterial, null, aState, aTemperatureK, aFullContainer, aEmptyContainer, aFluidAmount);
 	}
 
 	public Fluid addFluid(String aName, String aTexture, String aLocalized, Materials aMaterial, short[] aRGBa, int aState, int aTemperatureK,
-			ItemStack aFullContainer, ItemStack aEmptyContainer, int aFluidAmount) {
+						  ItemStack aFullContainer, ItemStack aEmptyContainer, int aFluidAmount) {
 		aName = aName.toLowerCase();
-		Fluid rFluid = new GT_Fluid(aName, aTexture, aRGBa != null ? aRGBa : Dyes._NULL.getRGBA());
+		Fluid rFluid = new GT_Fluid(aName, aTexture, aRGBa != null ? aRGBa : Dyes._NULL.getRGBa());
 		GT_LanguageManager.addStringLocalization(rFluid.getUnlocalizedName(), aLocalized == null ? aName : aLocalized);
 		if (FluidRegistry.registerFluid(rFluid)) {
 			switch (aState) {

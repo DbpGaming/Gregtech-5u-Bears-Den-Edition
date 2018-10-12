@@ -22,25 +22,25 @@ public class ProcessingTransforming
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
         if (aPrefix == OrePrefixes.plank) aPrefix = OrePrefixes.plate;
-        switch (aMaterial) {
-            case Wood:
+        switch (aMaterial.name()) {
+            case "Wood":
                 RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.SeedOil.getFluid(GT_Utility.translateMaterialToAmount(aPrefix.mMaterialAmount, 120L, true)), NULL_FLUID_STACK, GT_OreDictUnificator.get(aPrefix, Materials.WoodSealed, 1L), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 100, 8);
                 RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.SeedOilLin.getFluid(GT_Utility.translateMaterialToAmount(aPrefix.mMaterialAmount, 80L, true)), NULL_FLUID_STACK, GT_OreDictUnificator.get(aPrefix, Materials.WoodSealed, 1L), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 100, 8);
                 RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.SeedOilHemp.getFluid(GT_Utility.translateMaterialToAmount(aPrefix.mMaterialAmount, 80L, true)), NULL_FLUID_STACK, GT_OreDictUnificator.get(aPrefix, Materials.WoodSealed, 1L), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 100, 8);
                 break;
-            case Iron:
+            case "Iron":
                 RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.FierySteel.getFluid(GT_Utility.translateMaterialToAmount(aPrefix.mMaterialAmount, 250L, true)), NULL_FLUID_STACK, GT_OreDictUnificator.get(aPrefix, Materials.FierySteel, 1L), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 100, 8);
                 RECIPE_ADDER_INSTANCE.addPolarizerRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(aPrefix, Materials.IronMagnetic, 1L), (int) Math.max(16L, aPrefix.mMaterialAmount * 128L / MATERIAL_UNIT), 16);
                 break;
-            case WroughtIron:
+            case "WroughtIron":
                 RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.FierySteel.getFluid(GT_Utility.translateMaterialToAmount(aPrefix.mMaterialAmount, 225L, true)), NULL_FLUID_STACK, GT_OreDictUnificator.get(aPrefix, Materials.FierySteel, 1L), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 100, 8);
                 RECIPE_ADDER_INSTANCE.addPolarizerRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(aPrefix, Materials.IronMagnetic, 1L), (int) Math.max(16L, aPrefix.mMaterialAmount * 128L / MATERIAL_UNIT), 16);
                 break;
-            case Steel:
+            case "Steel":
                 RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.FierySteel.getFluid(GT_Utility.translateMaterialToAmount(aPrefix.mMaterialAmount, 200L, true)), NULL_FLUID_STACK, GT_OreDictUnificator.get(aPrefix, Materials.FierySteel, 1L), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 100, 8);
                 RECIPE_ADDER_INSTANCE.addPolarizerRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(aPrefix, Materials.SteelMagnetic, 1L), (int) Math.max(16L, aPrefix.mMaterialAmount * 128L / MATERIAL_UNIT), 16);
                 break;
-            case Neodymium:
+            case "Neodymium":
                 RECIPE_ADDER_INSTANCE.addPolarizerRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(aPrefix, Materials.NeodymiumMagnetic, 1L), (int) Math.max(16L, aPrefix.mMaterialAmount * 128L / MATERIAL_UNIT), 256);
         }
     }

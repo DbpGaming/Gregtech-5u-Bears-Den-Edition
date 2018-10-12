@@ -130,7 +130,7 @@ public class GT_RecipeRegistrator {
     public static void registerMaterialRecycling(ItemStack aStack, Materials aMaterial, long aMaterialAmount, MaterialStack aByproduct) {
         if (GT_Utility.isStackInvalid(aStack)) return;
         if (aByproduct != null) {
-            aByproduct = aByproduct.clone();
+            aByproduct = new MaterialStack(aByproduct); // Copy constructor replaces cloneable
             aByproduct.mAmount /= aStack.stackSize;
         }
         GT_OreDictUnificator.addItemData(GT_Utility.copyAmount(1, aStack), new ItemData(aMaterial, aMaterialAmount / aStack.stackSize, aByproduct));
@@ -166,7 +166,7 @@ public class GT_RecipeRegistrator {
         if (aStack == null || aMaterial == null || aMaterialAmount <= 0 || aMaterial.contains(SubTag.NO_SMELTING) || (aMaterialAmount > MATERIAL_UNIT && aMaterial.contains(SubTag.METAL)))
             return;
         aMaterialAmount /= aStack.stackSize;
-        if(aMaterial==Materials.Naquadah||aMaterial==Materials.NaquadahEnriched)return;
+        if(aMaterial== Materials.Naquadah||aMaterial== Materials.NaquadahEnriched)return;
         if (aAllowAlloySmelter)
             GT_ModHandler.addSmeltingAndAlloySmeltingRecipe(GT_Utility.copyAmount(1, aStack), GT_OreDictUnificator.getIngot(aMaterial.mSmeltInto, aMaterialAmount));
         else

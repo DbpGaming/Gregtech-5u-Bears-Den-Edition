@@ -4,7 +4,7 @@ import gregtech.api.enums.Materials;
 
 import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 
-public class MaterialStack implements Cloneable {
+public class MaterialStack {
     public long mAmount;
     public Materials mMaterial;
 
@@ -13,13 +13,18 @@ public class MaterialStack implements Cloneable {
         mAmount = aAmount;
     }
 
-    public MaterialStack copy(long aAmount) {
-        return new MaterialStack(mMaterial, aAmount);
+    /**
+     * {@link MaterialStack} Copy constructor
+     * Replaces the old cloneable implementation.
+     * @param aMaterialStack {@link MaterialStack} to copy
+     */
+    public MaterialStack(MaterialStack aMaterialStack) {
+        mMaterial = aMaterialStack.mMaterial;
+        mAmount = aMaterialStack.mAmount;
     }
 
-    @Override
-    public MaterialStack clone() {
-        return new MaterialStack(mMaterial, mAmount);
+    public MaterialStack copy(long aAmount) {
+        return new MaterialStack(mMaterial, aAmount);
     }
 
     @Override
@@ -28,13 +33,16 @@ public class MaterialStack implements Cloneable {
         if (aObject == null) return false;
         if (aObject instanceof Materials) return aObject == mMaterial;
         if (aObject instanceof MaterialStack)
-            return ((MaterialStack) aObject).mMaterial == mMaterial && (mAmount < 0 || ((MaterialStack) aObject).mAmount < 0 || ((MaterialStack) aObject).mAmount == mAmount);
+            return ((MaterialStack) aObject).mMaterial == mMaterial
+                    && (mAmount < 0
+                        || ((MaterialStack) aObject).mAmount < 0
+                        || ((MaterialStack) aObject).mAmount == mAmount);
         return false;
     }
 
     @Override
     public String toString() {
-        return (mMaterial.mMaterialList.size() > 1 && mAmount > 1 ? "(" : EMPTY_STRING) + mMaterial.getToolTip(true) + (mMaterial.mMaterialList.size() > 1 && mAmount > 1 ? ")" : EMPTY_STRING) + (mAmount > 1 ? mAmount : EMPTY_STRING);
+        return (mMaterial.getMaterialList().size() > 1 && mAmount > 1 ? "(" : EMPTY_STRING) + mMaterial.getToolTip(true) + (mMaterial.getMaterialList().size() > 1 && mAmount > 1 ? ")" : EMPTY_STRING) + (mAmount > 1 ? mAmount : EMPTY_STRING);
     }
 
     @Override

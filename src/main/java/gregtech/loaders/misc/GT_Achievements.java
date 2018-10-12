@@ -46,8 +46,8 @@ public class GT_Achievements {
     public int adjY = 9;
 
     public GT_Achievements() {
-        this.achievementList = new HashMap();
-        this.issuedAchievements = new HashMap();
+        this.achievementList = new HashMap<>();
+        this.issuedAchievements = new HashMap<>();
         for (int i = 0; i < oreList.size(); i++) {
             if (DEBUG_LEVEL_1 && this.achievementList.get(oreList.get(i).name()) == null) {
                 GT_Log.out.println("achievement." + oreList.get(i).name() + "=Find " + oreList.get(i).name() + " Ore");
@@ -215,7 +215,7 @@ public class GT_Achievements {
         if (this.achievementList.get(aMaterial.name()) == null) {
             oreReg++;
             return registerAchievement(aMaterial.name(), -(6 + oreReg % 5), ((oreReg) / 5) - 8, new ItemStack(GregTech_API.sBlockOres1, 1,
-                    aMaterial.mMetaItemSubID), AchievementList.openInventory, false);
+                    aMaterial.getSubID()), AchievementList.openInventory, false);
         }
         return null;
     }

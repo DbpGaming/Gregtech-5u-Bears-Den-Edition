@@ -1,11 +1,16 @@
 package gregtech.api.util;
 
 import gregtech.api.GregTech_API;
+import gregtech.api.objects.IColorModulationContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
+import java.util.regex.Pattern;
+
 import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+import static net.minecraftforge.common.config.Property.Type.COLOR;
 
 public class GT_Config implements Runnable {
     public static boolean troll = false;
@@ -68,6 +73,38 @@ public class GT_Config implements Runnable {
         return rResult;
     }
 
+    public IColorModulationContainer get(Object aCategory, String aName, IColorModulationContainer aColor) {
+        final String HEXFORMAT = "0x%08X";
+        String tKey = String.format("%s_" + HEXFORMAT, aName, aColor.getARGB());
+        String tDefaultValue = String.format(HEXFORMAT, aColor.getARGB());
+
+        ConfigCategory tCategory = mConfig.getCategory(aCategory.toString());
+        Property tColorProperty;
+        if (tCategory.containsKey(tKey)) {
+            tColorProperty = tCategory.get(tKey); // NOSONAR
+
+            if (tColorProperty.getType() == null) {
+                tColorProperty = new Property(tColorProperty.getName(), tColorProperty.getString(), COLOR);
+                tCategory.put(tKey, tColorProperty);
+            }
+
+            tColorProperty.setDefaultValue(tDefaultValue);
+        }
+        else {
+            tColorProperty = new Property(tKey, tDefaultValue, COLOR);
+            tColorProperty.setValue(tDefaultValue); //Set and mark as dirty to signify it should save
+            tCategory.put(tKey, tColorProperty);
+            tColorProperty.setDefaultValue(tDefaultValue);
+        }
+
+        tColorProperty.setValidationPattern(Pattern.compile("0x[0-9A-Fa-f]{6,8}"));
+        tColorProperty.setShowInGui(true);
+        tColorProperty.setRequiresMcRestart(false);
+        tColorProperty.setRequiresWorldRestart(false);
+
+        return new IColorModulationContainer(Long.decode(tColorProperty.getString()).intValue());
+    }
+
     public double get(Object aCategory, ItemStack aStack, double aDefault) {
         return get(aCategory, getStackConfigName(aStack), aDefault);
     }
@@ -76,6 +113,18 @@ public class GT_Config implements Runnable {
         if (GT_Utility.isStringInvalid(aName)) return aDefault;
         Property tProperty = mConfig.get(aCategory.toString().replaceAll("\\|", "_"), (aName + "_" + aDefault).replaceAll("\\|", "_"), aDefault);
         double rResult = tProperty.getDouble(aDefault);
+        if (!tProperty.wasRead() && GregTech_API.sPostloadFinished) mConfig.save();
+        return rResult;
+    }
+
+    public String get(Object aCategory, ItemStack aStack, String aDefault) {
+        return get(aCategory, getStackConfigName(aStack), aDefault);
+    }
+
+    public String get(Object aCategory, String aName, String aDefault) {
+        if (GT_Utility.isStringInvalid(aName)) return aDefault;
+        Property tProperty = mConfig.get(aCategory.toString().replaceAll("\\|", "_"), (aName + "_" + aDefault).replaceAll("\\|", "_"), aDefault);
+        String rResult = tProperty.getString();
         if (!tProperty.wasRead() && GregTech_API.sPostloadFinished) mConfig.save();
         return rResult;
     }

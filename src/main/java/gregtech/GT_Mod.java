@@ -53,7 +53,6 @@ import gregtech.loaders.load.GT_ItemIterator;
 import gregtech.loaders.load.GT_SonictronLoader;
 import gregtech.loaders.misc.GT_Achievements;
 import gregtech.loaders.misc.GT_CoverLoader;
-import gregtech.loaders.postload.EX_MachineRecipeLoader;
 import gregtech.loaders.postload.GT_BlockResistanceLoader;
 import gregtech.loaders.postload.GT_BookAndLootLoader;
 import gregtech.loaders.postload.GT_CraftingRecipeLoader;
@@ -130,7 +129,15 @@ implements IGT_Mod {
 	public static GT_Achievements achievements;
 
 	static {
-		if ((508 != GregTech_API.VERSION) || (508 != GT_ModHandler.VERSION) || (508 != GT_OreDictUnificator.VERSION) || (508 != GT_Recipe.VERSION) || (508 != GT_Utility.VERSION) || (508 != GT_RecipeRegistrator.VERSION) || (508 != Element.VERSION) || (508 != Materials.VERSION) || (508 != OrePrefixes.VERSION)) {
+		if ((508 != GregTech_API.VERSION)
+				|| (508 != GT_ModHandler.VERSION)
+				|| (508 != GT_OreDictUnificator.VERSION)
+				|| (508 != GT_Recipe.VERSION)
+				|| (508 != GT_Utility.VERSION)
+				|| (508 != GT_RecipeRegistrator.VERSION)
+				|| (508 != Element.VERSION)
+				|| (508 != Materials.VERSION)
+				|| (508 != OrePrefixes.VERSION)) {
 			throw new GT_ItsNotMyFaultException("One of your Mods included GregTech-API Files inside it's download, mention this to the Mod Author, who does this bad thing, and tell him/her to use reflection. I have added a Version check, to prevent Authors from breaking my Mod that way.");
 		}
 	}
@@ -197,6 +204,8 @@ implements IGT_Mod {
 		GregTech_API.sUnification = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "Unification.cfg")));
 		GregTech_API.sSpecialFile = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "Other.cfg")));
 		GregTech_API.sOPStuff = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "OverpoweredStuff.cfg")));
+
+		GregTech_API.sMaterialsFile = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "Materials.cfg")));
 
 		GregTech_API.sClientDataFile = new GT_Config(new Configuration(new File(aEvent.getModConfigurationDirectory().getParentFile(), "GregTech.cfg")));
         GregTech_API.mGalacticraft = Loader.isModLoaded(MOD_ID_GC_CORE);
@@ -276,9 +285,7 @@ implements IGT_Mod {
 		GregTech_API.sMultiThreadedSounds = tMainConfig.get("general", "sound_multi_threading", false).getBoolean(false);
 		for (Dyes tDye : Dyes.values()) {
 			if ((tDye != Dyes._NULL) && (tDye.mIndex < 0)) {
-				tDye.mRGBa[0] = ((short) Math.min(255, Math.max(0, GregTech_API.sClientDataFile.get("ColorModulation." + tDye, "R", tDye.mRGBa[0]))));
-				tDye.mRGBa[1] = ((short) Math.min(255, Math.max(0, GregTech_API.sClientDataFile.get("ColorModulation." + tDye, "G", tDye.mRGBa[1]))));
-				tDye.mRGBa[2] = ((short) Math.min(255, Math.max(0, GregTech_API.sClientDataFile.get("ColorModulation." + tDye, "B", tDye.mRGBa[2]))));
+				tDye.setColor(GregTech_API.sClientDataFile.get("ColorModulation." + tDye, "ARGB", tDye.getColor()));
 			}
 		}
 		gregtechproxy.mMaxEqualEntitiesAtOneSpot = tMainConfig.get("general", "MaxEqualEntitiesAtOneSpot", 3).getInt(3);
@@ -314,6 +321,8 @@ implements IGT_Mod {
 		GregTech_API.mRFExplosions = GregTech_API.sOPStuff.get(ConfigCategories.general, "RFExplosions", true);
 		GregTech_API.meIOLoaded = Loader.isModLoaded(MOD_ID_EIO);
 
+		Materials[] tDisableOres = new Materials[]{Materials.Chrome, Materials.Naquadria, Materials.Silicon, Materials.Cobalt, Materials.Cadmium, Materials.Indium, Materials.Tungsten,
+				Materials.Adamantium, Materials.Mithril, Materials.DarkIron, Materials.Rutile, Materials.Alduorite, Materials.Magnesium};
 
 		if (tMainConfig.get("general", "hardermobspawners", true).getBoolean(true)) {
 			Blocks.mob_spawner.setHardness(500.0F).setResistance(6000000.0F);
@@ -334,7 +343,7 @@ implements IGT_Mod {
 		}
 		//GT_Config.troll = (Calendar.getInstance().get(2) + 1 == 4) && (Calendar.getInstance().get(5) >= 1) && (Calendar.getInstance().get(5) <= 2);
 
-		Materials.init(GregTech_API.sMaterialProperties);
+		Materials.initCustomMats("custom");
 
 		GT_Log.out.println("GT_Mod: Saving Main Config");
 		tMainConfig.save();
@@ -494,7 +503,6 @@ implements IGT_Mod {
 		new GT_RecyclerBlacklistLoader().run();
 		new GT_MinableRegistrator().run();
 		new GT_MachineRecipeLoader().run();
-		new EX_MachineRecipeLoader().LOAD_RECIPES();
 		new GT_ScrapboxDropLoader().run();
 		new GT_CropLoader().run();
 		new GT_Worldgenloader().run();
