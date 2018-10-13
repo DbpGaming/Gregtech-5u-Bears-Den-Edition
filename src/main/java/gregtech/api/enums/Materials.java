@@ -1,11 +1,13 @@
 package gregtech.api.enums;
 
+import cpw.mods.fml.common.Loader;
 import gregtech.api.GregTech_API;
 import gregtech.api.objects.IColorModulationContainer;
 import gregtech.api.interfaces.ISubTagContainer;
 import gregtech.api.objects.GT_FluidStack;
 import gregtech.api.objects.MaterialStack;
 import gregtech.api.objects.MaterialStack;
+import gregtech.api.util.GT_Config;
 import gregtech.api.util.GT_Utility;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,7 @@ import java.util.Set;
 
 import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 import static gregtech.api.enums.GT_Values.MATERIAL_UNIT;
+import static gregtech.api.enums.GT_Values.MOD_ID_TC;
 import static gregtech.api.enums.TextureSet.SET_DIAMOND;
 import static gregtech.api.enums.TextureSet.SET_DULL;
 import static gregtech.api.enums.TextureSet.SET_EMERALD;
@@ -1327,6 +1330,7 @@ public class Materials implements ISubTagContainer {
             if (tMaterial.mMetaItemSubID >= 0) {
                 tMaterial.mMetaItemSubID = GregTech_API.sMaterialsFile.get("materials.default." + tMaterial.mDefaultLocalName, "MaterialID", tMaterial.mMetaItemSubID);
                 tMaterial.mDurability = GregTech_API.sMaterialsFile.get("materials.default." + tMaterial.mDefaultLocalName, "Durability", tMaterial.mDurability);
+                tMaterial.mHandleMaterial = (tMaterial == Desh ? tMaterial.mHandleMaterial : tMaterial == Diamond || tMaterial == Thaumium ? Wood : tMaterial.contains(SubTag.BURNING) ? Blaze : tMaterial.contains(SubTag.MAGICAL) && tMaterial.contains(SubTag.CRYSTAL) && Loader.isModLoaded(MOD_ID_TC) ? Thaumium : tMaterial.getMass() > Element.Tc.getMass() * 2 ? TungstenSteel : tMaterial.getMass() > Element.Tc.getMass() ? Steel : Wood);
             }
         }
         //TODO make this minetweaker friendly?
@@ -2165,5 +2169,10 @@ public class Materials implements ISubTagContainer {
      */
     public List<MaterialStack> getMaterialList() {
         return mMaterialList;
+    }
+
+    @Override
+    public String toString() {
+        return this.mName;
     }
 }
