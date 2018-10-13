@@ -1330,7 +1330,28 @@ public class Materials implements ISubTagContainer {
             if (tMaterial.mMetaItemSubID >= 0) {
                 tMaterial.mMetaItemSubID = GregTech_API.sMaterialsFile.get("materials.default." + tMaterial.mDefaultLocalName, "MaterialID", tMaterial.mMetaItemSubID);
                 tMaterial.mDurability = GregTech_API.sMaterialsFile.get("materials.default." + tMaterial.mDefaultLocalName, "Durability", tMaterial.mDurability);
-                tMaterial.mHandleMaterial = (tMaterial == Desh ? tMaterial.mHandleMaterial : tMaterial == Diamond || tMaterial == Thaumium ? Wood : tMaterial.contains(SubTag.BURNING) ? Blaze : tMaterial.contains(SubTag.MAGICAL) && tMaterial.contains(SubTag.CRYSTAL) && Loader.isModLoaded(MOD_ID_TC) ? Thaumium : tMaterial.getMass() > Element.Tc.getMass() * 2 ? TungstenSteel : tMaterial.getMass() > Element.Tc.getMass() ? Steel : Wood);
+                if (tMaterial == Desh) {
+                    tMaterial.setHandleMaterial(tMaterial.mHandleMaterial);
+                } else if (tMaterial == Diamond
+                        || tMaterial == Thaumium) {
+                    tMaterial.setHandleMaterial(Wood);
+                } else if (tMaterial.contains(SubTag.BURNING)) {
+                    tMaterial.setHandleMaterial(Blaze);
+                } else if (tMaterial.contains(SubTag.MAGICAL)
+                        && tMaterial.contains(SubTag.CRYSTAL)
+                        && Loader.isModLoaded(MOD_ID_TC)) {
+                    tMaterial.setHandleMaterial(Thaumium);
+                } else if (tMaterial.getMass() > Element.Tc.getMass()) {
+                    if (tMaterial.getMass() > Element.Tc.getMass() * 2) {
+                        tMaterial.setHandleMaterial(TungstenSteel);
+                    } else tMaterial.setHandleMaterial(Steel);
+                } else {
+                    if (tMaterial.getMass() > Element.Tc.getMass() * 2) {
+                        tMaterial.setHandleMaterial(TungstenSteel);
+                    } else {
+                        tMaterial.setHandleMaterial(Wood);
+                    }
+                }
             }
         }
         //TODO make this minetweaker friendly?
@@ -1970,6 +1991,16 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Gets the {@link Materials}'s Ore Multiplier
+     * If this Ore gives multiple drops of its Main {@link Materials}.
+     * Lapis Ore for example gives about 6 drops.
+     * @return The {@link Materials}'s Ore Multiplier
+     */
+    public int getOreMultiplier() {
+        return mOreMultiplier;
+    }
+
+    /**
      * If this Ore gives multiple drops of its Main {@link Materials}.
      * Lapis Ore for example gives about 6 drops.
      * @param aOreMultiplier The Main Ore Multiplier
@@ -2544,143 +2575,219 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Materials}'s durability
-     * @return The {@link Materials}'s durability
+     * Gets the {@link Materials}'s Durability
+     * @return The {@link Materials}'s Durability
      */
     public int getDurability() {
         return mDurability;
     }
 
+    /**
+     * Sets the {@link Materials}'s Durability
+     * @param aDurability The {@link Materials}'s Durability
+     */
     public void setDurability(int aDurability) {
         this.mDurability = aDurability;
     }
 
+    /**
+     * Gets the {@link Materials}'s Fuel Value
+     * @return The {@link Materials}'s Fuel Value
+     */
     public int getFuelPower() {
         return mFuelPower;
     }
 
-    public void setFuelPower(int mFuelPower) {
-        this.mFuelPower = mFuelPower;
+    /**
+     * Sets the {@link Materials}'s Fuel Value
+     * @param aFuelValue The {@link Materials}'s Fuel Value
+     */
+    public void setFuelPower(int aFuelValue) {
+        this.mFuelPower = aFuelValue;
     }
 
+    /**
+     * Gets the {@link Materials}'s Fuel Type
+     * @return The {@link Materials}'s Fuel Type
+     */
     public int getFuelType() {
         return mFuelType;
     }
 
-    public void setFuelType(int mFuelType) {
-        this.mFuelType = mFuelType;
+    /**
+     * Sets the {@link Materials}'s Fuel Type
+     * @param aFuelType The {@link Materials}'s Fuel Type
+     */
+    public void setFuelType(int aFuelType) {
+        this.mFuelType = aFuelType;
     }
 
+    /**
+     * Gets the {@link Materials}'s Extra Data
+     * @return The {@link Materials}'s Extra Data
+     */
     public int getExtraData() {
         return mExtraData;
     }
 
-    public void setExtraData(int mExtraData) {
-        this.mExtraData = mExtraData;
+    /**
+     * Sets the {@link Materials}'s Extra Data
+     * @param aExtraData The {@link Materials}'s Extra Data
+     */
+    public void setExtraData(int aExtraData) {
+        this.mExtraData = aExtraData;
     }
 
+    /**
+     * Gets the {@link Materials}'s Ore Value
+     * @return The {@link Materials}'s Ore Value
+     */
     public int getOreValue() {
         return mOreValue;
     }
 
-    public void setOreValue(int mOreValue) {
-        this.mOreValue = mOreValue;
+    /**
+     * Sets the {@link Materials}'s Ore Value
+     * @param aOreValue The {@link Materials}'s Ore Value
+     */
+    public void setOreValue(int aOreValue) {
+        this.mOreValue = aOreValue;
     }
 
-    public int getOreMultiplier() {
-        return mOreMultiplier;
-    }
-
+    /**
+     * Gets the {@link Materials}'s Chemical {@link Element}
+     * @return The {@link Materials}'s Chemical {@link Element}
+     */
     public Element getElement() {
         return mElement;
     }
 
-    public void setElement(Element mElement) {
-        this.mElement = mElement;
+    /**
+     * Sets the {@link Materials}'s Chemical {@link Element}
+     * @param aElement The {@link Materials}'s Chemical {@link Element}
+     */
+    public void setElement(Element aElement) {
+        this.mElement = aElement;
     }
 
-    public Materials getMacerateInto() {
-        return mMacerateInto;
-    }
-
-    public void setMacerateInto(Materials mMacerateInto) {
-        this.mMacerateInto = mMacerateInto;
-    }
-
-    public Materials getSmeltInto() {
-        return mSmeltInto;
-    }
-
-    public void setSmeltInto(Materials mSmeltInto) {
-        this.mSmeltInto = mSmeltInto;
-    }
-
-    public Materials getArcSmeltInto() {
-        return mArcSmeltInto;
-    }
-
-    public void setArcSmeltInto(Materials mArcSmeltInto) {
-        this.mArcSmeltInto = mArcSmeltInto;
-    }
-
+    /**
+     * Gets the Handle's {@link Materials} for tools made of this {@link Materials}
+     * @return The Handle's {@link Materials} for tools made of this {@link Materials}
+     */
     public Materials getHandleMaterial() {
         return mHandleMaterial;
     }
 
-    public void setHandleMaterial(Materials mHandleMaterial) {
-        this.mHandleMaterial = mHandleMaterial;
+    /**
+     * Sets the Handle's {@link Materials} for tools made of this {@link Materials}
+     * @param aHandleMaterial The Handle's {@link Materials} for tools made of this {@link Materials}
+     */
+    public void setHandleMaterial(Materials aHandleMaterial) {
+        this.mHandleMaterial = aHandleMaterial;
     }
 
+    /**
+     * Gets the Quality of Tools made of the {@link Materials}
+     * @return The Quality of Tools made of the {@link Materials}
+     */
     public byte getToolQuality() {
         return mToolQuality;
     }
 
-    public void setToolQuality(byte mToolQuality) {
-        this.mToolQuality = mToolQuality;
+    /**
+     * Sets the Quality of Tools made of the {@link Materials}
+     * @param aToolQuality The Quality of Tools made of the {@link Materials}
+     */
+    public void setToolQuality(byte aToolQuality) {
+        this.mToolQuality = aToolQuality;
     }
 
+    /**
+     * Gets the {@link Fluid} from the Solid state of this {@link Materials}
+     * @return The {@link Fluid} from the Solid state of this {@link Materials}
+     */
     public Fluid getSolid() {
         return mSolid;
     }
 
-    public void setSolid(Fluid mSolid) {
-        this.mSolid = mSolid;
+    /**
+     * Sets the {@link Fluid} from the Solid state of this {@link Materials}
+     * @param aFluid {@link Fluid} from the Solid state of this {@link Materials}
+     */
+    public void setSolid(Fluid aFluid) {
+        this.mSolid = aFluid;
     }
 
+    /**
+     * Gets the {@link Fluid} of this {@link Materials}
+     * @return The {@link Fluid} of this {@link Materials}
+     */
     public Fluid getFluid() {
         return mFluid;
     }
 
-    public void setFluid(Fluid mFluid) {
-        this.mFluid = mFluid;
+    /**
+     * Sets the {@link Fluid} of this {@link Materials}
+     * @param aFluid The {@link Fluid} of this {@link Materials}
+     */
+    public void setFluid(Fluid aFluid) {
+        this.mFluid = aFluid;
     }
 
+    /**
+     * Gets the Gas {@link Fluid} of this {@link Materials}
+     * @return The Gas {@link Fluid} of this {@link Materials}
+     */
     public Fluid getGas() {
         return mGas;
     }
 
-    public void setGas(Fluid mGas) {
-        this.mGas = mGas;
+    /**
+     * Sets the Gas {@link Fluid} of this {@link Materials}
+     * @param aFluid The Gas {@link Fluid} of this {@link Materials}
+     */
+    public void setGas(Fluid aFluid) {
+        this.mGas = aFluid;
     }
 
+    /**
+     * Gets the Plasma {@link Fluid} of this {@link Materials}
+     * @return The Plasma {@link Fluid} of this {@link Materials}
+     */
     public Fluid getPlasma() {
         return mPlasma;
     }
 
-    public void setPlasma(Fluid mPlasma) {
-        this.mPlasma = mPlasma;
+    /**
+     * Sets the Plasma {@link Fluid} of this {@link Materials}
+     * @param aFluid The Plasma {@link Fluid} of this {@link Materials}
+     */
+    public void setPlasma(Fluid aFluid) {
+        this.mPlasma = aFluid;
     }
 
+    /**
+     * Gets the Standard Molten {@link Fluid} of this {@link Materials}
+     * @return The Standard Molten {@link Fluid} of this {@link Materials}
+     */
     public Fluid getStandardMoltenFluid() {
         return mStandardMoltenFluid;
     }
 
-    public void setStandardMoltenFluid(Fluid mStandardMoltenFluid) {
-        this.mStandardMoltenFluid = mStandardMoltenFluid;
+    /**
+     * Sets the Standard Molten {@link Fluid} of this {@link Materials}
+     * @param aFluid The Standard Molten {@link Fluid} of this {@link Materials}
+     */
+    public void setStandardMoltenFluid(Fluid aFluid) {
+        this.mStandardMoltenFluid = aFluid;
     }
 
+    /**
+     * Implicit Name of the {@link Materials}
+     * @return The {@link Materials}'s Name
+     */
     @Override
     public String toString() {
-        return this.mName;
+        return name();
     }
 }
