@@ -18,68 +18,68 @@ public class ProcessingFix implements gregtech.api.interfaces.IOreRecipeRegistra
     }
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
-        switch (aMaterial) {
-            case Celestine:
+        switch (aMaterial.mName) {
+            case "Celestine":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Strontium, 1L));
                 break;
-            case Tetrahedrite:
+            case "Tetrahedrite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Copper, 3L));
                 break;
-            case Malachite:
+            case "Malachite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Copper, 1L));
                 break;
-            case Chalcopyrite:
+            case "Chalcopyrite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Copper, 2L));
                 break;
-            case Pentlandite:
+            case "Pentlandite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Nickel, 4L));
                 break;
-            case Sphalerite:
+            case "Sphalerite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Zinc, 4L));
                 break;
-            case Pyrite:
+            case "Pyrite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 3L));
                 break;
-            case BasalticMineralSand:
+            case "BasalticMineralSand":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 2L));
                 break;
-            case GraniticMineralSand:
+            case "GraniticMineralSand":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 2L));
                 break;
-            case YellowLimonite:
+            case "YellowLimonite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 2L));
                 break;
-            case BrownLimonite:
+            case "BrownLimonite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 2L));
                 break;
-            case BandedIron:
+            case "BandedIron":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 3L));
                 break;
-            case Magnetite:
+            case "Magnetite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 3L));
                 break;
-            case Cassiterite:
+            case "Cassiterite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Tin, 7L));
                 break;
-            case CassiteriteSand:
+            case "CassiteriteSand":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Tin, 7L));
                 break;
-            case Chromite:
+            case "Chromite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Chrome, 2L));
                 break;
-            case Garnierite:
+            case "Garnierite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Nickel, 3L));
                 break;
-            case Cobaltite:
+            case "Cobaltite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Cobalt, 2L));
                 break;
-            case Stibnite:
+            case "Stibnite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Antimony, 2L));
                 break;
-            case Pyrolusite:
+            case "Pyrolusite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Manganese, 2L));
                 break;
-            case Molybdenite:
+            case "Molybdenite":
                 GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Molybdenum, 2L));
 
                     }

@@ -49,9 +49,9 @@ public class GT_Achievements {
         this.achievementList = new HashMap();
         this.issuedAchievements = new HashMap();
         for (int i = 0; i < oreList.size(); i++) {
-            if (DEBUG_LEVEL_1 && this.achievementList.get(oreList.get(i).name()) == null) {
-                GT_Log.out.println("achievement." + oreList.get(i).name() + "=Find " + oreList.get(i).name() + " Ore");
-                GT_Log.out.println("achievement." + oreList.get(i).name() + ".desc=Height: " + (oreStats.get(i)[0]) + "-" + (oreStats.get(i)[1]) + ", Chance: " + (oreStats.get(i)[2]) + ", " + (oreStats.get(i)[3] == 1 ? "Overworld" : EMPTY_STRING) + "/" + (oreStats.get(i)[4] == 1 ? "Nether" : EMPTY_STRING) + "/" + (oreStats.get(i)[5] == 1 ? "End" : EMPTY_STRING));
+            if (DEBUG_LEVEL_1 && this.achievementList.get(oreList.get(i).mName) == null) {
+                GT_Log.out.println("achievement." + oreList.get(i).mName + "=Find " + oreList.get(i).mName + " Ore");
+                GT_Log.out.println("achievement." + oreList.get(i).mName + ".desc=Height: " + (oreStats.get(i)[0]) + "-" + (oreStats.get(i)[1]) + ", Chance: " + (oreStats.get(i)[2]) + ", " + (oreStats.get(i)[3] == 1 ? "Overworld" : EMPTY_STRING) + "/" + (oreStats.get(i)[4] == 1 ? "Nether" : EMPTY_STRING) + "/" + (oreStats.get(i)[5] == 1 ? "End" : EMPTY_STRING));
             }
             registerOreAchievement(oreList.get(i));
         }
@@ -212,9 +212,9 @@ public class GT_Achievements {
     }
 
     public Achievement registerOreAchievement(Materials aMaterial) {
-        if (this.achievementList.get(aMaterial.name()) == null) {
+        if (this.achievementList.get(aMaterial.mName) == null) {
             oreReg++;
-            return registerAchievement(aMaterial.name(), -(6 + oreReg % 5), ((oreReg) / 5) - 8, new ItemStack(GregTech_API.sBlockOres1, 1,
+            return registerAchievement(aMaterial.mName, -(6 + oreReg % 5), ((oreReg) / 5) - 8, new ItemStack(GregTech_API.sBlockOres1, 1,
                     aMaterial.mMetaItemSubID), AchievementList.openInventory, false);
         }
         return null;
@@ -228,7 +228,7 @@ public class GT_Achievements {
 //			if(this.issuedAchievements.containsKey((entityplayer.getDisplayName()+textId))){
 //			return;	
 //			}else{
-//			this.issuedAchievements.put((entityplayer.getDisplayName()+textId), true);	
+//			this.issuedAchievements.put((entityplayer.getDisplayName()+textId), true);
         entityplayer.triggerAchievement(this.achievementList.get(textId));
 //			}
 //		}
@@ -432,7 +432,7 @@ public class GT_Achievements {
             } else if (data.mPrefix == OrePrefixes.ore || data.mPrefix == OrePrefixes.oreBlackgranite || data.mPrefix == OrePrefixes.oreEndstone
                     || data.mPrefix == OrePrefixes.oreNetherrack || data.mPrefix == OrePrefixes.oreRedgranite) {
                 for (int i = 0; i < data.getAllMaterialStacks().size(); i++) {
-                    issueAchievement(player, data.getAllMaterialStacks().get(i).mMaterial.name());
+                    issueAchievement(player, data.getAllMaterialStacks().get(i).mMaterial.mName);
                     if (data.getAllMaterialStacks().get(i).mMaterial == Materials.AnyIron) {
                         issueAchievement(player, "iron");
                     }

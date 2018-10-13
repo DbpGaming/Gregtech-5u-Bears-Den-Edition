@@ -95,16 +95,16 @@ public class ProcessingBlock implements gregtech.api.interfaces.IOreRecipeRegist
 				GT_ModHandler.addShapelessCraftingRecipe(tStack1, new Object[]{OrePrefixes.block.get(aMaterial)});
 			}
 		}
-		switch (aMaterial) {
-		case Mercury:
+		switch (aMaterial.mName) {
+		case "Mercury":
 			System.err.println("'blockQuickSilver'?, In which Ice Desert can you actually place this as a solid Block?");
 			break;
-		case Iron:
-		case WroughtIron:
+		case "Iron":
+		case "WroughtIron":
 			RECIPE_ADDER_INSTANCE.addExtruderRecipe(GT_Utility.copyAmount(1L, aStack), ItemList.Shape_Extruder_Rod.get(0L), ItemList.IC2_ShaftIron.get(1L), 640, 120);
 			RECIPE_ADDER_INSTANCE.addAssemblerRecipe(ItemList.IC2_Compressed_Coal_Ball.get(8L), GT_Utility.copyAmount(1L, aStack), ItemList.IC2_Compressed_Coal_Chunk.get(1L), 400, 4);
 			break;
-		case Steel:
+		case "Steel":
 			RECIPE_ADDER_INSTANCE.addExtruderRecipe(GT_Utility.copyAmount(1L, aStack), ItemList.Shape_Extruder_Rod.get(0L), ItemList.IC2_ShaftSteel.get(1L), 1280, 120);
 			RECIPE_ADDER_INSTANCE.addAssemblerRecipe(ItemList.IC2_Compressed_Coal_Ball.get(8L), GT_Utility.copyAmount(1L, aStack), ItemList.IC2_Compressed_Coal_Chunk.get(1L), 400, 4);
 		}
