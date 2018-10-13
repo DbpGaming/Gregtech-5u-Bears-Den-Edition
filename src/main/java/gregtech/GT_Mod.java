@@ -197,7 +197,6 @@ implements IGT_Mod {
 		GregTech_API.sUnification = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "Unification.cfg")));
 		GregTech_API.sSpecialFile = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "Other.cfg")));
 		GregTech_API.sOPStuff = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "OverpoweredStuff.cfg")));
-		GregTech_API.sMaterialsFile = new GT_Config(new Configuration(new File(new File(aEvent.getModConfigurationDirectory(), "GregTech"), "Materials.cfg")));
 
 		GregTech_API.sClientDataFile = new GT_Config(new Configuration(new File(aEvent.getModConfigurationDirectory().getParentFile(), "GregTech.cfg")));
         GregTech_API.mGalacticraft = Loader.isModLoaded(MOD_ID_GC_CORE);
@@ -335,7 +334,7 @@ implements IGT_Mod {
 		}
 		//GT_Config.troll = (Calendar.getInstance().get(2) + 1 == 4) && (Calendar.getInstance().get(5) >= 1) && (Calendar.getInstance().get(5) <= 2);
 
-        Materials.initCustomMats("custom");
+        Materials.initCustomMaterials();
 
 		GT_Log.out.println("GT_Mod: Saving Main Config");
 		tMainConfig.save();
@@ -741,6 +740,7 @@ implements IGT_Mod {
 						}
 					}
 				}
+                Materials.initMaterialProperties();
 				achievements = new GT_Achievements();
 				Map.Entry<IRecipeInput, RecipeOutput> tRecipe;
 				GT_Log.out.println("GT_Mod: Loading finished, deallocating temporary Init Variables.");
