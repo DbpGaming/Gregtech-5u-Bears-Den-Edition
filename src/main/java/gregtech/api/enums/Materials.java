@@ -1693,6 +1693,14 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Sets the {@link Materials}'s name
+     * @param aName The {@link Materials}'s name
+     */
+    public void setName(String aName) {
+        mName = aName;
+    }
+
+    /**
      * Gets the {@link Materials} from its Name
      * @param aMaterialName The {@link Materials}'s Name
      * @return the {@link Materials} or null if none found
@@ -1718,7 +1726,9 @@ public class Materials implements ISubTagContainer {
      */
     public boolean isRadioactive() {
         if (mElement != null) return mElement.mHalfLifeSeconds >= 0;
-        for (MaterialStack tMaterial : mMaterialList) if (tMaterial.mMaterial.isRadioactive()) return true;
+        for (MaterialStack tMaterial : getMaterialList()) {
+            if (tMaterial.mMaterial.isRadioactive()) return true;
+        }
         return false;
     }
 
@@ -1728,13 +1738,15 @@ public class Materials implements ISubTagContainer {
      */
     public long getProtons() {
         if (mElement != null) return mElement.getProtons();
-        if (! (mMaterialList.isEmpty())) return Element.Tc.getProtons();
-        long rAmount = 0, tAmount = 0;
+        if ((mMaterialList.isEmpty())) return Element.Tc.getProtons();
+        long rAmount = 0;
+        long tAmount = 0;
         for (MaterialStack tMaterial : mMaterialList) {
             tAmount += tMaterial.mAmount;
             rAmount += tMaterial.mAmount * tMaterial.mMaterial.getProtons();
         }
-        return (getDensity() * rAmount) / (tAmount * GT_Values.M);
+        if (tAmount == 0) tAmount = 1;
+        return (getDensity() * rAmount) / (tAmount * MATERIAL_UNIT);
     }
 
     /**
@@ -1780,6 +1792,14 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Set this {@link Materials}'s Density
+     * @param aDensity The Density
+     */
+    public void setDensity(long aDensity) {
+        mDensity = aDensity;
+    }
+
+    /**
      * Gets the ToolTip of this {@link Materials}
      * @return The ToolTip String
      */
@@ -1817,6 +1837,14 @@ public class Materials implements ISubTagContainer {
             return ((mElement != null || (mMaterialList.size() < 2 && mMaterialList.get(0).mAmount == 1)) ? mChemicalFormula : "(" + mChemicalFormula + ")") + aMultiplier;
         }
         return mChemicalFormula;
+    }
+
+    /**
+     * Sets the ToolTip's chemical formula of this {@link Materials}
+     * @param aToolTip The ToolTip's chemical formula of this {@link Materials}
+     */
+    public void setToolTip(String aToolTip) {
+        this.mChemicalFormula = aToolTip;
     }
 
     /**
@@ -1902,6 +1930,14 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Gets the Heat Damage for this {@link Materials} (negative = frost)
+     * @return The Heat Damage for this {@link Materials} (negative = frost)
+     */
+    public float getHeatDamage() {
+        return mHeatDamage;
+    }
+
+    /**
      * Sets the Heat Damage for this {@link Materials} (negative = frost)
      * @param aHeatDamage The Heat Damage (negative = frost)
      * @return The updated {@link Materials} with the new Heat Damage
@@ -1945,6 +1981,14 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Gets the Byproduct Multiplier of this {@link Materials}
+     * @return The Byproduct Multiplier of this {@link Materials}
+     */
+    public int getByProductMultiplier() {
+        return mByProductMultiplier;
+    }
+
+    /**
      * If this Ore gives multiple drops of its Byproduct Material.
      * @param aByProductMultiplier The Byproduct Multiplier
      * @return The updated {@link Materials} with the new Byproduct Multiplier
@@ -1952,6 +1996,14 @@ public class Materials implements ISubTagContainer {
     public Materials setByProductMultiplier(int aByProductMultiplier) {
         if (aByProductMultiplier > 0) mByProductMultiplier = aByProductMultiplier;
         return this;
+    }
+
+    /**
+     * Gets the Smelting Multiplier of this {@link Materials}
+     * @return The Smelting Multiplier of this {@link Materials}
+     */
+    public int getSmeltingMultiplier() {
+        return mSmeltingMultiplier;
     }
 
     /**
@@ -1966,6 +2018,14 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Gets the directly smelting's replacement {@link Materials}
+     * @return The directly smelting's replacement {@link Materials}
+     */
+    public Materials getDirectSmelting() {
+        return mDirectSmelting;
+    }
+
+    /**
      * This Ore should be smelted directly into an Ingot of this {@link Materials} instead of an Ingot of itself.
      * @param aMaterial The Ingot's {@link Materials}
      * @return The updated {@link Materials} with the added Ingot's {@link Materials} direct smelt
@@ -1973,6 +2033,14 @@ public class Materials implements ISubTagContainer {
     public Materials setDirectSmelting(Materials aMaterial) {
         if (aMaterial != null) mDirectSmelting = aMaterial.mMaterialInto.mDirectSmelting;
         return this;
+    }
+
+    /**
+     * Gets this {@link Materials}'s ore replacement {@link Materials}.
+     * @return The ore replacement {@link Materials}}
+     */
+    public Materials getOreReplacement() {
+        return mOreReplacement;
     }
 
     /**
@@ -1987,7 +2055,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * This Material smelts always into an instance of aMaterial. Used for Magnets.
+     * Gets smelting product {@link Materials}.
+     * @return The Arc Furnace's smelting product {@link Materials}.
+     */
+    public Materials getSmeltingInto() {
+        return mArcSmeltInto;
+    }
+
+    /**
+     * This {@link Materials} smelts always into an instance of aMaterial. Used for Magnets.
      * @param aMaterial The always smelt-into {@link Materials}
      * @return The updated {@link Materials} with the new smelt-into {@link Materials}
      */
@@ -1997,7 +2073,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * In an Arc Furnace, this Material always into an instance of {@link Materials}.
+     * Gets the Arc Furnace's smelting product {@link Materials}.
+     * @return The Arc Furnace's smelting product {@link Materials}.
+     */
+    public Materials getArcSmeltingInto() {
+        return mArcSmeltInto;
+    }
+
+    /**
+     * In an Arc Furnace, this {@link Materials} always smelt-into an instance of {@link Materials}.
      * Used for Wrought Iron.
      * @param aMaterial The Arc Furnace always smelt-into {@link Materials}
      * @return The updated {@link Materials} with the new Arc Furnace always smelt-into {@link Materials}
@@ -2005,6 +2089,14 @@ public class Materials implements ISubTagContainer {
     public Materials setArcSmeltingInto(Materials aMaterial) {
         if (aMaterial != null) mArcSmeltInto = aMaterial.mMaterialInto.mArcSmeltInto;
         return this;
+    }
+
+    /**
+     * Gets the maceration product {@link Materials}.
+     * @return The maceration product {@link Materials}
+     */
+    public Materials getMaceratingInto() {
+        return mMacerateInto;
     }
 
     /**
@@ -2018,15 +2110,63 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Gets the {@link Enchantment} for Tools made of this {@link Materials}
+     * @return The {@link Enchantment} for Tools made of this {@link Materials}
+     */
+    public Enchantment getEnchantmentForTools() {
+        return mEnchantmentTools;
+    }
+
+    /**
      * Sets the {@link Enchantment} for Tools made of this {@link Materials}
-     * @param aEnchantment the {@link Enchantment}
-     * @param aEnchantmentLevel the {@link Enchantment}'s Level
+     * @param aEnchantment The {@link Enchantment}
+     */
+    public void setEnchantmentForTools(Enchantment aEnchantment) {
+        this.mEnchantmentTools = aEnchantment;
+    }
+
+    /**
+     * Sets the {@link Enchantment} and Level for Tools made of this {@link Materials}
+     * @param aEnchantment The {@link Enchantment}
+     * @param aEnchantmentLevel The {@link Enchantment}'s Level
      * @return @return The updated {@link Materials} with the new {@link Enchantment} for Tools
      */
     public Materials setEnchantmentForTools(Enchantment aEnchantment, int aEnchantmentLevel) {
-        mEnchantmentTools = aEnchantment;
-        mEnchantmentToolsLevel = (byte) aEnchantmentLevel;
+        setEnchantmentForTools(aEnchantment);
+        setEnchantmentLevelForTools((byte)aEnchantmentLevel);
         return this;
+    }
+
+    /**
+     * Gets the {@link Enchantment}'s Level for Tools made of this {@link Materials}
+     * @return  The {@link Enchantment}'s Level
+     */
+    public byte getEnchantmentLevelForTools() {
+        return mEnchantmentToolsLevel;
+    }
+
+    /**
+     * Sets the {@link Enchantment}'s Level for Tools made of this {@link Materials}
+     * @param aEnchantmentLevel The {@link Enchantment}'s Level
+     */
+    public void setEnchantmentLevelForTools(byte aEnchantmentLevel) {
+        this.mEnchantmentToolsLevel = aEnchantmentLevel;
+    }
+
+    /**
+     * Gets the {@link Enchantment} for Armors made of this {@link Materials}
+     * @return The {@link Enchantment} for Armors made of this {@link Materials}
+     */
+    public Enchantment getEnchantmentForArmors() {
+        return mEnchantmentArmors;
+    }
+
+    /**
+     * Sets the {@link Enchantment} for Armors made of this {@link Materials}
+     * @param aEnchantment The {@link Enchantment}
+     */
+    public void setEnchantmentForArmors(Enchantment aEnchantment) {
+        this.mEnchantmentArmors = aEnchantment;
     }
 
     /**
@@ -2036,9 +2176,25 @@ public class Materials implements ISubTagContainer {
      * @return @return The updated {@link Materials} with the new {@link Enchantment} for Armors
      */
     public Materials setEnchantmentForArmors(Enchantment aEnchantment, int aEnchantmentLevel) {
-        mEnchantmentArmors = aEnchantment;
-        mEnchantmentArmorsLevel = (byte) aEnchantmentLevel;
+        setEnchantmentForArmors(aEnchantment);
+        setEnchantmentLevelForArmors((byte) aEnchantmentLevel);
         return this;
+    }
+
+    /**
+     * Gets the {@link Enchantment}'s Level for Armors made of this {@link Materials}
+     * @return  The {@link Enchantment}'s Level
+     */
+    public byte getEnchantmentLevelForArmors() {
+        return mEnchantmentArmorsLevel;
+    }
+
+    /**
+     * Sets the {@link Enchantment}'s Level for Armors made of this {@link Materials}
+     * @param aEnchantmentLevel The {@link Enchantment}'s Level
+     */
+    public void setEnchantmentLevelForArmors(byte aEnchantmentLevel) {
+        this.mEnchantmentArmorsLevel = aEnchantmentLevel;
     }
 
     /**
@@ -2093,26 +2249,34 @@ public class Materials implements ISubTagContainer {
 
     /**
      * Gets {@link Materials}'s color components as a short array
-     * @return the short RGBA color components array
+     * @return The short {@link Materials}'s RGBA color components array
      */
     public short[] getRGBa() {
         return mRGBa.getRGBA();
     }
 
     /**
-     * Gets the {@link Materials}'s Molten color components as short array
-     * @return the short RGBA color components array
+     * Sets the {@link Materials}'s color components as a short array
+     * @param aRGBa The short {@link Materials}'s RGBA color components array
      */
-    public short[] getMoltenRGBa() {
-        return mMoltenRGBa.getRGBA();
+    public void setRGBa(short[] aRGBa) {
+        mRGBa.setRGBA(aRGBa);
     }
 
     /**
      * Gets the {@link Materials}'s color as an {@link IColorModulationContainer}
-     * @return the {@link IColorModulationContainer}
+     * @return The {@link IColorModulationContainer}
      */
     public IColorModulationContainer getColor() {
         return mRGBa;
+    }
+
+    /**
+     * Sets the {@link Materials}'s color as an {@link IColorModulationContainer}
+     * @param aColor The {@link IColorModulationContainer}
+     */
+    public void setColor(IColorModulationContainer aColor) {
+        mRGBa = aColor;
     }
 
     /**
@@ -2124,11 +2288,27 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Materials}'s name
-     * @return The {@link Materials}'s name
+     * Sets the {@link Materials}'s Molten color as an {@link IColorModulationContainer}
+     * @param aMoltenColor The {@link IColorModulationContainer}
      */
-    public String getName() {
-        return mName;
+    public void setMoltenColor(IColorModulationContainer aMoltenColor) {
+        mMoltenRGBa = aMoltenColor;
+    }
+
+    /**
+     * Gets the {@link Materials}'s Molten color components as short array
+     * @return The short RGBA molten color components array
+     */
+    public short[] getMoltenRGBa() {
+        return mMoltenRGBa.getRGBA();
+    }
+
+    /**
+     * Sets the {@link Materials}'s Molten color components as short array
+     * @param aMoltenRGBa The short RGBA molten color components array
+     */
+    public void setMoltenRGBa(short[] aMoltenRGBa) {
+        mMoltenRGBa.setRGBA(aMoltenRGBa);
     }
 
     /**
@@ -2140,6 +2320,14 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Sets the {@link Materials}'s {@link TextureSet}
+     * @param aTextureSet The {@link Materials}'s {@link TextureSet}
+     */
+    public void setTextureSet(TextureSet aTextureSet) {
+        mIconSet = aTextureSet;
+    }
+
+    /**
      * Gets the {@link Materials}'s Meta SubID
      * @return The {@link Materials}'s Meta SubID
      */
@@ -2148,11 +2336,27 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Tells if {@link Materials} is unifiable
+     * Sets the {@link Materials}'s Meta SubID
+     * @param aSubID The {@link Materials}'s Meta SubID
+     */
+    public void setSubID(int aSubID) {
+        mMetaItemSubID = aSubID;
+    }
+
+    /**
+     * Tells if the {@link Materials} is unifiable
      * @return The unifiable status
      */
     public boolean isUnifiable() {
         return mUnificatable;
+    }
+
+    /**
+     * Sets if the {@link Materials} is unifiable
+     * @param aUnifiable The Unifiable status
+     */
+    public void setUnifiable(boolean aUnifiable) {
+        mUnificatable = aUnifiable;
     }
 
     /**
@@ -2164,11 +2368,315 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
+     * Sets the {@link Materials} this {@link Materials} is unifiable into
+     * @param aMaterialInto The {@link Materials} this is unifiable into
+     */
+    public void setMaterialInto(Materials aMaterialInto) {
+        mMaterialInto = aMaterialInto;
+    }
+
+    /**
      * Gets the {@link MaterialStack} list
      * @return The {@link MaterialStack} list
      */
     public List<MaterialStack> getMaterialList() {
         return mMaterialList;
+    }
+
+    /**
+     * Gets the ore byproducts {@link Materials} list
+     * @return The ore byproducts {@link Materials} list
+     */
+    public List<Materials> getOreByProducts() {
+        return mOreByProducts;
+    }
+
+    /**
+     * Sets the ore byproducts {@link Materials} list
+     * @param aOreByProductList The byproducts {@link Materials} list
+     */
+    public void setOreByProducts(List<Materials> aOreByProductList) {
+        this.mOreByProducts = aOreByProductList;
+    }
+
+    /**
+     * Gets the ore reregistrations {@link Materials} list
+     * @return The ore reregistrations {@link Materials} list
+     */
+    public List<Materials> getOreReRegistrations() {
+        return mOreReRegistrations;
+    }
+
+    /**
+     * Sets the ore reregistrations {@link Materials} list
+     * @param aOreReRegistrationMaterialList The ore reregistrations {@link Materials} list
+     */
+    public void setOreReRegistrations(List<Materials> aOreReRegistrationMaterialList) {
+        this.mOreReRegistrations = aOreReRegistrationMaterialList;
+    }
+
+    /**
+     * Gets the {@link Materials}'s {@link TC_AspectStack} List
+     * @return The {@link Materials}'s {@link TC_AspectStack} List
+     */
+    public List<TC_AspectStack> getAspects() {
+        return mAspects;
+    }
+
+    /**
+     * Sets the {@link Materials}'s {@link TC_AspectStack} List
+     * @param aAspectStackList The {@link Materials}'s {@link TC_AspectStack} List
+     */
+    public void setAspects(List<TC_AspectStack> aAspectStackList) {
+        this.mAspects = aAspectStackList;
+    }
+
+    /**
+     * If the {@link Materials} needs a Blast Furnace for smelting
+     * @return Blast Furnace for smelting requirement
+     */
+    public boolean isBlastFurnaceRequired() {
+        return mBlastFurnaceRequired;
+    }
+
+    /**
+     * Sets if the {@link Materials} needs a Blast Furnace for smelting
+     * @param aBlastFurnaceRequired The Blast Furnace requirement for smelting
+     */
+    public void setBlastFurnaceRequired(boolean aBlastFurnaceRequired) {
+        this.mBlastFurnaceRequired = aBlastFurnaceRequired;
+    }
+
+    /**
+     * Gets the Speed of Tools made of this {@link Materials}
+      * @return The Speed of Tools made of this {@link Materials}
+     */
+    public float getToolSpeed() {
+        return mToolSpeed;
+    }
+
+    /**
+     * Sets the Speed of Tools made of this {@link Materials}
+     * @param aToolSpeed The Speed of Tools made of this {@link Materials}
+     */
+    public void setToolSpeed(float aToolSpeed) {
+        this.mToolSpeed = aToolSpeed;
+    }
+
+    /**
+     * Gets the {@link Materials}'s default Local Name
+     * @return The {@link Materials}'s default Local Name
+     */
+    public String getDefaultLocalName() {
+        return mDefaultLocalName;
+    }
+
+    /**
+     * Sets the {@link Materials}'s default Local Name
+     * @param aDefaultLocalName  The {@link Materials}'s default Local Name
+     */
+    public void setDefaultLocalName(String aDefaultLocalName) {
+        this.mDefaultLocalName = aDefaultLocalName;
+    }
+
+    /**
+     * Gets the {@link Materials}'s {@link Dyes} property
+     * @return The {@link Materials}'s {@link Dyes} property
+     */
+    public Dyes getDye() {
+        return mColor;
+    }
+
+    /**
+     * Sets the {@link Materials}'s {@link Dyes} property
+     * @param aDye The {@link Materials}'s {@link Dyes} property
+     */
+    public void setDye(Dyes aDye) {
+        this.mColor = aDye;
+    }
+
+    /**
+     * Gets the {@link Materials}'s Melting Point in Kelvins
+     * @return The {@link Materials}'s Melting Point in Kelvins
+     */
+    public short getMeltingPoint() {
+        return mMeltingPoint;
+    }
+
+    /**
+     * Sets the {@link Materials}'s Melting Point in Kelvins
+     * @param aKelvins The {@link Materials}'s Melting Point in Kelvins
+     */
+    public void setMeltingPoint(short aKelvins) {
+        this.mMeltingPoint = aKelvins;
+    }
+
+    /**
+     * Gets the {@link Materials}'s Blast Furnace's required Heating Capacity in Kelvins
+     * @return The {@link Materials}'s Blast Furnace's required Heating Capacity in Kelvins
+     */
+    public short getBlastFurnaceTemp() {
+        return mBlastFurnaceTemp;
+    }
+
+    /**
+     * Sets the {@link Materials}'s Blast Furnace's required Heating Capacity in Kelvins
+      * @param aKelvins {@link Materials}'s Blast Furnace's required Heating Capacity in Kelvins
+     */
+    public void setBlastFurnaceTemp(short aKelvins) {
+        this.mBlastFurnaceTemp = aKelvins;
+    }
+
+    /**
+     * Gets the Type of the {@link Materials}
+     * @return The Type of the {@link Materials}
+     */
+    public int getTypes() {
+        return mTypes;
+    }
+
+    /**
+     * Sets the Type of the {@link Materials}
+     * @param aType The Type of the {@link Materials}
+     */
+    public void setTypes(int aType) {
+        this.mTypes = aType;
+    }
+
+    /**
+     * Gets the {@link Materials}'s durability
+     * @return The {@link Materials}'s durability
+     */
+    public int getDurability() {
+        return mDurability;
+    }
+
+    public void setDurability(int aDurability) {
+        this.mDurability = aDurability;
+    }
+
+    public int getFuelPower() {
+        return mFuelPower;
+    }
+
+    public void setFuelPower(int mFuelPower) {
+        this.mFuelPower = mFuelPower;
+    }
+
+    public int getFuelType() {
+        return mFuelType;
+    }
+
+    public void setFuelType(int mFuelType) {
+        this.mFuelType = mFuelType;
+    }
+
+    public int getExtraData() {
+        return mExtraData;
+    }
+
+    public void setExtraData(int mExtraData) {
+        this.mExtraData = mExtraData;
+    }
+
+    public int getOreValue() {
+        return mOreValue;
+    }
+
+    public void setOreValue(int mOreValue) {
+        this.mOreValue = mOreValue;
+    }
+
+    public int getOreMultiplier() {
+        return mOreMultiplier;
+    }
+
+    public Element getElement() {
+        return mElement;
+    }
+
+    public void setElement(Element mElement) {
+        this.mElement = mElement;
+    }
+
+    public Materials getMacerateInto() {
+        return mMacerateInto;
+    }
+
+    public void setMacerateInto(Materials mMacerateInto) {
+        this.mMacerateInto = mMacerateInto;
+    }
+
+    public Materials getSmeltInto() {
+        return mSmeltInto;
+    }
+
+    public void setSmeltInto(Materials mSmeltInto) {
+        this.mSmeltInto = mSmeltInto;
+    }
+
+    public Materials getArcSmeltInto() {
+        return mArcSmeltInto;
+    }
+
+    public void setArcSmeltInto(Materials mArcSmeltInto) {
+        this.mArcSmeltInto = mArcSmeltInto;
+    }
+
+    public Materials getHandleMaterial() {
+        return mHandleMaterial;
+    }
+
+    public void setHandleMaterial(Materials mHandleMaterial) {
+        this.mHandleMaterial = mHandleMaterial;
+    }
+
+    public byte getToolQuality() {
+        return mToolQuality;
+    }
+
+    public void setToolQuality(byte mToolQuality) {
+        this.mToolQuality = mToolQuality;
+    }
+
+    public Fluid getSolid() {
+        return mSolid;
+    }
+
+    public void setSolid(Fluid mSolid) {
+        this.mSolid = mSolid;
+    }
+
+    public Fluid getFluid() {
+        return mFluid;
+    }
+
+    public void setFluid(Fluid mFluid) {
+        this.mFluid = mFluid;
+    }
+
+    public Fluid getGas() {
+        return mGas;
+    }
+
+    public void setGas(Fluid mGas) {
+        this.mGas = mGas;
+    }
+
+    public Fluid getPlasma() {
+        return mPlasma;
+    }
+
+    public void setPlasma(Fluid mPlasma) {
+        this.mPlasma = mPlasma;
+    }
+
+    public Fluid getStandardMoltenFluid() {
+        return mStandardMoltenFluid;
+    }
+
+    public void setStandardMoltenFluid(Fluid mStandardMoltenFluid) {
+        this.mStandardMoltenFluid = mStandardMoltenFluid;
     }
 
     @Override
