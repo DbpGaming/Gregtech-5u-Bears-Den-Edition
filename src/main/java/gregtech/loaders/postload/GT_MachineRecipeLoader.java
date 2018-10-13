@@ -367,7 +367,7 @@ implements Runnable {
 		RECIPE_ADDER_INSTANCE.addFormingPressRecipe(GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Lazurite, 1L), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Glowstone, 1L), ItemList.Circuit_Parts_Advanced.get(2L), 32, 64);
 		RECIPE_ADDER_INSTANCE.addFormingPressRecipe(ItemList.Food_Dough_Sugar.get(4L), ItemList.Shape_Mold_Cylinder.get(0L), ItemList.Food_Raw_Cake.get(1L), 384, 4);
 		RECIPE_ADDER_INSTANCE.addFormingPressRecipe(new ItemStack(Blocks.glass, 1, OreDictionary.WILDCARD_VALUE), ItemList.Shape_Mold_Arrow.get(0L), ItemList.Arrow_Head_Glass_Emtpy.get(1L), 64, 4);
-		for (Materials tMat : Materials.VALUES) {
+		for (Materials tMat : Materials.MATERIALS.values()) {
 			if ((tMat.mStandardMoltenFluid != null) && (tMat.contains(SubTag.SOLDERING_MATERIAL))) {
 				int tMultiplier = tMat.contains(SubTag.SOLDERING_MATERIAL_GOOD) ? 1 : tMat.contains(SubTag.SOLDERING_MATERIAL_BAD) ? 4 : 2;
 
