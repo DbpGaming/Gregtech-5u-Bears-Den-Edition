@@ -24,11 +24,11 @@ public class ProcessingIngot1 implements gregtech.api.interfaces.IOreRecipeRegis
         RECIPE_ADDER_INSTANCE.addBoxingRecipe(GT_Utility.copyAmount(16L, aStack), ItemList.Crate_Empty.get(1L), GT_OreDictUnificator.get(OrePrefixes.crateGtIngot, aMaterial, 1L), 100, 8);
         RECIPE_ADDER_INSTANCE.addUnboxingRecipe(GT_OreDictUnificator.get(OrePrefixes.crateGtIngot, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 16L), ItemList.Crate_Empty.get(1L), 800, 1);
 
-        if (aMaterial.mStandardMoltenFluid != null)
+        if (aMaterial.getStandardMoltenFluid() != null)
             RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Ingot.get(0L), aMaterial.getMolten(144L), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), 32, 8);
         GT_RecipeRegistrator.registerReverseFluidSmelting(aStack, aMaterial, aPrefix.mMaterialAmount, null);
         GT_RecipeRegistrator.registerReverseMacerating(aStack, aMaterial, aPrefix.mMaterialAmount, null, null, null, false);
-        if (aMaterial.getSmeltingInto().mArcSmeltInto != aMaterial) {
+        if (aMaterial.getSmeltingInto().getArcSmeltingInto() != aMaterial) {
             GT_RecipeRegistrator.registerReverseArcSmelting(GT_Utility.copyAmount(1L, aStack), aMaterial, aPrefix.mMaterialAmount, null, null, null);
         }
         if (!aMaterial.contains(SubTag.NO_SMASHING)) {

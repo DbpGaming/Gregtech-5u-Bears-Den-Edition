@@ -19,7 +19,7 @@ public class ProcessingDustSmall implements gregtech.api.interfaces.IOreRecipeRe
         RECIPE_ADDER_INSTANCE.addBoxingRecipe(GT_Utility.copyAmount(4L, aStack), ItemList.Schematic_Dust.get(0L), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), 100, 4);
         if (!aMaterial.isBlastFurnaceRequired()) {
             GT_RecipeRegistrator.registerReverseFluidSmelting(aStack, aMaterial, aPrefix.mMaterialAmount, null);
-            if (aMaterial.getSmeltingInto().mArcSmeltInto != aMaterial) {
+            if (aMaterial.getSmeltingInto().getArcSmeltingInto() != aMaterial) {
                 GT_RecipeRegistrator.registerReverseArcSmelting(GT_Utility.copyAmount(1L, aStack), aMaterial, aPrefix.mMaterialAmount, null, null, null);
             }
         }

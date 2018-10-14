@@ -144,7 +144,7 @@ public class GT_Entity_Arrow
 
 
                     float tMagicDamage = (tVector.entityHit instanceof EntityLivingBase) ? EnchantmentHelper.func_152377_a(this.mArrow, ((EntityLivingBase) tVector.entityHit).getCreatureAttribute()) : 0.0F;
-                    float tDamage = MathHelper.ceiling_double_int(MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ) * (getDamage() + ((tData != null) && (tData.mMaterial != null) && (tData.mMaterial.mMaterial != null) ? tData.mMaterial.mMaterial.mToolQuality / 2.0F - 1.0F : 0.0F)));
+                    float tDamage = MathHelper.ceiling_double_int(MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ) * (getDamage() + ((tData != null) && (tData.mMaterial != null) && (tData.mMaterial.mMaterial != null) ? tData.mMaterial.mMaterial.getToolQuality() / 2.0F - 1.0F : 0.0F)));
                     if (getIsCritical()) {
                         tDamage += this.rand.nextInt((int) (tDamage / 2.0D + 2.0D));
                     }

@@ -151,9 +151,9 @@ public class GT_RecipeRegistrator {
      * @param aMaterialAmount the amount of it in Material Units.
      */
     public static void registerReverseFluidSmelting(ItemStack aStack, Materials aMaterial, long aMaterialAmount, MaterialStack aByproduct) {
-        if (aStack == null || aMaterial == null || aMaterial.getSmeltingInto().mStandardMoltenFluid == null || !aMaterial.contains(SubTag.SMELTING_TO_FLUID) || (FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize) <= 0)
+        if (aStack == null || aMaterial == null || aMaterial.getSmeltingInto().getStandardMoltenFluid() == null || !aMaterial.contains(SubTag.SMELTING_TO_FLUID) || (FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize) <= 0)
             return;
-        RECIPE_ADDER_INSTANCE.addFluidSmelterRecipe(GT_Utility.copyAmount(1, aStack), aByproduct == null ? null : aByproduct.mMaterial.contains(SubTag.NO_SMELTING) || !aByproduct.mMaterial.contains(SubTag.METAL) ? aByproduct.mMaterial.contains(SubTag.FLAMMABLE) ? GT_OreDictUnificator.getDust(Materials.Ash, aByproduct.mAmount / 2) : aByproduct.mMaterial.contains(SubTag.UNBURNABLE) ? GT_OreDictUnificator.getDustOrIngot(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount) : null : GT_OreDictUnificator.getIngotOrDust(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount), aMaterial.getSmeltingInto().getMolten((FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize)), 10000, (int) Math.max(1, (24 * aMaterialAmount) / MATERIAL_UNIT), Math.max(8, (int) Math.sqrt(2 * aMaterial.getSmeltingInto().mStandardMoltenFluid.getTemperature())));
+        RECIPE_ADDER_INSTANCE.addFluidSmelterRecipe(GT_Utility.copyAmount(1, aStack), aByproduct == null ? null : aByproduct.mMaterial.contains(SubTag.NO_SMELTING) || !aByproduct.mMaterial.contains(SubTag.METAL) ? aByproduct.mMaterial.contains(SubTag.FLAMMABLE) ? GT_OreDictUnificator.getDust(Materials.Ash, aByproduct.mAmount / 2) : aByproduct.mMaterial.contains(SubTag.UNBURNABLE) ? GT_OreDictUnificator.getDustOrIngot(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount) : null : GT_OreDictUnificator.getIngotOrDust(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount), aMaterial.getSmeltingInto().getMolten((FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize)), 10000, (int) Math.max(1, (24 * aMaterialAmount) / MATERIAL_UNIT), Math.max(8, (int) Math.sqrt(2 * aMaterial.getSmeltingInto().getStandardMoltenFluid().getTemperature())));
     }
 
     /**
@@ -185,7 +185,7 @@ public class GT_RecipeRegistrator {
 
         for (MaterialStack tMaterial : aData.getAllMaterialStacks()) {
             if (tMaterial.mMaterial.contains(SubTag.UNBURNABLE)) {
-                tMaterial.mMaterial = tMaterial.mMaterial.getSmeltingInto().mArcSmeltInto;
+                tMaterial.mMaterial = tMaterial.mMaterial.getSmeltingInto().getArcSmeltingInto();
                 continue;
             }
             if (tMaterial.mMaterial.contains(SubTag.EXPLOSIVE)) {
@@ -203,7 +203,7 @@ public class GT_RecipeRegistrator {
                 continue;
             }
             if (tMaterial.mMaterial.contains(SubTag.METAL)) {
-                tMaterial.mMaterial = tMaterial.mMaterial.getSmeltingInto().mArcSmeltInto;
+                tMaterial.mMaterial = tMaterial.mMaterial.getSmeltingInto().getArcSmeltingInto();
                 continue;
             }
             tMaterial.mAmount = 0;

@@ -341,7 +341,7 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
 	public float getToolCombatDamage(ItemStack aStack) {
 		IToolStats tStats = getToolStats(aStack);
 		if (tStats == null) return 0;
-		return tStats.getBaseDamage() + getPrimaryMaterial(aStack).mToolQuality;
+		return tStats.getBaseDamage() + getPrimaryMaterial(aStack).getToolQuality();
 	}
 
 	@Override
@@ -398,7 +398,7 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
 	@Override
 	public final int getHarvestLevel(ItemStack aStack, String aToolClass) {
 		IToolStats tStats = getToolStats(aStack);
-		return tStats == null ? -1 : tStats.getBaseQuality() + getPrimaryMaterial(aStack).mToolQuality;
+		return tStats == null ? -1 : tStats.getBaseQuality() + getPrimaryMaterial(aStack).getToolQuality();
 	}
 
 	@Override

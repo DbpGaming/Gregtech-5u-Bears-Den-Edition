@@ -599,7 +599,7 @@ public class GT_RecipeAdder
                 }
                 GT_Recipe.GT_Recipe_Map.sArcFurnaceRecipes.addRecipe(true, new ItemStack[]{aInput}, aOutputs, null, aChances, new FluidStack[]{Materials.Oxygen.getGas(aDuration)}, null, Math.max(1, aDuration), Math.max(1, aEUt), 0);
                 for (Materials tMaterial : new Materials[]{Materials.Argon, Materials.Nitrogen}) {
-                    if (tMaterial.mPlasma != null) {
+                    if (tMaterial.getPlasma() != null) {
                         int tPlasmaAmount = (int) Math.max(1L, aDuration / (tMaterial.getMass() * 16L));
                         GT_Recipe.GT_Recipe_Map.sPlasmaArcFurnaceRecipes.addRecipe(true, new ItemStack[]{aInput}, aOutputs, null, aChances, new FluidStack[]{tMaterial.getPlasma(tPlasmaAmount)}, new FluidStack[]{tMaterial.getGas(tPlasmaAmount)}, Math.max(1, aDuration / 16), Math.max(1, aEUt / 3), 0);
                     }

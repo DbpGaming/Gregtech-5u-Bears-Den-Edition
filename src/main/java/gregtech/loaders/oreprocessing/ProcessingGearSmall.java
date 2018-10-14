@@ -14,7 +14,7 @@ public class ProcessingGearSmall implements gregtech.api.interfaces.IOreRecipeRe
     }
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
-        if (aMaterial.mStandardMoltenFluid != null)
+        if (aMaterial.getStandardMoltenFluid() != null)
             RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Gear_Small.get(0L), aMaterial.getMolten(144L), GT_Utility.copyAmount(1L, aStack), 16, 8);
     }
 }

@@ -25,7 +25,7 @@ public class ProcessingNugget implements gregtech.api.interfaces.IOreRecipeRegis
         if (!aMaterial.contains(SubTag.NO_WORKING))
             RECIPE_ADDER_INSTANCE.addLatheRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.round, aMaterial, 1L), null, (int) Math.max(aMaterial.getMass() / 4L, 1L), 8);
         RECIPE_ADDER_INSTANCE.addAlloySmelterRecipe(GT_Utility.copyAmount(9L, aStack), aMaterial.contains(SubTag.SMELTING_TO_GEM) ? ItemList.Shape_Mold_Ball.get(0L) : ItemList.Shape_Mold_Ingot.get(0L), GT_OreDictUnificator.get(aMaterial.contains(SubTag.SMELTING_TO_GEM) ? OrePrefixes.gem : OrePrefixes.ingot, aMaterial.getSmeltingInto(), 1L), 200, 2);
-        if (aMaterial.mStandardMoltenFluid != null)
+        if (aMaterial.getStandardMoltenFluid() != null)
             RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Nugget.get(0L), aMaterial.getMolten(16L), GT_OreDictUnificator.get(OrePrefixes.nugget, aMaterial, 1L), 16, 4);
         GT_RecipeRegistrator.registerReverseFluidSmelting(aStack, aMaterial, aPrefix.mMaterialAmount, null);
         GT_RecipeRegistrator.registerReverseMacerating(aStack, aMaterial, aPrefix.mMaterialAmount, null, null, null, false);

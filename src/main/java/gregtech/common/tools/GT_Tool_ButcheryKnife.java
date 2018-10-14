@@ -59,7 +59,7 @@ public class GT_Tool_ButcheryKnife
     }
 
     public int[] getEnchantmentLevels(ItemStack aStack) {
-        return new int[]{(2 + GT_MetaGenerated_Tool.getPrimaryMaterial(aStack).mToolQuality) / 2};
+        return new int[]{(2 + GT_MetaGenerated_Tool.getPrimaryMaterial(aStack).getToolQuality()) / 2};
     }
 
     public IIconContainer getIcon(boolean aIsToolHead, ItemStack aStack) {

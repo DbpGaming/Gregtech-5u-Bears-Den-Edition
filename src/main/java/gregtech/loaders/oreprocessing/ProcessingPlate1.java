@@ -33,7 +33,7 @@ public class ProcessingPlate1 implements gregtech.api.interfaces.IOreRecipeRegis
         
         
         
-        if (aMaterial.mStandardMoltenFluid != null) {
+        if (aMaterial.getStandardMoltenFluid() != null) {
             RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Plate.get(0L), aMaterial.getMolten(144L), GT_OreDictUnificator.get(OrePrefixes.plate, aMaterial, 1L), 32, 8);
         }
         switch (aMaterial.name()) {

@@ -58,8 +58,9 @@ import static gregtech.api.enums.GT_Values.MOD_ID_TF;
 public class GT_Loader_Item_Block_And_Fluid
         implements Runnable {
     public void run() {
-        Materials.Water.mFluid = (Materials.Ice.mFluid = GT_ModHandler.getWater(1000L).getFluid());
-        Materials.Lava.mFluid = GT_ModHandler.getLava(1000L).getFluid();
+        Materials.Ice.setFluid(GT_ModHandler.getWater(1000L).getFluid());
+        Materials.Water.setFluid(Materials.Ice.getFluid());
+        Materials.Lava.setFluid(GT_ModHandler.getLava(1000L).getFluid());
 
         GT_Log.out.println("GT_Mod: Register Books.");
 
@@ -185,8 +186,8 @@ public class GT_Loader_Item_Block_And_Fluid
         FMLInterModComms.sendMessage(MOD_ID_AE, "whitelist-spatial", GT_TileEntity_Ores.class.getName());
 
         GT_Log.out.println("GT_Mod: Registering Fluids.");
-        Materials.ConstructionFoam.mFluid = GT_Utility.getFluidForFilledItem(GT_ModHandler.getIC2Item("CFCell", 1L), true).getFluid();
-        Materials.UUMatter.mFluid = GT_Utility.getFluidForFilledItem(GT_ModHandler.getIC2Item("uuMatterCell", 1L), true).getFluid();
+        Materials.ConstructionFoam.setFluid(GT_Utility.getFluidForFilledItem(GT_ModHandler.getIC2Item("CFCell", 1L), true).getFluid());
+        Materials.UUMatter.setFluid(GT_Utility.getFluidForFilledItem(GT_ModHandler.getIC2Item("uuMatterCell", 1L), true).getFluid());
 
 //    GT_Mod.gregtechproxy.addFluid("HeliumPlasma", "Helium Plasma", Materials.Helium, 3, 10000, GT_OreDictUnificator.get(OrePrefixes.cellPlasma, Materials.Helium, 1L), ItemList.Cell_Empty.get(1L, new Object[0]), 1000);
 //    GT_Mod.gregtechproxy.addFluid("NitrogenPlasma", "Nitrogen Plasma", Materials.Nitrogen, 3, 10000, GT_OreDictUnificator.get(OrePrefixes.cellPlasma, Materials.Nitrogen, 1L), ItemList.Cell_Empty.get(1L, new Object[0]), 1000);
@@ -206,8 +207,8 @@ public class GT_Loader_Item_Block_And_Fluid
         GT_Mod.gregtechproxy.addFluid("NitrogenDioxide", "Nitrogen Dioxide", Materials.NitrogenDioxide, 2, 295, GT_OreDictUnificator.get(OrePrefixes.cell, Materials.NitrogenDioxide, 1L), ItemList.Cell_Empty.get(1L), 1000);
         GT_Mod.gregtechproxy.addFluid("SulfurDioxide", "Sulfur Dioxide", Materials.SulfurDioxide, 2, 295, GT_OreDictUnificator.get(OrePrefixes.cell, Materials.SulfurDioxide, 1L), ItemList.Cell_Empty.get(1L), 1000);
         GT_Mod.gregtechproxy.addFluid("Steam", "Steam", Materials.Water, 2, 375);
-        Materials.Ice.mGas = Materials.Water.mGas;
-        Materials.Water.mGas.setTemperature(375).setGaseous(true);
+        Materials.Ice.setGas(Materials.Water.getGas());
+        Materials.Water.getGas().setTemperature(375).setGaseous(true);
 
         ItemList.sOilExtraHeavy = GT_Mod.gregtechproxy.addFluid("liquid_extra_heavy_oil", "Very Heavy Oil", null, 1, 295);
         ItemList.sOilHeavy = GT_Mod.gregtechproxy.addFluid("liquid_heavy_oil", "Heavy Oil", null, 1, 295);
@@ -256,15 +257,17 @@ public class GT_Loader_Item_Block_And_Fluid
 
         Dyes.dyeBlack.addFluidDye(GT_Mod.gregtechproxy.addFluid("squidink", "Squid Ink", null, 1, 295));
         Dyes.dyeBlue.addFluidDye(GT_Mod.gregtechproxy.addFluid("indigo", "Indigo Dye", null, 1, 295));
+        Fluid tFluid;
         for (byte i = 0; i < Dyes.VALUES.length; i = (byte) (i + 1)) {
             Dyes tDye = Dyes.VALUES[i];
-            Fluid tFluid;
-            tDye.addFluidDye(tFluid = GT_Mod.gregtechproxy.addFluid("dye.watermixed." + tDye.name().toLowerCase(), "dyes", "Water Mixed " + tDye.mName + " Dye", null, tDye.getRGBa(), 1, 295, null, null, 0));
-            tDye.addFluidDye(tFluid = GT_Mod.gregtechproxy.addFluid("dye.chemical." + tDye.name().toLowerCase(), "dyes", "Chemical " + tDye.mName + " Dye", null, tDye.getRGBa(), 1, 295, null, null, 0));
+            tFluid = GT_Mod.gregtechproxy.addFluid("dye.watermixed." + tDye.name().toLowerCase(), "dyes", "Water Mixed " + tDye.mName + " Dye", null, tDye.getRGBa(), 1, 295, null, null, 0);
+            tDye.addFluidDye(tFluid);
+            tFluid = GT_Mod.gregtechproxy.addFluid("dye.chemical." + tDye.name().toLowerCase(), "dyes", "Chemical " + tDye.mName + " Dye", null, tDye.getRGBa(), 1, 295, null, null, 0);
+            tDye.addFluidDye(tFluid);
             FluidContainerRegistry.registerFluidContainer(new FluidStack(tFluid, 2304), ItemList.SPRAY_CAN_DYES[i].get(1L), ItemList.Spray_Empty.get(1L));
         }
         GT_Mod.gregtechproxy.addFluid("ice", "Crushed Ice", Materials.Ice, 0, 270, GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Ice, 1L), ItemList.Cell_Empty.get(1L), 1000);
-        Materials.Water.mSolid = Materials.Ice.mSolid;
+        Materials.Water.setSolid(Materials.Ice.getSolid());
 
 
         GT_Mod.gregtechproxy.addFluid("molten.glass", "Molten Glass", Materials.Glass, 4, 1500);
@@ -272,9 +275,9 @@ public class GT_Loader_Item_Block_And_Fluid
         GT_Mod.gregtechproxy.addFluid("molten.blaze", "Molten Blaze", Materials.Blaze, 4, 6400);
         GT_Mod.gregtechproxy.addFluid("molten.concrete", "Wet Concrete", Materials.Concrete, 4, 300);
         for (Materials tMaterial : Materials.VALUES) {
-            if ((tMaterial.mStandardMoltenFluid == null) && (tMaterial.contains(SubTag.SMELTING_TO_FLUID)) && (!tMaterial.contains(SubTag.NO_SMELTING))) {
+            if ((tMaterial.getStandardMoltenFluid() == null) && (tMaterial.contains(SubTag.SMELTING_TO_FLUID)) && (!tMaterial.contains(SubTag.NO_SMELTING))) {
                 GT_Mod.gregtechproxy.addAutogeneratedMoltenFluid(tMaterial);
-                if ((tMaterial.getSmeltingInto() != tMaterial) && (tMaterial.getSmeltingInto().mStandardMoltenFluid == null)) {
+                if ((tMaterial.getSmeltingInto() != tMaterial) && (tMaterial.getSmeltingInto().getStandardMoltenFluid() == null)) {
                     GT_Mod.gregtechproxy.addAutogeneratedMoltenFluid(tMaterial.getSmeltingInto());
                 }
             }

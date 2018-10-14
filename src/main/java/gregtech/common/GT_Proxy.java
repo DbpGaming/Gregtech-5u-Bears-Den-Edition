@@ -1775,19 +1775,19 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 		if (aMaterial != null) {
 			switch (aState) {
 			case 0:
-				aMaterial.mSolid = rFluid;
+				aMaterial.setSolid(rFluid);
 				break;
 			case 1:
-				aMaterial.mFluid = rFluid;
+				aMaterial.setFluid(rFluid);
 				break;
 			case 2:
-				aMaterial.mGas = rFluid;
+				aMaterial.setGas(rFluid);
 				break;
 			case 3:
-				aMaterial.mPlasma = rFluid;
+				aMaterial.setPlasma(rFluid);
 				break;
 			case 4:
-				aMaterial.mStandardMoltenFluid = rFluid;
+				aMaterial.setStandardMoltenFluid(rFluid);
 			}
 		}
 		if ((aFullContainer != null) && (aEmptyContainer != null)

@@ -749,7 +749,7 @@ public class Materials implements ISubTagContainer {
 
     private IColorModulationContainer mRGBa = new IColorModulationContainer(0x00ffffff);
     private IColorModulationContainer mMoltenRGBa = new IColorModulationContainer(0x00ffffff);
-    private TextureSet mIconSet;
+    private TextureSet mTextureSet;
     private int mMetaItemSubID;
     private boolean mUnificatable;
     private Materials mMaterialInto;
@@ -787,18 +787,18 @@ public class Materials implements ISubTagContainer {
     private Materials mOreReplacement = this;
     private Materials mMacerateInto = this;
     private Materials mSmeltInto = this;
-    public Materials mArcSmeltInto = this;
-    public Materials mHandleMaterial = this;
-    public byte mToolQuality = 0;
-    public Fluid mSolid = null;
-    public Fluid mFluid = null;
-    public Fluid mGas = null;
-    public Fluid mPlasma = null;
+    private Materials mArcSmeltInto = this;
+    private Materials mHandleMaterial = this;
+    private byte mToolQuality = 0;
+    private Fluid mSolid = null;
+    private Fluid mFluid = null;
+    private Fluid mGas = null;
+    private Fluid mPlasma = null;
 
     /**
-     * This Fluid is used as standard Unit for Molten Materials. 1296 is a Molten Block, what means 144 is one Material Unit worth
+     * The Fluid is used as standard Unit for Molten Materials. 1296 is a Molten Block, what means 144 is one Material Unit worth
      */
-    public Fluid mStandardMoltenFluid = null;
+    private Fluid mStandardMoltenFluid = null;
 
 
     static {
@@ -1368,7 +1368,7 @@ public class Materials implements ISubTagContainer {
         private Materials rMaterials = new Materials();
         private IColorModulationContainer mSolidARGB = new IColorModulationContainer(0x00ffffff);
         private IColorModulationContainer mMoltenARGB = new IColorModulationContainer(0x00ffffff);
-        private TextureSet mIconSet;
+        private TextureSet mTextureSet;
         private int mMetaItemSubID;
         private boolean mUnifiable;
         private Materials mMaterialInto;
@@ -1435,7 +1435,7 @@ public class Materials implements ISubTagContainer {
         }
 
         public Builder textureSet(TextureSet aTextureSet) {
-            this.mIconSet = aTextureSet;
+            this.mTextureSet = aTextureSet;
             return this;
         }
 
@@ -1539,7 +1539,7 @@ public class Materials implements ISubTagContainer {
         public Materials build() {
             this.rMaterials.mRGBa = mSolidARGB;
             this.rMaterials.mMoltenRGBa = mMoltenARGB;
-            this.rMaterials.mIconSet = this.mIconSet;
+            this.rMaterials.mTextureSet = this.mTextureSet;
             this.rMaterials.mMetaItemSubID = this.mMetaItemSubID;
             this.rMaterials.mUnificatable = this.mUnifiable;
             this.rMaterials.mMaterialInto = this.mMaterialInto;
@@ -1567,16 +1567,30 @@ public class Materials implements ISubTagContainer {
 
     private Materials() {}
 
+    /**
+     * Materials constructor
+     * @deprecated by {@link Materials.Builder}
+     * @throws IllegalArgumentException if SubID already assigned
+     * @param aMetaItemSubID The meta-sub identifier for items
+     * @param aTextureSet The {@link TextureSet} textures
+     * @param aToolSpeed The Speed of Tools
+     * @param aToolDurability The Durability of Tools
+     * @param aToolQuality The Quality of Tools
+     * @param aUnifiable If Unifiable
+     */
+    @SuppressWarnings({
+            "squid:S1133",  // Known deprecation, method to be removed
+    })
     @Deprecated
-    public Materials(int aMetaItemSubID, TextureSet aIconSet, float aToolSpeed, int aToolDurability, int aToolQuality, boolean aUnificatable) {
+    public Materials(int aMetaItemSubID, TextureSet aTextureSet, float aToolSpeed, int aToolDurability, int aToolQuality, boolean aUnifiable) {
         VALUES.add(this);
-        mUnificatable = aUnificatable;
-        mMaterialInto = this;
-        mMetaItemSubID = aMetaItemSubID;
-        mToolQuality = (byte) aToolQuality;
-        mDurability = aToolDurability;
-        mToolSpeed = aToolSpeed;
-        mIconSet = aIconSet;
+        setUnifiable(aUnifiable);
+        setMaterialInto(this);
+        setSubID(aMetaItemSubID);
+        setToolQuality((byte) aToolQuality);
+        setDurability(aToolDurability);
+        setToolSpeed(aToolSpeed);
+        setTextureSet(aTextureSet);
         if (aMetaItemSubID >= 0) {
             if (GregTech_API.sGeneratedMaterials[aMetaItemSubID] == null) {
                 GregTech_API.sGeneratedMaterials[aMetaItemSubID] = this;
@@ -1586,23 +1600,33 @@ public class Materials implements ISubTagContainer {
         }
     }
 
+    /**
+     * Constructs an aliased {@link Materials}
+     * @deprecated by {@link Materials.Builder}
+     * @param aMaterialInto The {@link Materials} to unify into
+     * @param aReRegisterIntoThis The {@link Materials} to re-register into
+     */
+    @Deprecated
     public Materials(Materials aMaterialInto, boolean aReRegisterIntoThis) {
-        mUnificatable = false;
-        mDefaultLocalName = aMaterialInto.mDefaultLocalName;
-        mMaterialInto = aMaterialInto.mMaterialInto;
-        if (mMaterialInto != null && mMaterialInto.mOreReRegistrations != null && aReRegisterIntoThis) {
-            mMaterialInto.mOreReRegistrations.add(this);
+        setUnifiable(false);
+        setDefaultLocalName(aMaterialInto.getDefaultLocalName());
+        setMaterialInto(aMaterialInto.getMaterialInto());
+        if (getMaterialInto() != null
+                && getMaterialInto().getOreReRegistrations() != null
+                && aReRegisterIntoThis) {
+            getMaterialInto().getOreReRegistrations().add(this);
         }
-        mChemicalFormula = aMaterialInto.mChemicalFormula;
-        mMetaItemSubID = -1;
-        mIconSet = SET_NONE;
+        setToolTip(aMaterialInto.getToolTip());
+        setSubID(-1);
+        setTextureSet(SET_NONE);
     }
 
     /**
-     *
-     * @deprecated replaced by {@link Materials.Builder}
+     * Materials constructor
+     * @deprecated by {@link Materials.Builder}
+     * @throws IllegalArgumentException if SubID already assigned
      * @param aMetaItemSubID The meta-sub identifier for items
-     * @param aIconSet The {@link TextureSet} textures
+     * @param aTextureSet The {@link TextureSet} textures
      * @param aToolSpeed The tool speed multiplier
      * @param aDurability The durability
      * @param aToolQuality The tool quality
@@ -1611,7 +1635,7 @@ public class Materials implements ISubTagContainer {
      * @param aG The main color green component
      * @param aB The main color blue component
      * @param aA The main color alpha component
-     * @param aDefaultLocalName The default localized name
+     * @param aLocalName The default localized name
      * @param aFuelType The fuel typ identifier
      * @param aFuelPower The fuel value
      * @param aMeltingPoint The melting point
@@ -1621,83 +1645,217 @@ public class Materials implements ISubTagContainer {
      * @param aOreValue The ore value
      * @param aDensityMultiplier The ore density multiplier
      * @param aDensityDivider The ore density divider
-     * @param aColor The {@link Dyes} color
+     * @param aDye The {@link Dyes} color
      */
     @SuppressWarnings({
             "squid:S00107", // 21 Parameters is the reason for deprecating
             "squid:S1133",  // Known deprecation, method to be removed
             })
     @Deprecated
-    public Materials(int aMetaItemSubID, TextureSet aIconSet, float aToolSpeed, int aDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aDefaultLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aColor) {
-        this(aMetaItemSubID, aIconSet, aToolSpeed, aDurability, aToolQuality, true);
-        mName = aDefaultLocalName.replaceAll(" ", "");
-        mDefaultLocalName = aDefaultLocalName;
-        mMeltingPoint = (short) aMeltingPoint;
-        mBlastFurnaceTemp = (short) aBlastFurnaceTemp;
-        mBlastFurnaceRequired = aBlastFurnaceRequired;
+    public Materials(int aMetaItemSubID, TextureSet aTextureSet, float aToolSpeed, int aDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aDye) {
+        this(aMetaItemSubID, aTextureSet, aToolSpeed, aDurability, aToolQuality, true);
+        setName(getDefaultLocalName().replaceAll(" ", ""));
+        setDefaultLocalName(aLocalName);
+        setMeltingPoint((short) aMeltingPoint);
+        setBlastFurnaceTemp((short) aBlastFurnaceTemp);
+        setBlastFurnaceRequired(aBlastFurnaceRequired);
         if (aTransparent) add(SubTag.TRANSPARENT);
-        mFuelPower = aFuelPower;
-        mFuelType = aFuelType;
-        mOreValue = aOreValue;
-        mDensity = (MATERIAL_UNIT * aDensityMultiplier) / aDensityDivider;
-        mColor = aColor == null ? Dyes._NULL : aColor;
-        add(SubTag.HAS_COLOR);
-        mRGBa.setRGBA(aR, aG, aB, aA);
-        mTypes = aTypes;
-        if ((mTypes & 2) != 0) add(SubTag.SMELTING_TO_FLUID);
-    }
-
-    @Deprecated
-    public Materials(int aMetaItemSubID, TextureSet aIconSet, float aToolSpeed, int aToolDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aColor, List<TC_Aspects.TC_AspectStack> aAspects) {
-        this(aMetaItemSubID, aIconSet, aToolSpeed, aToolDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aColor);
-        mAspects.addAll(aAspects);
-    }
-
-    @Deprecated
-    public Materials(int aMetaItemSubID, TextureSet aIconSet, float aToolSpeed, int aToolDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aColor, Element aElement, List<TC_Aspects.TC_AspectStack> aAspects) {
-        this(aMetaItemSubID, aIconSet, aToolSpeed, aToolDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aColor);
-        mElement = aElement;
-        mElement.mLinkedMaterials.add(this);
-        if (aElement == Element._NULL) {
-            mChemicalFormula = "Empty";
+        setFuelPower(aFuelPower);
+        setFuelType(aFuelType);
+        setOreValue(aOreValue);
+        setDensity((MATERIAL_UNIT * aDensityMultiplier) / aDensityDivider);
+        if (aDye == null) {
+            setDye(Dyes._NULL);
         } else {
-            mChemicalFormula = aElement.toString();
-            mChemicalFormula = mChemicalFormula.replaceAll("_", "-");
+            setDye(aDye);
         }
-        mAspects.addAll(aAspects);
+        add(SubTag.HAS_COLOR);
+        getColor().setRGBA(aR, aG, aB, aA);
+        setTypes(aTypes);
+        if ((getTypes() & 2) != 0) {
+            add(SubTag.SMELTING_TO_FLUID);
+        }
     }
 
+    /**
+     * Materials constructor
+     * @deprecated by {@link Materials.Builder}
+     * @param aMetaItemSubID The meta-sub identifier for items
+     * @param aTextureSet The {@link TextureSet} textures
+     * @param aToolSpeed The tool speed multiplier
+     * @param aDurability The durability
+     * @param aToolQuality The tool quality
+     * @param aTypes The flags to enable item types
+     * @param aR The main color red component
+     * @param aG The main color green component
+     * @param aB The main color blue component
+     * @param aA The main color alpha component
+     * @param aLocalName The default localized name
+     * @param aFuelType The fuel typ identifier
+     * @param aFuelPower The fuel value
+     * @param aMeltingPoint The melting point
+     * @param aBlastFurnaceTemp The blast furnace temperature
+     * @param aBlastFurnaceRequired If smelting requires a blast furnace
+     * @param aTransparent If it is transparent
+     * @param aOreValue The ore value
+     * @param aDensityMultiplier The ore density multiplier
+     * @param aDensityDivider The ore density divider
+     * @param aDye The {@link Dyes} color
+     * @param aAspects The {@link TC_AspectStack}'s List
+     */
+    @SuppressWarnings({
+            "squid:S00107", // 22 Parameters is the reason for deprecating
+            "squid:S1133",  // Known deprecation, method to be removed
+    })
     @Deprecated
-    public Materials(int aMetaItemSubID, TextureSet aIconSet, float aToolSpeed, int aToolDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aColor, int aExtraData, List<MaterialStack> aMaterialList) {
-        this(aMetaItemSubID, aIconSet, aToolSpeed, aToolDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aColor, aExtraData, aMaterialList, null);
+    public Materials(int aMetaItemSubID, TextureSet aTextureSet, float aToolSpeed, int aDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aDye, List<TC_Aspects.TC_AspectStack> aAspects) {
+        this(aMetaItemSubID, aTextureSet, aToolSpeed, aDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aDye);
+        getAspects().addAll(aAspects);
     }
 
+    /**
+     * Materials constructor
+     * @deprecated by {@link Materials.Builder}
+     * @param aMetaItemSubID The meta-sub identifier for items
+     * @param aTextureSet The {@link TextureSet} textures
+     * @param aToolSpeed The tool speed multiplier
+     * @param aDurability The durability
+     * @param aToolQuality The tool quality
+     * @param aTypes The flags to enable item types
+     * @param aR The main color red component
+     * @param aG The main color green component
+     * @param aB The main color blue component
+     * @param aA The main color alpha component
+     * @param aLocalName The default localized name
+     * @param aFuelType The fuel typ identifier
+     * @param aFuelPower The fuel value
+     * @param aMeltingPoint The melting point
+     * @param aBlastFurnaceTemp The blast furnace temperature
+     * @param aBlastFurnaceRequired If smelting requires a blast furnace
+     * @param aTransparent If it is transparent
+     * @param aOreValue The ore value
+     * @param aDensityMultiplier The ore density multiplier
+     * @param aDensityDivider The ore density divider
+     * @param aDye The {@link Dyes} color
+     * @param aElement The chemical {@link Element}
+     * @param aAspects The {@link TC_AspectStack}'s List
+     */
+    @SuppressWarnings({
+            "squid:S00107", // 23 Parameters is the reason for deprecating
+            "squid:S1133",  // Known deprecation, method to be removed
+    })
     @Deprecated
-    public Materials(int aMetaItemSubID, TextureSet aIconSet, float aToolSpeed, int aToolDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aColor, int aExtraData, List<MaterialStack> aMaterialList, List<TC_Aspects.TC_AspectStack> aAspects) {
-        this(aMetaItemSubID, aIconSet, aToolSpeed, aToolDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aColor);
-        mExtraData = aExtraData;
-        mMaterialList.addAll(aMaterialList);
-        mChemicalFormula = "";
-        for (MaterialStack tMaterial : mMaterialList) mChemicalFormula += tMaterial.toString();
-        mChemicalFormula = mChemicalFormula.replaceAll("_", "-");
+    public Materials(int aMetaItemSubID, TextureSet aTextureSet, float aToolSpeed, int aDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aDye, Element aElement, List<TC_Aspects.TC_AspectStack> aAspects) {
+        this(aMetaItemSubID, aTextureSet, aToolSpeed, aDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aDye);
+        setElement(aElement);
+        getElement().mLinkedMaterials.add(this);
+        String tToolTip;
+        if (aElement == Element._NULL) {
+            tToolTip = "Empty";
+        } else {
+            tToolTip = aElement.toString().replaceAll("_", "-");
+        }
+        setToolTip(tToolTip);
+        getAspects().addAll(aAspects);
+    }
 
-        int tAmountOfComponents = 0, tMeltingPoint = 0;
-        for (MaterialStack tMaterial : mMaterialList) {
-            tAmountOfComponents += tMaterial.mAmount;
-            if (tMaterial.mMaterial.mMeltingPoint > 0)
-                tMeltingPoint += tMaterial.mMaterial.mMeltingPoint * tMaterial.mAmount;
+    /**
+     * Materials constructor
+     * @deprecated by {@link Materials.Builder}
+     * @param aMetaItemSubID The meta-sub identifier for items
+     * @param aTextureSet The {@link TextureSet} textures
+     * @param aToolSpeed The tool speed multiplier
+     * @param aDurability The durability
+     * @param aToolQuality The tool quality
+     * @param aTypes The flags to enable item types
+     * @param aR The main color red component
+     * @param aG The main color green component
+     * @param aB The main color blue component
+     * @param aA The main color alpha component
+     * @param aLocalName The default localized name
+     * @param aFuelType The fuel typ identifier
+     * @param aFuelPower The fuel value
+     * @param aMeltingPoint The melting point
+     * @param aBlastFurnaceTemp The blast furnace temperature
+     * @param aBlastFurnaceRequired If smelting requires a blast furnace
+     * @param aTransparent If it is transparent
+     * @param aOreValue The ore value
+     * @param aDensityMultiplier The ore density multiplier
+     * @param aDensityDivider The ore density divider
+     * @param aDye The {@link Dyes} color
+     * @param aExtraData The Extra Data
+     * @param aMaterialStackList The {@link MaterialStack}'s List
+     */
+    @SuppressWarnings({
+            "squid:S00107", // 23 Parameters is the reason for deprecating
+            "squid:S1133",  // Known deprecation, method to be removed
+    })
+    @Deprecated
+    public Materials(int aMetaItemSubID, TextureSet aTextureSet, float aToolSpeed, int aDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aDye, int aExtraData, List<MaterialStack> aMaterialStackList) {
+        this(aMetaItemSubID, aTextureSet, aToolSpeed, aDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aDye, aExtraData, aMaterialStackList, null);
+    }
+
+    /**
+     * Materials constructor
+     * @deprecated by {@link Materials.Builder}
+     * @param aMetaItemSubID The meta-sub identifier for items
+     * @param aTextureSet The {@link TextureSet} textures
+     * @param aToolSpeed The tool speed multiplier
+     * @param aDurability The durability
+     * @param aToolQuality The tool quality
+     * @param aTypes The flags to enable item types
+     * @param aR The main color red component
+     * @param aG The main color green component
+     * @param aB The main color blue component
+     * @param aA The main color alpha component
+     * @param aLocalName The default localized name
+     * @param aFuelType The fuel typ identifier
+     * @param aFuelPower The fuel value
+     * @param aMeltingPoint The melting point
+     * @param aBlastFurnaceTemp The blast furnace temperature
+     * @param aBlastFurnaceRequired If smelting requires a blast furnace
+     * @param aTransparent If it is transparent
+     * @param aOreValue The ore value
+     * @param aDensityMultiplier The ore density multiplier
+     * @param aDensityDivider The ore density divider
+     * @param aDye The {@link Dyes} color
+     * @param aExtraData The Extra Data
+     * @param aMaterialStackList The {@link MaterialStack}'s List
+     * @param aAspects The {@link TC_AspectStack}'s List
+     */
+    @SuppressWarnings({
+            "squid:S00107", // 24 Parameters is the reason for deprecating
+            "squid:S1133",  // Known deprecation, method to be removed
+    })
+    @Deprecated
+    public Materials(int aMetaItemSubID, TextureSet aTextureSet, float aToolSpeed, int aDurability, int aToolQuality, int aTypes, int aR, int aG, int aB, int aA, String aLocalName, int aFuelType, int aFuelPower, int aMeltingPoint, int aBlastFurnaceTemp, boolean aBlastFurnaceRequired, boolean aTransparent, int aOreValue, int aDensityMultiplier, int aDensityDivider, Dyes aDye, int aExtraData, List<MaterialStack> aMaterialStackList, List<TC_Aspects.TC_AspectStack> aAspects) {
+        this(aMetaItemSubID, aTextureSet, aToolSpeed, aDurability, aToolQuality, aTypes, aR, aG, aB, aA, aLocalName, aFuelType, aFuelPower, aMeltingPoint, aBlastFurnaceTemp, aBlastFurnaceRequired, aTransparent, aOreValue, aDensityMultiplier, aDensityDivider, aDye);
+        setExtraData(aExtraData);
+        getMaterialStackList().addAll(aMaterialStackList);
+        StringBuilder tToolTipBuilder = new StringBuilder();
+        for (MaterialStack tMaterialStack : getMaterialStackList()) {
+            tToolTipBuilder.append(tMaterialStack.toString());
+        }
+        setToolTip(tToolTipBuilder.toString().replaceAll("_", "-"));
+
+        int tAmountOfComponents = 0;
+        int tMeltingPoint = 0;
+        for (MaterialStack tMaterialStack : getMaterialStackList()) {
+            tAmountOfComponents += tMaterialStack.mAmount;
+            if (tMaterialStack.mMaterial.getMeltingPoint() > 0)
+                tMeltingPoint += tMaterialStack.mMaterial.getMeltingPoint() * tMaterialStack.mAmount;
             if (aAspects == null)
-                for (TC_Aspects.TC_AspectStack tAspect : tMaterial.mMaterial.mAspects) tAspect.addToAspectList(mAspects);
+                for (TC_Aspects.TC_AspectStack tAspect : tMaterialStack.mMaterial.getAspects()) tAspect.addToAspectList(getAspects());
         }
 
-        if (mMeltingPoint < 0) mMeltingPoint = (short) (tMeltingPoint / tAmountOfComponents);
+        if (getMeltingPoint() < 0) setMeltingPoint((short) (tMeltingPoint / tAmountOfComponents));
 
         tAmountOfComponents *= aDensityMultiplier;
         tAmountOfComponents /= aDensityDivider;
         if (aAspects == null) {
-            for (TC_AspectStack tAspect : mAspects)
+            for (TC_AspectStack tAspect : getAspects())
                 tAspect.mAmount = Math.max(1, tAspect.mAmount / Math.max(1, tAmountOfComponents));
-        } else mAspects.addAll(aAspects);
+        } else getAspects().addAll(aAspects);
     }
 
     /**
@@ -1737,7 +1895,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Determines if this {@link Materials} is Radioactive
+     * Determines if the {@link Materials} is Radioactive
      * @return true if Radioactive
      */
     public boolean isRadioactive() {
@@ -1749,7 +1907,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets this {@link Materials}'s Protons count
+     * Gets the {@link Materials}'s Protons count
      * @return The Protons count
      */
     public long getProtons() {
@@ -1766,7 +1924,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets this {@link Materials}'s Neutrons count
+     * Gets the {@link Materials}'s Neutrons count
      * @return The Neutrons count
      */
     public long getNeutrons() {
@@ -1783,7 +1941,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets this {@link Materials}'s Mass
+     * Gets the {@link Materials}'s Mass
      * @return The Mass
      */
     public long getMass() {
@@ -1800,7 +1958,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets this {@link Materials}'s Density
+     * Gets the {@link Materials}'s Density
      * @return The Density
      */
     public long getDensity() {
@@ -1808,7 +1966,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Set this {@link Materials}'s Density
+     * Set the {@link Materials}'s Density
      * @param aDensity The Density
      */
     public void setDensity(long aDensity) {
@@ -1816,7 +1974,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the ToolTip of this {@link Materials}
+     * Gets the ToolTip of the {@link Materials}
      * @return The ToolTip String
      */
     public String getToolTip() {
@@ -1824,7 +1982,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the ToolTip of this {@link Materials}
+     * Gets the ToolTip of the {@link Materials}
      * @param aShowQuestionMarks if Question Mark (unknown) is shown
      * @return The ToolTip String
      */
@@ -1833,7 +1991,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the ToolTip of this {@link Materials} amount
+     * Gets the ToolTip of the {@link Materials} amount
      * @param aMultiplier The {@link Materials} amount
      * @return The ToolTip String
      */
@@ -1842,7 +2000,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the ToolTip's chemical formula of this {@link Materials} amount
+     * Gets the ToolTip's chemical formula of the {@link Materials} amount
      * @param aMultiplier The {@link Materials} amount
      * @param aShowQuestionMarks if Question Mark (unknown formula) is shown
      * @return The ToolTip String
@@ -1856,7 +2014,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Sets the ToolTip's chemical formula of this {@link Materials}
+     * Sets the ToolTip's chemical formula of the {@link Materials}
      * @param aToolTip The ToolTip's chemical formula of this {@link Materials}
      */
     public void setToolTip(String aToolTip) {
@@ -1864,7 +2022,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Adds / Associates the {@link ItemStack} to this {@link Materials}.
+     * Adds / Associates the {@link ItemStack} to the {@link Materials}.
      * @param aStack The {@link ItemStack} to add
      * @return the updated {@link Materials} with added  {@link ItemStack}
      */
@@ -1874,9 +2032,9 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * This is used to determine if any of the {@link ItemStack} belongs to this {@link Materials}.
+     * Determines if any of the {@link ItemStack} belongs to the {@link Materials}.
      * @param aStacks The {@link ItemStack} to search
-     * @return true if the {@link ItemStack} belongs to this {@link Materials}
+     * @return true if the {@link ItemStack} belongs to the {@link Materials}
      */
     public boolean contains(ItemStack... aStacks) {
         if (aStacks == null || aStacks.length <= 0) return false;
@@ -1907,7 +2065,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Adds SubTags to this {@link Materials}
+     * Adds SubTags to the {@link Materials}
      * @param aTags the {@link SubTag}s to be added
      * @return the {@link Materials} with the added {@link SubTag}s
      */
@@ -1926,7 +2084,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Tests if this {@link Materials} has this exact {@link SubTag}
+     * Tests if the {@link Materials} has the exact {@link SubTag}
      * @param aTag the {@link SubTag} to test
      * @return true if the {@link Materials} contains the {@link SubTag}
      */
@@ -1936,7 +2094,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Removes a SubTag from this {@link Materials}
+     * Removes a SubTag from the {@link Materials}
      * @param aTag the {@link SubTag} to be removed
      * @return the {@link Materials} with the removed {@link SubTag}
      */
@@ -1946,15 +2104,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the Heat Damage for this {@link Materials} (negative = frost)
-     * @return The Heat Damage for this {@link Materials} (negative = frost)
+     * Gets the Heat Damage for the {@link Materials} (negative = frost)
+     * @return The Heat Damage for the {@link Materials} (negative = frost)
      */
     public float getHeatDamage() {
         return mHeatDamage;
     }
 
     /**
-     * Sets the Heat Damage for this {@link Materials} (negative = frost)
+     * Sets the Heat Damage for the {@link Materials} (negative = frost)
      * @param aHeatDamage The Heat Damage (negative = frost)
      * @return The updated {@link Materials} with the new Heat Damage
      */
@@ -1964,7 +2122,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Adds The {@link Materials} to the List of Byproducts when grinding this Ore.
+     * Adds the {@link Materials} to the List of Byproducts when grinding the Ore.
      * Is used for more precise Ore grinding, so that it is possible to choose between certain kinds of Materials.
      * @param aMaterial The {@link Materials} to be added as byproducts
      * @return The updated {@link Materials} with added byproducts
@@ -1975,7 +2133,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Adds multiple {@link Materials} to the List of Byproducts when grinding this Ore.
+     * Adds multiple {@link Materials} to the List of Byproducts when grinding the Ore.
      * Is used for more precise Ore grinding, so that it is possible to choose between certain kinds of Materials.
      * @param aMaterials The {@link Materials} to be added as byproducts
      * @return The updated {@link Materials} with the added byproducts
@@ -1987,7 +2145,7 @@ public class Materials implements ISubTagContainer {
 
     /**
      * Gets the {@link Materials}'s Ore Multiplier
-     * If this Ore gives multiple drops of its Main {@link Materials}.
+     * If the Ore gives multiple drops of its Main {@link Materials}.
      * Lapis Ore for example gives about 6 drops.
      * @return The {@link Materials}'s Ore Multiplier
      */
@@ -1996,7 +2154,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * If this Ore gives multiple drops of its Main {@link Materials}.
+     * If the Ore gives multiple drops of its Main {@link Materials}.
      * Lapis Ore for example gives about 6 drops.
      * @param aOreMultiplier The Main Ore Multiplier
      * @return The updated {@link Materials} with the new Ore Multiplier
@@ -2007,15 +2165,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the Byproduct Multiplier of this {@link Materials}
-     * @return The Byproduct Multiplier of this {@link Materials}
+     * Gets the Byproduct Multiplier of the {@link Materials}
+     * @return The Byproduct Multiplier of the {@link Materials}
      */
     public int getByProductMultiplier() {
         return mByProductMultiplier;
     }
 
     /**
-     * If this Ore gives multiple drops of its Byproduct Material.
+     * If the Ore gives multiple drops of its Byproduct Material.
      * @param aByProductMultiplier The Byproduct Multiplier
      * @return The updated {@link Materials} with the new Byproduct Multiplier
      */
@@ -2025,15 +2183,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the Smelting Multiplier of this {@link Materials}
-     * @return The Smelting Multiplier of this {@link Materials}
+     * Gets the Smelting Multiplier of the {@link Materials}
+     * @return The Smelting Multiplier of the {@link Materials}
      */
     public int getSmeltingMultiplier() {
         return mSmeltingMultiplier;
     }
 
     /**
-     * If this Ore smelts into multiple drops of its Main Material.
+     * If the Ore smelts into multiple drops of its Main Material.
      * Lapis Ore for example smelts into about 3 drops.
      * @param aSmeltingMultiplier The Smelting Multiplier
      * @return The updated {@link Materials} with the new Smelt Multiplier
@@ -2044,15 +2202,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the directly smelting's replacement {@link Materials}
-     * @return The directly smelting's replacement {@link Materials}
+     * Gets replacement {@link Materials} for direct smelting
+     * @return The replacement {@link Materials}
      */
     public Materials getDirectSmelting() {
         return mDirectSmelting;
     }
 
     /**
-     * This Ore should be smelted directly into an Ingot of this {@link Materials} instead of an Ingot of itself.
+     * The Ore should be smelted directly into an Ingot of the {@link Materials} instead of an Ingot of itself.
      * @param aMaterial The Ingot's {@link Materials}
      * @return The updated {@link Materials} with the added Ingot's {@link Materials} direct smelt
      */
@@ -2062,7 +2220,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets this {@link Materials}'s ore replacement {@link Materials}.
+     * Gets the {@link Materials}'s ore replacement {@link Materials}.
      * @return The ore replacement {@link Materials}}
      */
     public Materials getOreReplacement() {
@@ -2070,7 +2228,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * This Material should be the Main Material this Ore gets ground into.
+     * The Material should be the Main Material the Ore gets ground into.
      * Example: {@link Materials#Chromite} giving {@link Materials#Chrome} or {@link Materials#Tungstate} giving {@link Materials#Tungsten}.
      * @param aMaterial The ground {@link Materials}
      * @return The updated {@link Materials} with the new ground {@link Materials}
@@ -2089,8 +2247,8 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * This {@link Materials} smelts always into an instance of aMaterial. Used for Magnets.
-     * @param aMaterial The always smelt-into {@link Materials}
+     * The {@link Materials} always smelts into an instance of aMaterial. Used for Magnets.
+     * @param aMaterial The always smelts into {@link Materials}
      * @return The updated {@link Materials} with the new smelt-into {@link Materials}
      */
     public Materials setSmeltingInto(Materials aMaterial) {
@@ -2107,7 +2265,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * In an Arc Furnace, this {@link Materials} always smelt-into an instance of {@link Materials}.
+     * In an Arc Furnace, the {@link Materials} always smelt-into an instance of {@link Materials}.
      * Used for Wrought Iron.
      * @param aMaterial The Arc Furnace always smelt-into {@link Materials}
      * @return The updated {@link Materials} with the new Arc Furnace always smelt-into {@link Materials}
@@ -2126,7 +2284,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * This Material macerates always into an instance of {@link Materials}.
+     * The {@link Materials} always macerates into an instance of {@link Materials}.
      * @param aMaterial The maceration output {@link Materials}
      * @return The updated {@link Materials} with the new maceration output {@link Materials}
      */
@@ -2136,15 +2294,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Enchantment} for Tools made of this {@link Materials}
-     * @return The {@link Enchantment} for Tools made of this {@link Materials}
+     * Gets the {@link Enchantment} for Tools made of the {@link Materials}
+     * @return The {@link Enchantment} for Tools made of the {@link Materials}
      */
     public Enchantment getEnchantmentForTools() {
         return mEnchantmentTools;
     }
 
     /**
-     * Sets the {@link Enchantment} for Tools made of this {@link Materials}
+     * Sets the {@link Enchantment} for Tools made of the {@link Materials}
      * @param aEnchantment The {@link Enchantment}
      */
     public void setEnchantmentForTools(Enchantment aEnchantment) {
@@ -2152,7 +2310,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Sets the {@link Enchantment} and Level for Tools made of this {@link Materials}
+     * Sets the {@link Enchantment} and Level for Tools made of the {@link Materials}
      * @param aEnchantment The {@link Enchantment}
      * @param aEnchantmentLevel The {@link Enchantment}'s Level
      * @return @return The updated {@link Materials} with the new {@link Enchantment} for Tools
@@ -2164,7 +2322,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Enchantment}'s Level for Tools made of this {@link Materials}
+     * Gets the {@link Enchantment}'s Level for Tools made of the {@link Materials}
      * @return  The {@link Enchantment}'s Level
      */
     public byte getEnchantmentLevelForTools() {
@@ -2172,7 +2330,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Sets the {@link Enchantment}'s Level for Tools made of this {@link Materials}
+     * Sets the {@link Enchantment}'s Level for Tools made of the {@link Materials}
      * @param aEnchantmentLevel The {@link Enchantment}'s Level
      */
     public void setEnchantmentLevelForTools(byte aEnchantmentLevel) {
@@ -2180,15 +2338,15 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Enchantment} for Armors made of this {@link Materials}
-     * @return The {@link Enchantment} for Armors made of this {@link Materials}
+     * Gets the {@link Enchantment} for Armors made of the {@link Materials}
+     * @return The {@link Enchantment} for Armors made of the {@link Materials}
      */
     public Enchantment getEnchantmentForArmors() {
         return mEnchantmentArmors;
     }
 
     /**
-     * Sets the {@link Enchantment} for Armors made of this {@link Materials}
+     * Sets the {@link Enchantment} for Armors made of the {@link Materials}
      * @param aEnchantment The {@link Enchantment}
      */
     public void setEnchantmentForArmors(Enchantment aEnchantment) {
@@ -2196,7 +2354,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Sets the {@link Enchantment} for Armors made of this {@link Materials}
+     * Sets the {@link Enchantment} for Armors made of the {@link Materials}
      * @param aEnchantment the {@link Enchantment}
      * @param aEnchantmentLevel the {@link Enchantment}'s Level
      * @return @return The updated {@link Materials} with the new {@link Enchantment} for Armors
@@ -2208,7 +2366,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Enchantment}'s Level for Armors made of this {@link Materials}
+     * Gets the {@link Enchantment}'s Level for Armors made of the {@link Materials}
      * @return  The {@link Enchantment}'s Level
      */
     public byte getEnchantmentLevelForArmors() {
@@ -2216,7 +2374,7 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Sets the {@link Enchantment}'s Level for Armors made of this {@link Materials}
+     * Sets the {@link Enchantment}'s Level for Armors made of the {@link Materials}
      * @param aEnchantmentLevel The {@link Enchantment}'s Level
      */
     public void setEnchantmentLevelForArmors(byte aEnchantmentLevel) {
@@ -2224,9 +2382,9 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets {@link GT_FluidStack} Fluid state amount from the Solid state of this {@link Materials}
+     * Gets {@link GT_FluidStack} Fluid state amount from the Solid state of the {@link Materials}
      * @param aAmount The amount of Fluid in Liters
-     * @return The {@link GT_FluidStack} Fluid state amount from the Solid state of this {@link Materials}
+     * @return The {@link GT_FluidStack} Fluid state amount from the Solid state of the {@link Materials}
      */
     public FluidStack getSolid(long aAmount) {
         if (mSolid == null) return null;
@@ -2234,9 +2392,9 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets {@link GT_FluidStack} Fluid state amount of this {@link Materials}
+     * Gets {@link GT_FluidStack} Fluid state amount of the {@link Materials}
      * @param aAmount The amount of Fluid in Liters
-     * @return The {@link GT_FluidStack} Fluid state amount of this {@link Materials}
+     * @return The {@link GT_FluidStack} Fluid state amount of the {@link Materials}
      */
     public FluidStack getFluid(long aAmount) {
         if (mFluid == null) return null;
@@ -2244,9 +2402,9 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Get {@link GT_FluidStack} Gaseous state amount of this {@link Materials}
+     * Gets {@link GT_FluidStack} Gaseous state amount of the {@link Materials}
      * @param aAmount The amount Gas in Liters
-     * @return The {@link GT_FluidStack} Gaseous state amount of this {@link Materials}
+     * @return The {@link GT_FluidStack} Gaseous state amount of the {@link Materials}
      */
     public FluidStack getGas(long aAmount) {
         if (mGas == null) return null;
@@ -2254,9 +2412,9 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets {@link GT_FluidStack} Plasma state amount of this {@link Materials}
+     * Gets {@link GT_FluidStack} Plasma state amount of the {@link Materials}
      * @param aAmount The amount Plasma in Liters
-     * @return The {@link GT_FluidStack} Plasma state amount of this {@link Materials}
+     * @return The {@link GT_FluidStack} Plasma state amount of the {@link Materials}
      */
     public FluidStack getPlasma(long aAmount) {
         if (mPlasma == null) return null;
@@ -2264,9 +2422,9 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets {@link GT_FluidStack} Molten state amount of this {@link Materials}
+     * Gets {@link GT_FluidStack} Molten state amount of the {@link Materials}
      * @param aAmount The amount Molten in Liters
-     * @return The {@link GT_FluidStack} Molten state amount of this {@link Materials}
+     * @return The {@link GT_FluidStack} Molten state amount of the {@link Materials}
      */
     public FluidStack getMolten(long aAmount) {
         if (mStandardMoltenFluid == null) return null;
@@ -2342,7 +2500,7 @@ public class Materials implements ISubTagContainer {
      * @return The {@link Materials}'s {@link TextureSet}
      */
     public TextureSet getTextureSet() {
-        return mIconSet;
+        return mTextureSet;
     }
 
     /**
@@ -2350,7 +2508,7 @@ public class Materials implements ISubTagContainer {
      * @param aTextureSet The {@link Materials}'s {@link TextureSet}
      */
     public void setTextureSet(TextureSet aTextureSet) {
-        mIconSet = aTextureSet;
+        mTextureSet = aTextureSet;
     }
 
     /**
@@ -2386,16 +2544,16 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Materials} this {@link Materials} is unifiable into
-     * @return The {@link Materials} this is unifiable into
+     * Gets the {@link Materials} the {@link Materials} to unify into
+     * @return The {@link Materials} to unify into
      */
     public Materials getMaterialInto() {
         return mMaterialInto;
     }
 
     /**
-     * Sets the {@link Materials} this {@link Materials} is unifiable into
-     * @param aMaterialInto The {@link Materials} this is unifiable into
+     * Sets the {@link Materials} the {@link Materials} to unify into
+     * @param aMaterialInto The {@link Materials} to unify into
      */
     public void setMaterialInto(Materials aMaterialInto) {
         mMaterialInto = aMaterialInto;
@@ -2474,16 +2632,16 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the Speed of Tools made of this {@link Materials}
-      * @return The Speed of Tools made of this {@link Materials}
+     * Gets the Speed of Tools made of the {@link Materials}
+      * @return The Speed of Tools made of the {@link Materials}
      */
     public float getToolSpeed() {
         return mToolSpeed;
     }
 
     /**
-     * Sets the Speed of Tools made of this {@link Materials}
-     * @param aToolSpeed The Speed of Tools made of this {@link Materials}
+     * Sets the Speed of Tools made of the {@link Materials}
+     * @param aToolSpeed The Speed of Tools made of the {@link Materials}
      */
     public void setToolSpeed(float aToolSpeed) {
         this.mToolSpeed = aToolSpeed;
@@ -2666,16 +2824,16 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the Handle's {@link Materials} for tools made of this {@link Materials}
-     * @return The Handle's {@link Materials} for tools made of this {@link Materials}
+     * Gets the Handle's {@link Materials} for tools made of the {@link Materials}
+     * @return The Handle's {@link Materials} for tools made of the {@link Materials}
      */
     public Materials getHandleMaterial() {
         return mHandleMaterial;
     }
 
     /**
-     * Sets the Handle's {@link Materials} for tools made of this {@link Materials}
-     * @param aHandleMaterial The Handle's {@link Materials} for tools made of this {@link Materials}
+     * Sets the Handle's {@link Materials} for tools made of the {@link Materials}
+     * @param aHandleMaterial The Handle's {@link Materials} for tools made of the {@link Materials}
      */
     public void setHandleMaterial(Materials aHandleMaterial) {
         this.mHandleMaterial = aHandleMaterial;
@@ -2698,80 +2856,80 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Fluid} from the Solid state of this {@link Materials}
-     * @return The {@link Fluid} from the Solid state of this {@link Materials}
+     * Gets the {@link Fluid} from the Solid state of the {@link Materials}
+     * @return The {@link Fluid} from the Solid state of the {@link Materials}
      */
     public Fluid getSolid() {
         return mSolid;
     }
 
     /**
-     * Sets the {@link Fluid} from the Solid state of this {@link Materials}
-     * @param aFluid {@link Fluid} from the Solid state of this {@link Materials}
+     * Sets the {@link Fluid} from the Solid state of the {@link Materials}
+     * @param aFluid {@link Fluid} from the Solid state of the {@link Materials}
      */
     public void setSolid(Fluid aFluid) {
         this.mSolid = aFluid;
     }
 
     /**
-     * Gets the {@link Fluid} of this {@link Materials}
-     * @return The {@link Fluid} of this {@link Materials}
+     * Gets the {@link Fluid} of the {@link Materials}
+     * @return The {@link Fluid} of the {@link Materials}
      */
     public Fluid getFluid() {
         return mFluid;
     }
 
     /**
-     * Sets the {@link Fluid} of this {@link Materials}
-     * @param aFluid The {@link Fluid} of this {@link Materials}
+     * Sets the {@link Fluid} of the {@link Materials}
+     * @param aFluid The {@link Fluid} of the {@link Materials}
      */
     public void setFluid(Fluid aFluid) {
         this.mFluid = aFluid;
     }
 
     /**
-     * Gets the Gas {@link Fluid} of this {@link Materials}
-     * @return The Gas {@link Fluid} of this {@link Materials}
+     * Gets the Gas {@link Fluid} of the {@link Materials}
+     * @return The Gas {@link Fluid} of the {@link Materials}
      */
     public Fluid getGas() {
         return mGas;
     }
 
     /**
-     * Sets the Gas {@link Fluid} of this {@link Materials}
-     * @param aFluid The Gas {@link Fluid} of this {@link Materials}
+     * Sets the Gas {@link Fluid} of the {@link Materials}
+     * @param aFluid The Gas {@link Fluid} of the {@link Materials}
      */
     public void setGas(Fluid aFluid) {
         this.mGas = aFluid;
     }
 
     /**
-     * Gets the Plasma {@link Fluid} of this {@link Materials}
-     * @return The Plasma {@link Fluid} of this {@link Materials}
+     * Gets the Plasma {@link Fluid} of the {@link Materials}
+     * @return The Plasma {@link Fluid} of the {@link Materials}
      */
     public Fluid getPlasma() {
         return mPlasma;
     }
 
     /**
-     * Sets the Plasma {@link Fluid} of this {@link Materials}
-     * @param aFluid The Plasma {@link Fluid} of this {@link Materials}
+     * Sets the Plasma {@link Fluid} of the {@link Materials}
+     * @param aFluid The Plasma {@link Fluid} of the {@link Materials}
      */
     public void setPlasma(Fluid aFluid) {
         this.mPlasma = aFluid;
     }
 
     /**
-     * Gets the Standard Molten {@link Fluid} of this {@link Materials}
-     * @return The Standard Molten {@link Fluid} of this {@link Materials}
+     * Gets the Standard Molten {@link Fluid} of the {@link Materials}
+     * @return The Standard Molten {@link Fluid} of the {@link Materials}
      */
     public Fluid getStandardMoltenFluid() {
         return mStandardMoltenFluid;
     }
 
     /**
-     * Sets the Standard Molten {@link Fluid} of this {@link Materials}
-     * @param aFluid The Standard Molten {@link Fluid} of this {@link Materials}
+     * Sets the Standard Molten {@link Fluid} of the {@link Materials}
+     * @param aFluid The Standard Molten {@link Fluid} of the {@link Materials}
      */
     public void setStandardMoltenFluid(Fluid aFluid) {
         this.mStandardMoltenFluid = aFluid;

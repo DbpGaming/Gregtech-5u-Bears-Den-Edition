@@ -39,7 +39,7 @@ public class ProcessingBlock implements gregtech.api.interfaces.IOreRecipeRegist
 		if (tStack3 != null) {
 			GT_ModHandler.removeRecipe(tStack3, tStack3, tStack3, tStack3, tStack3, tStack3, tStack3, tStack3, tStack3);
 		}
-		if (aMaterial.mStandardMoltenFluid != null) {
+		if (aMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Block.get(0L), aMaterial.getMolten(1296L), GT_OreDictUnificator.get(OrePrefixes.block, aMaterial, 1L), 288, 8);
 		}
 		if (GregTech_API.sRecipeFile.get(ConfigCategories.Recipes.storageblockcrafting, OrePrefixes.block.get(aMaterial).toString(), false)) {

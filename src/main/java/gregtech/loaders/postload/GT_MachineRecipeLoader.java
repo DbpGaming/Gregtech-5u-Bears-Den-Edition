@@ -171,39 +171,39 @@ implements Runnable {
 		RECIPE_ADDER_INSTANCE.addFluidCannerRecipe(ItemList.TF_Vial_FieryTears.get(1L), ItemList.Bottle_Empty.get(1L), NULL_FLUID_STACK, Materials.FierySteel.getFluid(250L));
 
 		Materials tMaterial = Materials.Iron;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Iron.get(1L), 16, 8);
 		}
 		tMaterial = Materials.WroughtIron;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Iron.get(1L), 16, 8);
 		}
 		tMaterial = Materials.Gold;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Gold.get(1L), 16, 8);
 		}
 		tMaterial = Materials.Bronze;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Bronze.get(1L), 16, 8);
 		}
 		tMaterial = Materials.Copper;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Copper.get(1L), 16, 8);
 		}
 		tMaterial = Materials.AnnealedCopper;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Copper.get(1L), 16, 8);
 		}
 		tMaterial = Materials.Tin;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Tin.get(1L), 16, 8);
 		}
 		tMaterial = Materials.Lead;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Lead.get(1L), 16, 8);
 		}
 		tMaterial = Materials.Steel;
-		if (tMaterial.mStandardMoltenFluid != null) {
+		if (tMaterial.getStandardMoltenFluid() != null) {
 			RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Casing.get(0L), tMaterial.getMolten(72L), ItemList.IC2_Item_Casing_Steel.get(1L), 16, 8);
 		}
 		RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Ball.get(0L), Materials.Mercury.getFluid(1000L), GT_OreDictUnificator.get(OrePrefixes.gem, Materials.Mercury, 1L), 128, 4);
@@ -368,7 +368,7 @@ implements Runnable {
 		RECIPE_ADDER_INSTANCE.addFormingPressRecipe(ItemList.Food_Dough_Sugar.get(4L), ItemList.Shape_Mold_Cylinder.get(0L), ItemList.Food_Raw_Cake.get(1L), 384, 4);
 		RECIPE_ADDER_INSTANCE.addFormingPressRecipe(new ItemStack(Blocks.glass, 1, OreDictionary.WILDCARD_VALUE), ItemList.Shape_Mold_Arrow.get(0L), ItemList.Arrow_Head_Glass_Emtpy.get(1L), 64, 4);
 		for (Materials tMat : Materials.VALUES) {
-			if ((tMat.mStandardMoltenFluid != null) && (tMat.contains(SubTag.SOLDERING_MATERIAL))) {
+			if ((tMat.getStandardMoltenFluid() != null) && (tMat.contains(SubTag.SOLDERING_MATERIAL))) {
 				int tMultiplier;
 				tMultiplier = tMat.contains(SubTag.SOLDERING_MATERIAL_GOOD) ? 1 : tMat.contains(SubTag.SOLDERING_MATERIAL_BAD) ? 4 : 2;
 

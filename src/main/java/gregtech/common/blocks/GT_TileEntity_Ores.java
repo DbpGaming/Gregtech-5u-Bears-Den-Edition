@@ -77,7 +77,7 @@ public class GT_TileEntity_Ores
     public static byte getHarvestData(short aMetaData)
     {
         Materials aMaterial = GregTech_API.sGeneratedMaterials[(aMetaData % 1000)];
-        return aMaterial == null ? 0 : (byte)Math.max((aMetaData % 16000 / 1000 == 3) || (aMetaData % 16000 / 1000 == 4) ? 3 : 0, Math.min(7, aMaterial.mToolQuality - (aMetaData < 16000 ? 0 : 1)));
+        return aMaterial == null ? 0 : (byte)Math.max((aMetaData % 16000 / 1000 == 3) || (aMetaData % 16000 / 1000 == 4) ? 3 : 0, Math.min(7, aMaterial.getToolQuality() - (aMetaData < 16000 ? 0 : 1)));
     }
 
     public void overrideOreBlockMaterial(Block aOverridingStoneBlock, byte aOverridingStoneMeta) {
