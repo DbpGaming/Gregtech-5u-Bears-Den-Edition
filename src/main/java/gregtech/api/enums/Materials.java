@@ -6,8 +6,6 @@ import gregtech.api.objects.IColorModulationContainer;
 import gregtech.api.interfaces.ISubTagContainer;
 import gregtech.api.objects.GT_FluidStack;
 import gregtech.api.objects.MaterialStack;
-import gregtech.api.objects.MaterialStack;
-import gregtech.api.util.GT_Config;
 import gregtech.api.util.GT_Utility;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
@@ -15,15 +13,12 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import gregtech.api.enums.TC_Aspects.TC_AspectStack;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 import static gregtech.api.enums.GT_Values.MATERIAL_UNIT;
@@ -759,39 +754,39 @@ public class Materials implements ISubTagContainer {
     private boolean mUnificatable;
     private Materials mMaterialInto;
     private List<MaterialStack> mMaterialList = new ArrayList<>();
-    public List<Materials> mOreByProducts = new ArrayList<>();
-    public List<Materials> mOreReRegistrations = new ArrayList<>();
-    public List<TC_Aspects.TC_AspectStack> mAspects = new ArrayList<>();
+    private List<Materials> mOreByProducts = new ArrayList<>();
+    private List<Materials> mOreReRegistrations = new ArrayList<>();
+    private List<TC_Aspects.TC_AspectStack> mAspects = new ArrayList<>();
     private List<ItemStack> mMaterialItems = new ArrayList<>();
     private Collection<SubTag> mSubTags = new HashSet<>();
-    public Enchantment mEnchantmentTools = null;
-    public Enchantment mEnchantmentArmors = null;
-    public byte mEnchantmentToolsLevel = 0;
-    public byte mEnchantmentArmorsLevel = 0;
-    public boolean mBlastFurnaceRequired = false;
-    public float mToolSpeed = 1.0F;
-    public float mHeatDamage = 0.0F;
-    public String mChemicalFormula = "?";
+    private Enchantment mEnchantmentTools = null;
+    private Enchantment mEnchantmentArmors = null;
+    private byte mEnchantmentToolsLevel = 0;
+    private byte mEnchantmentArmorsLevel = 0;
+    private boolean mBlastFurnaceRequired = false;
+    private float mToolSpeed = 1.0F;
+    private float mHeatDamage = 0.0F;
+    private String mChemicalFormula = "?";
     private String mName = "null";
-    public String mDefaultLocalName = "null";
-    public Dyes mColor = Dyes._NULL;
-    public short mMeltingPoint = 0;
-    public short mBlastFurnaceTemp = 0;
-    public int mTypes = 0;
-    public int mDurability = 16;
-    public int mFuelPower = 0;
-    public int mFuelType = 0;
-    public int mExtraData = 0;
-    public int mOreValue = 0;
-    public int mOreMultiplier = 1;
-    public int mByProductMultiplier = 1;
-    public int mSmeltingMultiplier = 1;
+    private String mDefaultLocalName = "null";
+    private Dyes mColor = Dyes._NULL;
+    private short mMeltingPoint = 0;
+    private short mBlastFurnaceTemp = 0;
+    private int mTypes = 0;
+    private int mDurability = 16;
+    private int mFuelPower = 0;
+    private int mFuelType = 0;
+    private int mExtraData = 0;
+    private int mOreValue = 0;
+    private int mOreMultiplier = 1;
+    private int mByProductMultiplier = 1;
+    private int mSmeltingMultiplier = 1;
     private long mDensity = MATERIAL_UNIT;
-    public Element mElement = null;
-    public Materials mDirectSmelting = this;
-    public Materials mOreReplacement = this;
-    public Materials mMacerateInto = this;
-    public Materials mSmeltInto = this;
+    private Element mElement = null;
+    private Materials mDirectSmelting = this;
+    private Materials mOreReplacement = this;
+    private Materials mMacerateInto = this;
+    private Materials mSmeltInto = this;
     public Materials mArcSmeltInto = this;
     public Materials mHandleMaterial = this;
     public byte mToolQuality = 0;
@@ -1747,7 +1742,7 @@ public class Materials implements ISubTagContainer {
      */
     public boolean isRadioactive() {
         if (mElement != null) return mElement.mHalfLifeSeconds >= 0;
-        for (MaterialStack tMaterial : getMaterialList()) {
+        for (MaterialStack tMaterial : getMaterialStackList()) {
             if (tMaterial.mMaterial.isRadioactive()) return true;
         }
         return false;
@@ -1975,7 +1970,7 @@ public class Materials implements ISubTagContainer {
      * @return The updated {@link Materials} with added byproducts
      */
     public Materials addOreByProduct(Materials aMaterial) {
-        if (!mOreByProducts.contains(aMaterial.mMaterialInto)) mOreByProducts.add(aMaterial.mMaterialInto);
+        if (!getOreByProducts().contains(aMaterial.mMaterialInto)) getOreByProducts().add(aMaterial.mMaterialInto);
         return this;
     }
 
@@ -2410,7 +2405,7 @@ public class Materials implements ISubTagContainer {
      * Gets the {@link MaterialStack} list
      * @return The {@link MaterialStack} list
      */
-    public List<MaterialStack> getMaterialList() {
+    public List<MaterialStack> getMaterialStackList() {
         return mMaterialList;
     }
 

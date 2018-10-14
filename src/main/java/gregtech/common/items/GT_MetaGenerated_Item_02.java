@@ -428,14 +428,14 @@ public class GT_MetaGenerated_Item_02
     public boolean isItemStackUsable(ItemStack aStack) {
         int aDamage = aStack.getItemDamage();
         Materials aMaterial = GregTech_API.sGeneratedMaterials[(aDamage % 1000)];
-        if ((aDamage >= 25000) && (aDamage < 27000) && (aMaterial != null) && (aMaterial.mEnchantmentTools != null)) {
-            Enchantment tEnchant = aMaterial.mEnchantmentTools == Enchantment.fortune ? Enchantment.looting : aMaterial.mEnchantmentTools;
+        if ((aDamage >= 25000) && (aDamage < 27000) && (aMaterial != null) && (aMaterial.getEnchantmentForTools() != null)) {
+            Enchantment tEnchant = aMaterial.getEnchantmentForTools() == Enchantment.fortune ? Enchantment.looting : aMaterial.getEnchantmentForTools();
             if (tEnchant.type == EnumEnchantmentType.weapon) {
                 NBTTagCompound tNBT = GT_Utility.ItemNBT.getNBT(aStack);
                 if (!tNBT.getBoolean("GT.HasBeenUpdated")) {
                     tNBT.setBoolean("GT.HasBeenUpdated", true);
                     GT_Utility.ItemNBT.setNBT(aStack, tNBT);
-                    GT_Utility.ItemNBT.addEnchantment(aStack, tEnchant, aMaterial.mEnchantmentToolsLevel);
+                    GT_Utility.ItemNBT.addEnchantment(aStack, tEnchant, aMaterial.getEnchantmentLevelForTools());
                 }
             }
         }

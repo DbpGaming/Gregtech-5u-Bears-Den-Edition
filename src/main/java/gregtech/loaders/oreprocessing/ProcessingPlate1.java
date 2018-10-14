@@ -83,8 +83,8 @@ public class ProcessingPlate1 implements gregtech.api.interfaces.IOreRecipeRegis
                 GregTech_API.registerCover(aStack, new GT_RenderedTexture(aMaterial.getTextureSet().mTextures[71], aMaterial.getRGBa(), false), null);
         }
 
-        if (aMaterial.mFuelPower > 0)
-            RECIPE_ADDER_INSTANCE.addFuel(GT_Utility.copyAmount(1L, aStack), null, aMaterial.mFuelPower, aMaterial.mFuelType);
+        if (aMaterial.getFuelPower() > 0)
+            RECIPE_ADDER_INSTANCE.addFuel(GT_Utility.copyAmount(1L, aStack), null, aMaterial.getFuelPower(), aMaterial.getFuelType());
         GT_Utility.removeSimpleIC2MachineRecipe(GT_Utility.copyAmount(9L, aStack), GT_ModHandler.getCompressorRecipeList(), GT_OreDictUnificator.get(OrePrefixes.plateDense, aMaterial, 1L));
         RECIPE_ADDER_INSTANCE.addImplosionRecipe(GT_Utility.copyAmount(2L, aStack), 2, GT_OreDictUnificator.get(OrePrefixes.compressed, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustTiny, Materials.DarkAsh, 1L));
         if (!aMaterial.contains(gregtech.api.enums.SubTag.NO_WORKING)) {

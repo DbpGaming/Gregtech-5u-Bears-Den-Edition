@@ -20,24 +20,24 @@ public class ProcessingOreSmelting implements gregtech.api.interfaces.IOreRecipe
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
         GT_ModHandler.removeFurnaceSmelting(aStack);
         if (!aMaterial.contains(SubTag.NO_SMELTING)) {
-            if ((aMaterial.mBlastFurnaceRequired) || (aMaterial.mDirectSmelting.mBlastFurnaceRequired)) {
-                RECIPE_ADDER_INSTANCE.addBlastRecipe(GT_Utility.copyAmount(1L, aStack), null, null, null, aMaterial.mBlastFurnaceTemp > 1750 ? GT_OreDictUnificator.get(OrePrefixes.ingotHot, aMaterial, GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), 1L) : GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), null, (int) Math.max(aMaterial.getMass() / 4L, 1L) * aMaterial.mBlastFurnaceTemp, 120, aMaterial.mBlastFurnaceTemp);
-                if (aMaterial.mBlastFurnaceTemp <= 1000)
-                    GT_ModHandler.addRCBlastFurnaceRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), aMaterial.mBlastFurnaceTemp * 2);
+            if ((aMaterial.isBlastFurnaceRequired()) || (aMaterial.getDirectSmelting().isBlastFurnaceRequired())) {
+                RECIPE_ADDER_INSTANCE.addBlastRecipe(GT_Utility.copyAmount(1L, aStack), null, null, null, aMaterial.getBlastFurnaceTemp() > 1750 ? GT_OreDictUnificator.get(OrePrefixes.ingotHot, aMaterial, GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), 1L) : GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), null, (int) Math.max(aMaterial.getMass() / 4L, 1L) * aMaterial.getBlastFurnaceTemp(), 120, aMaterial.getBlastFurnaceTemp());
+                if (aMaterial.getBlastFurnaceTemp() <= 1000)
+                    GT_ModHandler.addRCBlastFurnaceRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), aMaterial.getBlastFurnaceTemp() * 2);
             } else {
                 switch (aPrefix) {
                     case crushed:
                     case crushedPurified:
                     case crushedCentrifuged:
-                        ItemStack tStack = GT_OreDictUnificator.get(OrePrefixes.nugget, aMaterial.mDirectSmelting, aMaterial.mDirectSmelting == aMaterial ? 10L : 3L);
+                        ItemStack tStack = GT_OreDictUnificator.get(OrePrefixes.nugget, aMaterial.getDirectSmelting(), aMaterial.getDirectSmelting() == aMaterial ? 10L : 3L);
                         if (tStack == null)
-                            tStack = GT_OreDictUnificator.get(aMaterial.contains(SubTag.SMELTING_TO_GEM) ? OrePrefixes.gem : OrePrefixes.ingot, aMaterial.mDirectSmelting, 1L);
+                            tStack = GT_OreDictUnificator.get(aMaterial.contains(SubTag.SMELTING_TO_GEM) ? OrePrefixes.gem : OrePrefixes.ingot, aMaterial.getDirectSmelting(), 1L);
                         if ((tStack == null) && (!aMaterial.contains(SubTag.SMELTING_TO_GEM)))
-                            tStack = GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.mDirectSmelting, 1L);
+                            tStack = GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.getDirectSmelting(), 1L);
                         GT_ModHandler.addSmeltingRecipe(aStack, tStack);
                         break;
                     default:
-                        GT_ModHandler.addSmeltingRecipe(aStack, GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.mDirectSmelting, 1L));
+                        GT_ModHandler.addSmeltingRecipe(aStack, GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.getDirectSmelting(), 1L));
                 }
             }
         }

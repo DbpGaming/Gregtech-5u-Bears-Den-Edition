@@ -18,19 +18,19 @@ public class ProcessingDustTiny implements gregtech.api.interfaces.IOreRecipeReg
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
         RECIPE_ADDER_INSTANCE.addBoxingRecipe(GT_Utility.copyAmount(9L, aStack), ItemList.Schematic_Dust.get(0L), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), 100, 4);
-        if (!aMaterial.mBlastFurnaceRequired) {
+        if (!aMaterial.isBlastFurnaceRequired()) {
             GT_RecipeRegistrator.registerReverseFluidSmelting(aStack, aMaterial, aPrefix.mMaterialAmount, null);
-            if (aMaterial.mSmeltInto.mArcSmeltInto != aMaterial) {
+            if (aMaterial.getSmeltingInto().mArcSmeltInto != aMaterial) {
                 GT_RecipeRegistrator.registerReverseArcSmelting(GT_Utility.copyAmount(1L, aStack), aMaterial, aPrefix.mMaterialAmount, null, null, null);
             }
         }
         if (!aMaterial.contains(gregtech.api.enums.SubTag.NO_SMELTING)) {
-            if (aMaterial.mBlastFurnaceRequired) {
-                RECIPE_ADDER_INSTANCE.addBlastRecipe(GT_Utility.copyAmount(9L, aStack), null, null, null, aMaterial.mBlastFurnaceTemp > 1750 ? GT_OreDictUnificator.get(OrePrefixes.ingotHot, aMaterial.mSmeltInto, GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.mSmeltInto, 1L), 1L) : GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.mSmeltInto, 1L), null, (int) Math.max(aMaterial.getMass() / 40L, 1L) * aMaterial.mBlastFurnaceTemp, 120, aMaterial.mBlastFurnaceTemp);
+            if (aMaterial.isBlastFurnaceRequired()) {
+                RECIPE_ADDER_INSTANCE.addBlastRecipe(GT_Utility.copyAmount(9L, aStack), null, null, null, aMaterial.getBlastFurnaceTemp() > 1750 ? GT_OreDictUnificator.get(OrePrefixes.ingotHot, aMaterial.getSmeltingInto(), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.getSmeltingInto(), 1L), 1L) : GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.getSmeltingInto(), 1L), null, (int) Math.max(aMaterial.getMass() / 40L, 1L) * aMaterial.getBlastFurnaceTemp(), 120, aMaterial.getBlastFurnaceTemp());
                 GT_ModHandler.removeFurnaceSmelting(aStack);
             } else {
-                GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, aMaterial.mSmeltInto, 1L));
-                GT_ModHandler.addAlloySmelterRecipe(GT_Utility.copyAmount(9L, aStack), ItemList.Shape_Mold_Ingot.get(0L), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.mSmeltInto, 1L), 130, 3, true);
+                GT_ModHandler.addSmeltingRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.nugget, aMaterial.getSmeltingInto(), 1L));
+                GT_ModHandler.addAlloySmelterRecipe(GT_Utility.copyAmount(9L, aStack), ItemList.Shape_Mold_Ingot.get(0L), GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial.getSmeltingInto(), 1L), 130, 3, true);
             }
         }
     }

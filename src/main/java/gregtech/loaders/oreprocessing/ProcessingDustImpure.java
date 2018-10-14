@@ -18,7 +18,7 @@ public class ProcessingDustImpure implements gregtech.api.interfaces.IOreRecipeR
     }
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
-        Materials tByProduct = GT_Utility.selectItemInList(aPrefix == OrePrefixes.dustRefined ? 2 : aPrefix == OrePrefixes.dustPure ? 1 : 0, aMaterial, aMaterial.mOreByProducts);
+        Materials tByProduct = GT_Utility.selectItemInList(aPrefix == OrePrefixes.dustRefined ? 2 : aPrefix == OrePrefixes.dustPure ? 1 : 0, aMaterial, aMaterial.getOreByProducts());
 
         if (aPrefix == OrePrefixes.dustPure) {
             if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD))

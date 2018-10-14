@@ -1211,16 +1211,16 @@ public class GT_Utility {
 
     public static float getHeatDamageFromItem(ItemStack aStack) {
         ItemData tData = GT_OreDictUnificator.getItemData(aStack);
-        return tData == null ? 0 : (tData.mPrefix == null ? 0 : tData.mPrefix.mHeatDamage) + (tData.hasValidMaterialData() ? tData.mMaterial.mMaterial.mHeatDamage : 0);
+        return tData == null ? 0 : (tData.mPrefix == null ? 0 : tData.mPrefix.mHeatDamage) + (tData.hasValidMaterialData() ? tData.mMaterial.mMaterial.getHeatDamage() : 0);
     }
 
     public static int getRadioactivityLevel(ItemStack aStack) {
         ItemData tData = GT_OreDictUnificator.getItemData(aStack);
         if (tData != null && tData.hasValidMaterialData()) {
-            if (tData.mMaterial.mMaterial.mEnchantmentArmors instanceof Enchantment_Radioactivity)
-                return tData.mMaterial.mMaterial.mEnchantmentArmorsLevel;
-            if (tData.mMaterial.mMaterial.mEnchantmentTools instanceof Enchantment_Radioactivity)
-                return tData.mMaterial.mMaterial.mEnchantmentToolsLevel;
+            if (tData.mMaterial.mMaterial.getEnchantmentForArmors() instanceof Enchantment_Radioactivity)
+                return tData.mMaterial.mMaterial.getEnchantmentLevelForArmors();
+            if (tData.mMaterial.mMaterial.getEnchantmentForTools() instanceof Enchantment_Radioactivity)
+                return tData.mMaterial.mMaterial.getEnchantmentLevelForTools();
         }
         return EnchantmentHelper.getEnchantmentLevel(Enchantment_Radioactivity.INSTANCE.effectId, aStack);
     }

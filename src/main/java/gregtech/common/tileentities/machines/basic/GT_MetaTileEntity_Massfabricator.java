@@ -40,7 +40,7 @@ public class GT_MetaTileEntity_Massfabricator
         sUUAperUUM = aConfig.get(ConfigCategories.machineconfig, "Massfabricator.UUA_per_UUM", sUUAperUUM);
         sUUASpeedBonus = aConfig.get(ConfigCategories.machineconfig, "Massfabricator.UUA_Speed_Bonus", sUUASpeedBonus);
         sRequiresUUA = aConfig.get(ConfigCategories.machineconfig, "Massfabricator.UUA_Requirement", sRequiresUUA);
-        Materials.UUAmplifier.mChemicalFormula = ("Mass Fabricator Eff/Speed Bonus: x" + sUUASpeedBonus);
+        Materials.UUAmplifier.setToolTip("Mass Fabricator Eff/Speed Bonus: x" + sUUASpeedBonus);
     }
 
     public int checkRecipe() {

@@ -60,7 +60,7 @@ public class GT_Block_Ores
                 GT_LanguageManager.addStringLocalization(getUnlocalizedName() + "." + (i + 20000) + ".name", "Small " + getLocalizedName(GregTech_API.sGeneratedMaterials[i]));
                 GT_LanguageManager.addStringLocalization(getUnlocalizedName() + "." + (i + 21000) + ".name", "Small " + getLocalizedName(GregTech_API.sGeneratedMaterials[i]));
                 GT_LanguageManager.addStringLocalization(getUnlocalizedName() + "." + (i + 22000) + ".name", "Small " + getLocalizedName(GregTech_API.sGeneratedMaterials[i]));
-                if ((GregTech_API.sGeneratedMaterials[i].mTypes & 0x8) != 0) {
+                if ((GregTech_API.sGeneratedMaterials[i].getTypes() & 0x8) != 0) {
                     GT_OreDictUnificator.registerOre(OrePrefixes.ore.get(GregTech_API.sGeneratedMaterials[i]), new ItemStack(this, 1, i));
                     GT_OreDictUnificator.registerOre(OrePrefixes.oreNetherrack.get(GregTech_API.sGeneratedMaterials[i]), new ItemStack(this, 1, i + 1000));
                     GT_OreDictUnificator.registerOre(OrePrefixes.oreEndstone.get(GregTech_API.sGeneratedMaterials[i]), new ItemStack(this, 1, i + 2000));
@@ -120,7 +120,7 @@ public class GT_Block_Ores
             case "InfusedOrder":
             case "InfusedVis":
             case "InfusedWater":
-                return aMaterial.mDefaultLocalName + " Infused Stone";
+                return aMaterial.getDefaultLocalName() + " Infused Stone";
             case "Vermiculite":
             case "Bentonite":
             case "Kaolinite":
@@ -133,9 +133,9 @@ public class GT_Block_Ores
             case "QuartzSand":
             case "Pitchblende":
             case "FullersEarth":
-                return aMaterial.mDefaultLocalName;
+                return aMaterial.getDefaultLocalName();
             default:
-                return aMaterial.mDefaultLocalName + OrePrefixes.ore.mLocalizedMaterialPost;
+                return aMaterial.getDefaultLocalName() + OrePrefixes.ore.mLocalizedMaterialPost;
         }
 
     }
@@ -254,7 +254,7 @@ public class GT_Block_Ores
     public void getSubBlocks(Item aItem, CreativeTabs aTab, List aList) {
         for (int i = 0; i < GregTech_API.sGeneratedMaterials.length; i++) {
             Materials tMaterial = GregTech_API.sGeneratedMaterials[i];
-            if ((tMaterial != null) && ((tMaterial.mTypes & 0x8) != 0)) {
+            if ((tMaterial != null) && ((tMaterial.getTypes() & 0x8) != 0)) {
                 aList.add(new ItemStack(aItem, 1, i));
                 aList.add(new ItemStack(aItem, 1, i + 1000));
                 aList.add(new ItemStack(aItem, 1, i + 2000));

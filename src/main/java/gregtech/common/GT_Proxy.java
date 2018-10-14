@@ -702,25 +702,25 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 									GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.ingot, aMaterial, 1L), tBits, new Object[]{"XXX", "XXX", "XXX",
                                             'X', OrePrefixes.nugget.get(aMaterial)});
 								}
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.crushedCentrifuged.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.crystalline.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.crystal.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustPure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.crushedPurified.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustPure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.cleanGravel.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustPure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustPure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.reduced.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.clump.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.shard.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.crushed.get(aMaterial)});
-								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.mMacerateInto, 1L), tBits, new Object[]{"h", "X",
+								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustImpure, aMaterial.getMaceratingInto(), 1L), tBits, new Object[]{"h", "X",
                                         'X', OrePrefixes.dirtyGravel.get(aMaterial)});
 
 								GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.dustSmall, aMaterial, 4L), tBits,
@@ -1163,7 +1163,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 							}
 							if (aMaterial != Materials._NULL) {
 								Materials tReRegisteredMaterial;
-								for (Iterator i$ = aMaterial.mOreReRegistrations.iterator(); i$.hasNext(); GT_OreDictUnificator.registerOre(aPrefix,
+								for (Iterator i$ = aMaterial.getOreReRegistrations().iterator(); i$.hasNext(); GT_OreDictUnificator.registerOre(aPrefix,
 										tReRegisteredMaterial, aEvent.Ore)) {
 									tReRegisteredMaterial = (Materials) i$.next();
 								}
@@ -1176,7 +1176,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 										tAspect = (TC_Aspects.TC_AspectStack) i$.next();
 									}
 									tAspect = null;
-									for (Iterator i$ = aMaterial.mAspects.iterator(); i$.hasNext(); tAspect.copy(tAspect.mAmount * tAmount / MATERIAL_UNIT)
+									for (Iterator i$ = aMaterial.getAspects().iterator(); i$.hasNext(); tAspect.copy(tAspect.mAmount * tAmount / MATERIAL_UNIT)
 											.addToAspectList(tAspects)) {
 										tAspect = (TC_Aspects.TC_AspectStack) i$.next();
 									}
@@ -1236,8 +1236,8 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 									}
 									break;
 								case lens:
-									if ((aMaterial.contains(SubTag.TRANSPARENT)) && (aMaterial.mColor != Dyes._NULL)) {
-										GT_OreDictUnificator.registerOre("craftingLens" + aMaterial.mColor.toString().replaceFirst("dye", EMPTY_STRING), aEvent.Ore);
+									if ((aMaterial.contains(SubTag.TRANSPARENT)) && (aMaterial.getDye() != Dyes._NULL)) {
+										GT_OreDictUnificator.registerOre("craftingLens" + aMaterial.getDye().toString().replaceFirst("dye", EMPTY_STRING), aEvent.Ore);
 									}
 									break;
 								case plate:
@@ -1720,12 +1720,12 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 	}
 
 	public Fluid addAutogeneratedMoltenFluid(Materials aMaterial) {
-		return addFluid("molten." + aMaterial.name().toLowerCase(), "molten.autogenerated", "Molten " + aMaterial.mDefaultLocalName, aMaterial,
-				aMaterial.getMoltenRGBa(), 4, aMaterial.mMeltingPoint <= 0 ? 1000 : aMaterial.mMeltingPoint, null, null, 0);
+		return addFluid("molten." + aMaterial.name().toLowerCase(), "molten.autogenerated", "Molten " + aMaterial.getDefaultLocalName(), aMaterial,
+				aMaterial.getMoltenRGBa(), 4, aMaterial.getMeltingPoint() <= 0 ? 1000 : aMaterial.getMeltingPoint(), null, null, 0);
 	}
 
 	public Fluid addAutogeneratedPlasmaFluid(Materials aMaterial) {
-		return addFluid("plasma." + aMaterial.name().toLowerCase(), "plasma.autogenerated", aMaterial.mDefaultLocalName + " Plasma", aMaterial,
+		return addFluid("plasma." + aMaterial.name().toLowerCase(), "plasma.autogenerated", aMaterial.getDefaultLocalName() + " Plasma", aMaterial,
 				aMaterial.getMoltenRGBa(), 3, 10000, GT_OreDictUnificator.get(OrePrefixes.cellPlasma, aMaterial, 1L), ItemList.Cell_Empty.get(1L),
 				1000);
 	}

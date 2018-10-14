@@ -26,6 +26,6 @@ public class GT_FuelLoader
         RECIPE_ADDER_INSTANCE.addFuel(GT_ModHandler.getModItem(MOD_ID_TC, "ItemResource", 1L, 4), null, 4, 5);
         RECIPE_ADDER_INSTANCE.addFuel(new ItemStack(Items.experience_bottle, 1), null, 10, 5);
         RECIPE_ADDER_INSTANCE.addFuel(new ItemStack(Items.ghast_tear, 1), null, 50, 5);
-        RECIPE_ADDER_INSTANCE.addFuel(new ItemStack(Blocks.beacon, 1), null, Materials.NetherStar.mFuelPower * 2, Materials.NetherStar.mFuelType);
+        RECIPE_ADDER_INSTANCE.addFuel(new ItemStack(Blocks.beacon, 1), null, Materials.NetherStar.getFuelPower() * 2, Materials.NetherStar.getFuelType());
     }
 }

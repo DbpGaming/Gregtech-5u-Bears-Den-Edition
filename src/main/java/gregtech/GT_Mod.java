@@ -719,10 +719,10 @@ implements IGT_Mod {
 				GT_Recipe.GT_Recipe_Map.sScannerFakeRecipes.addFakeRecipe(false, new ItemStack[]{ItemList.Tool_DataOrb.getWithName(1L, "Orb to overwrite")}, new ItemStack[]{ItemList.Tool_DataOrb.getWithName(1L, "Copy of the Orb")}, ItemList.Tool_DataOrb.getWithName(0L, "Orb to copy"), null, null, 512, 32, 0);
 				GT_Recipe.GT_Recipe_Map.sScannerFakeRecipes.addFakeRecipe(false, new ItemStack[]{ItemList.Tool_DataStick.getWithName(1L, "Stick to overwrite")}, new ItemStack[]{ItemList.Tool_DataStick.getWithName(1L, "Copy of the Stick")}, ItemList.Tool_DataStick.getWithName(0L, "Stick to copy"), null, null, 128, 32, 0);
 				for (Materials tMaterial : Materials.VALUES) {
-					if ((tMaterial.mElement != null) && (!tMaterial.mElement.mIsIsotope) && (tMaterial != Materials.Magic) && (tMaterial.getMass() > 0L)) {
+					if ((tMaterial.getElement() != null) && (!tMaterial.getElement().mIsIsotope) && (tMaterial != Materials.Magic) && (tMaterial.getMass() > 0L)) {
 						ItemStack tOutput = ItemList.Tool_DataOrb.get(1L);
 						Behaviour_DataOrb.setDataTitle(tOutput, "Elemental-Scan");
-						Behaviour_DataOrb.setDataName(tOutput, tMaterial.mElement.name());
+						Behaviour_DataOrb.setDataName(tOutput, tMaterial.getElement().name());
 						ItemStack tInput = GT_OreDictUnificator.get(OrePrefixes.dust, tMaterial, 1L);
 						if (tInput != null) {
 							GT_Recipe.GT_Recipe_Map.sScannerFakeRecipes.addFakeRecipe(false, new ItemStack[]{tInput}, new ItemStack[]{tOutput}, ItemList.Tool_DataOrb.get(1L), null, null, (int) (tMaterial.getMass() * 8192L), 32, 0);

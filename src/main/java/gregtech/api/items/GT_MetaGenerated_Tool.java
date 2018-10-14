@@ -187,7 +187,7 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
 			NBTTagCompound tMainNBT = new NBTTagCompound(), tToolNBT = new NBTTagCompound();
 			if (aPrimaryMaterial != null) {
 				tToolNBT.setString("PrimaryMaterial", aPrimaryMaterial.toString());
-				tToolNBT.setLong("MaxDamage", 100L * (long) (aPrimaryMaterial.mDurability * tToolStats.getMaxDurabilityMultiplier()));
+				tToolNBT.setLong("MaxDamage", 100L * (long) (aPrimaryMaterial.getDurability() * tToolStats.getMaxDurabilityMultiplier()));
 			}
 			if (aSecondaryMaterial != null) tToolNBT.setString("SecondaryMaterial", aSecondaryMaterial.toString());
 
@@ -307,17 +307,17 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
 			String name = aStack.getUnlocalizedName();
 			if (name.equals("gt.metatool.01.170") || name.equals("gt.metatool.01.172") || name.equals("gt.metatool.01.174") || name.equals("gt.metatool.01.176")) {
 				aList.add(tOffset + 0, EnumChatFormatting.WHITE + "Durability: " + EnumChatFormatting.GREEN + (tMaxDamage - getToolDamage(aStack)) + " / " + tMaxDamage + EnumChatFormatting.GRAY);
-				aList.add(tOffset + 1, EnumChatFormatting.WHITE + tMaterial.mDefaultLocalName + EnumChatFormatting.YELLOW + " lvl " + getHarvestLevel(aStack, EMPTY_STRING) + EnumChatFormatting.GRAY);
+				aList.add(tOffset + 1, EnumChatFormatting.WHITE + tMaterial.getDefaultLocalName() + EnumChatFormatting.YELLOW + " lvl " + getHarvestLevel(aStack, EMPTY_STRING) + EnumChatFormatting.GRAY);
 				aList.add(tOffset + 2, EnumChatFormatting.WHITE + "Turbine Efficency: " + EnumChatFormatting.BLUE + (50.0F + (10.0F * getToolCombatDamage(aStack))) + EnumChatFormatting.GRAY);
-				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Optimal Steam flow: " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed * 1000) + EnumChatFormatting.GRAY + "L/sec");
-				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Optimal Gas flow(EU burnvalue per tick): " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed * 25) + EnumChatFormatting.GRAY + "EU/t");
-				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Optimal Plasma flow(Plasma energyvalue per tick): " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed * 1000) + EnumChatFormatting.GRAY + "EU/t");
+				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Optimal Steam flow: " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).getToolSpeed() * 1000) + EnumChatFormatting.GRAY + "L/sec");
+				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Optimal Gas flow(EU burnvalue per tick): " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).getToolSpeed() * 25) + EnumChatFormatting.GRAY + "EU/t");
+				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Optimal Plasma flow(Plasma energyvalue per tick): " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).getToolSpeed() * 1000) + EnumChatFormatting.GRAY + "EU/t");
 
 			} else {
 				aList.add(tOffset + 0, EnumChatFormatting.WHITE + "Durability: " + EnumChatFormatting.GREEN + (tMaxDamage - getToolDamage(aStack)) + " / " + tMaxDamage + EnumChatFormatting.GRAY);
-				aList.add(tOffset + 1, EnumChatFormatting.WHITE + tMaterial.mDefaultLocalName + EnumChatFormatting.YELLOW + " lvl " + getHarvestLevel(aStack, EMPTY_STRING) + EnumChatFormatting.GRAY);
+				aList.add(tOffset + 1, EnumChatFormatting.WHITE + tMaterial.getDefaultLocalName() + EnumChatFormatting.YELLOW + " lvl " + getHarvestLevel(aStack, EMPTY_STRING) + EnumChatFormatting.GRAY);
 				aList.add(tOffset + 2, EnumChatFormatting.WHITE + "Attack Damage: " + EnumChatFormatting.BLUE + getToolCombatDamage(aStack) + EnumChatFormatting.GRAY);
-				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Mining Speed: " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed) + EnumChatFormatting.GRAY);
+				aList.add(tOffset + 3, EnumChatFormatting.WHITE + "Mining Speed: " + EnumChatFormatting.LIGHT_PURPLE + Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).getToolSpeed()) + EnumChatFormatting.GRAY);
 			}
 		}
 	}
@@ -387,7 +387,7 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
 		if (!isItemStackUsable(aStack)) return 0.0F;
 		IToolStats tStats = getToolStats(aStack);
 		if (tStats == null || Math.max(0, getHarvestLevel(aStack, EMPTY_STRING)) < aBlock.getHarvestLevel(aMetaData)) return 0.0F;
-		return tStats.isMinableBlock(aBlock, (byte) aMetaData) ? Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).mToolSpeed) : 0.0F;
+		return tStats.isMinableBlock(aBlock, (byte) aMetaData) ? Math.max(Float.MIN_NORMAL, tStats.getSpeedMultiplier() * getPrimaryMaterial(aStack).getToolSpeed()) : 0.0F;
 	}
 
 	@Override
@@ -558,14 +558,14 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
 		}
 		Materials aMaterial = getPrimaryMaterial(aStack);
 		HashMap<Integer, Integer> tMap = new HashMap<Integer, Integer>(), tResult = new HashMap<Integer, Integer>();
-		if (aMaterial.mEnchantmentTools != null) {
-			tMap.put(aMaterial.mEnchantmentTools.effectId, (int) aMaterial.mEnchantmentToolsLevel);
-			if (aMaterial.mEnchantmentTools == Enchantment.fortune)
-				tMap.put(Enchantment.looting.effectId, (int) aMaterial.mEnchantmentToolsLevel);
-			if (aMaterial.mEnchantmentTools == Enchantment.knockback)
-				tMap.put(Enchantment.power.effectId, (int) aMaterial.mEnchantmentToolsLevel);
-			if (aMaterial.mEnchantmentTools == Enchantment.fireAspect)
-				tMap.put(Enchantment.flame.effectId, (int) aMaterial.mEnchantmentToolsLevel);
+		if (aMaterial.getEnchantmentForTools() != null) {
+			tMap.put(aMaterial.getEnchantmentForTools().effectId, (int) aMaterial.getEnchantmentLevelForTools());
+			if (aMaterial.getEnchantmentForTools() == Enchantment.fortune)
+				tMap.put(Enchantment.looting.effectId, (int) aMaterial.getEnchantmentLevelForTools());
+			if (aMaterial.getEnchantmentForTools() == Enchantment.knockback)
+				tMap.put(Enchantment.power.effectId, (int) aMaterial.getEnchantmentLevelForTools());
+			if (aMaterial.getEnchantmentForTools() == Enchantment.fireAspect)
+				tMap.put(Enchantment.flame.effectId, (int) aMaterial.getEnchantmentLevelForTools());
 		}
 		Enchantment[] tEnchants = tStats.getEnchantments(aStack);
 		int[] tLevels = tStats.getEnchantmentLevels(aStack);
