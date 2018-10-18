@@ -2,7 +2,7 @@ package gregtech.api.enums;
 
 import cpw.mods.fml.common.Loader;
 import gregtech.api.GregTech_API;
-import gregtech.api.objects.IColorModulationContainer;
+import gregtech.api.objects.GT_Color;
 import gregtech.api.interfaces.ISubTagContainer;
 import gregtech.api.objects.GT_FluidStack;
 import gregtech.api.objects.MaterialStack;
@@ -1169,8 +1169,8 @@ public class Materials implements ISubTagContainer {
     }
 
     private int mMetaItemSubID;
-    private IColorModulationContainer mRGBa = new IColorModulationContainer(0x00ffffff);
-    private IColorModulationContainer mMoltenRGBa = new IColorModulationContainer(0x00ffffff);
+    private GT_Color mRGBa = new GT_Color(0x00ffffff);
+    private GT_Color mMoltenRGBa = new GT_Color(0x00ffffff);
     private TextureSet mTextureSet;
     private boolean mUnificatable;
     private Materials mMaterialInto;
@@ -2411,38 +2411,38 @@ public class Materials implements ISubTagContainer {
     }
 
     /**
-     * Gets the {@link Materials}'s color as an {@link IColorModulationContainer}
+     * Gets the {@link Materials}'s color as an {@link GT_Color}
      *
-     * @return The {@link IColorModulationContainer}
+     * @return The {@link GT_Color}
      */
-    public IColorModulationContainer getColor() {
+    public GT_Color getColor() {
         return mRGBa;
     }
 
     /**
-     * Sets the {@link Materials}'s color as an {@link IColorModulationContainer}
+     * Sets the {@link Materials}'s color as an {@link GT_Color}
      *
-     * @param aColor The {@link IColorModulationContainer}
+     * @param aColor The {@link GT_Color}
      */
-    public void setColor(IColorModulationContainer aColor) {
+    public void setColor(GT_Color aColor) {
         mRGBa = aColor;
     }
 
     /**
-     * Gets the {@link Materials}'s Molten color as an {@link IColorModulationContainer}
+     * Gets the {@link Materials}'s Molten color as an {@link GT_Color}
      *
-     * @return the {@link IColorModulationContainer}
+     * @return the {@link GT_Color}
      */
-    public IColorModulationContainer getMoltenColor() {
+    public GT_Color getMoltenColor() {
         return mMoltenRGBa;
     }
 
     /**
-     * Sets the {@link Materials}'s Molten color as an {@link IColorModulationContainer}
+     * Sets the {@link Materials}'s Molten color as an {@link GT_Color}
      *
-     * @param aMoltenColor The {@link IColorModulationContainer}
+     * @param aMoltenColor The {@link GT_Color}
      */
-    public void setMoltenColor(IColorModulationContainer aMoltenColor) {
+    public void setMoltenColor(GT_Color aMoltenColor) {
         mMoltenRGBa = aMoltenColor;
     }
 
@@ -3002,8 +3002,8 @@ public class Materials implements ISubTagContainer {
     public static class Builder {
         private int mMetaItemSubID;
         private Materials rMaterials = new Materials();
-        private IColorModulationContainer mSolidARGB = new IColorModulationContainer(0x00ffffff);
-        private IColorModulationContainer mMoltenARGB = new IColorModulationContainer(0x00ffffff);
+        private GT_Color mSolidARGB = new GT_Color(0x00ffffff);
+        private GT_Color mMoltenARGB = new GT_Color(0x00ffffff);
         private TextureSet mTextureSet;
         private boolean mUnifiable;
         private Materials mMaterialInto;
@@ -3365,7 +3365,7 @@ public class Materials implements ISubTagContainer {
             this.rMaterials.setName(this.mName);
             this.rMaterials.setDefaultLocalName(this.mDefaultLocalName);
             if (this.mDye == null || this.mDye == Dyes._NULL) {
-                this.rMaterials.setDye(this.mSolidARGB.getDye());
+                this.rMaterials.setDye(this.mSolidARGB.getClosestDye());
             } else {
                 this.rMaterials.setDye(this.mDye);
             }

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 
-public class GT_SidedTexture extends IColorModulationContainer implements ITexture {
+public class GT_SidedTexture extends GT_Color implements ITexture {
     private final IIconContainer[] mIconContainer;
     private final boolean mAllowAlpha;
     /**
@@ -20,6 +20,7 @@ public class GT_SidedTexture extends IColorModulationContainer implements ITextu
     public short[] mRGBa;
 
     public GT_SidedTexture(IIconContainer aIcon0, IIconContainer aIcon1, IIconContainer aIcon2, IIconContainer aIcon3, IIconContainer aIcon4, IIconContainer aIcon5, short[] aRGBa, boolean aAllowAlpha) {
+        super();
         if (aRGBa.length != 4) throw new IllegalArgumentException("RGBa doesn't have 4 Values @ GT_RenderedTexture");
         mIconContainer = new IIconContainer[]{aIcon0, aIcon1, aIcon2, aIcon3, aIcon4, aIcon5};
         mAllowAlpha = aAllowAlpha;

@@ -1343,7 +1343,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 									return;
 								}
 							} else {
-								for (Dyes tDye : Dyes.VALUES) {
+								for (Dyes tDye : Dyes.getValidColors()) {
 									if (aEvent.Name.endsWith(tDye.name().replaceFirst("dye", EMPTY_STRING))) {
 										GT_OreDictUnificator.addToBlacklist(aEvent.Ore);
 										GT_Log.ore.println(tModToName + " Oh man, why the fuck would anyone need a OreDictified Color for this, that is even too much for GregTech... do not report this, this is just a random Comment about how ridiculous this is.");

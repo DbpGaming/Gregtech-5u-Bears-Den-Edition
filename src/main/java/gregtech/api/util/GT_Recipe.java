@@ -1215,7 +1215,7 @@ public class GT_Recipe {
                 return rRecipe;
 
             Dyes aDye = null;
-            for (Dyes tDye : Dyes.VALUES)
+            for (Dyes tDye : Dyes.getValidColors())
                 if (tDye.isFluidDye(aFluids[0])) {
                     aDye = tDye;
                     break;

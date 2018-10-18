@@ -258,8 +258,8 @@ public class GT_Loader_Item_Block_And_Fluid
         Dyes.dyeBlack.addFluidDye(GT_Mod.gregtechproxy.addFluid("squidink", "Squid Ink", null, 1, 295));
         Dyes.dyeBlue.addFluidDye(GT_Mod.gregtechproxy.addFluid("indigo", "Indigo Dye", null, 1, 295));
         Fluid tFluid;
-        for (byte i = 0; i < Dyes.VALUES.length; i = (byte) (i + 1)) {
-            Dyes tDye = Dyes.VALUES[i];
+        for (byte i = 0; i < Dyes.getValidColors().length; i = (byte) (i + 1)) {
+            Dyes tDye = Dyes.getValidColors()[i];
             tFluid = GT_Mod.gregtechproxy.addFluid("dye.watermixed." + tDye.name().toLowerCase(), "dyes", "Water Mixed " + tDye.mName + " Dye", null, tDye.getRGBa(), 1, 295, null, null, 0);
             tDye.addFluidDye(tFluid);
             tFluid = GT_Mod.gregtechproxy.addFluid("dye.chemical." + tDye.name().toLowerCase(), "dyes", "Chemical " + tDye.mName + " Dye", null, tDye.getRGBa(), 1, 295, null, null, 0);

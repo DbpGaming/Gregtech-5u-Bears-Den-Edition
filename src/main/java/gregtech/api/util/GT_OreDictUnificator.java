@@ -218,7 +218,7 @@ public class GT_OreDictUnificator {
 
     public static boolean isItemStackDye(ItemStack aStack) {
         if (GT_Utility.isStackInvalid(aStack)) return false;
-        for (Dyes tDye : Dyes.VALUES) if (isItemStackInstanceOf(aStack, tDye.toString())) return true;
+        for (Dyes tDye : Dyes.getValidColors()) if (isItemStackInstanceOf(aStack, tDye.toString())) return true;
         return false;
     }
 

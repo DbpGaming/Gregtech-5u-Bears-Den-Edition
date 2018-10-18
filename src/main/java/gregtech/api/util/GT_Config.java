@@ -1,7 +1,7 @@
 package gregtech.api.util;
 
 import gregtech.api.GregTech_API;
-import gregtech.api.objects.IColorModulationContainer;
+import gregtech.api.objects.GT_Color;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
@@ -73,7 +73,7 @@ public class GT_Config implements Runnable {
         return rResult;
     }
 
-    public IColorModulationContainer get(Object aCategory, String aName, IColorModulationContainer aColor) {
+    public GT_Color get(Object aCategory, String aName, GT_Color aColor) {
         final String HEXFORMAT = "0x%08X";
         String tKey = String.format("%s_" + HEXFORMAT, aName, aColor.getARGB());
         String tDefaultValue = String.format(HEXFORMAT, aColor.getARGB());
@@ -102,7 +102,7 @@ public class GT_Config implements Runnable {
         tColorProperty.setRequiresMcRestart(false);
         tColorProperty.setRequiresWorldRestart(false);
 
-        return new IColorModulationContainer(Long.decode(tColorProperty.getString()).intValue());
+        return new GT_Color(Long.decode(tColorProperty.getString()).intValue());
     }
 
     public double get(Object aCategory, ItemStack aStack, double aDefault) {

@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 
-public class GT_RenderedTexture extends IColorModulationContainer implements ITexture {
+public class GT_RenderedTexture extends GT_Color implements ITexture {
     private final IIconContainer mIconContainer;
     private final boolean mAllowAlpha;
     /**
@@ -17,9 +17,10 @@ public class GT_RenderedTexture extends IColorModulationContainer implements ITe
      * Just set this variable to another different Array instead.
      * Otherwise some colored things will get Problems.
      */
-    public IColorModulationContainer mRGBa = new IColorModulationContainer();
+    public GT_Color mRGBa = new GT_Color();
 
     public GT_RenderedTexture(IIconContainer aIcon, short[] aRGBa, boolean aAllowAlpha) {
+        super();
         if (aRGBa.length != 4) throw new IllegalArgumentException("RGBa doesn't have 4 Values @ GT_RenderedTexture");
         mIconContainer = aIcon;
         mAllowAlpha = aAllowAlpha;

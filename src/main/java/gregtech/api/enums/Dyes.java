@@ -1,6 +1,6 @@
 package gregtech.api.enums;
 
-import gregtech.api.objects.IColorModulationContainer;
+import gregtech.api.objects.GT_Color;
 import gregtech.api.objects.GT_ArrayList;
 import gregtech.api.util.GT_Utility;
 import net.minecraftforge.fluids.Fluid;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public enum Dyes {
     /**
-     * The valid Colors, see VALUES Array below
+     * The valid Colors, see sValidColors Array below
      */
     dyeBlack(0, 0x00202020, "Black"),
     dyeRed(1, 0x00ff0000, "Red"),
@@ -39,36 +39,30 @@ public enum Dyes {
     CONSTRUCTION_FOAM(-1, 0x00404040, "Construction Foam"),
     MACHINE_METAL(-1, 0x00ffffff, "Machine Metal");
 
-    public static final Dyes VALUES[] = {dyeBlack, dyeRed, dyeGreen, dyeBrown, dyeBlue, dyePurple, dyeCyan, dyeLightGray, dyeGray, dyePink, dyeLime, dyeYellow, dyeLightBlue, dyeMagenta, dyeOrange, dyeWhite};
+    private static final Dyes[] sValidColors = {dyeBlack, dyeRed, dyeGreen, dyeBrown, dyeBlue, dyePurple, dyeCyan, dyeLightGray, dyeGray, dyePink, dyeLime, dyeYellow, dyeLightBlue, dyeMagenta, dyeOrange, dyeWhite};
 
     public final byte mIndex;
     public final String mName;
-    private IColorModulationContainer mRGBa;
+    private GT_Color mRGBa;
     private final ArrayList<Fluid> mFluidDyes = new GT_ArrayList<>(false, 1);
 
-    /**
-     * @deprecated replaced by single int ARGB
-     */
-    @Deprecated
-    Dyes(int aIndex, int aR, int aG, int aB, String aName) {
-        mIndex = (byte) aIndex;
-        mName = aName;
-        mRGBa = new IColorModulationContainer(aR, aG, aB, 0);
+    public static Dyes[] getValidColors() {
+        return sValidColors;
     }
 
     Dyes(int aIndex, int aARGB, String aName) {
         mIndex = (byte) aIndex;
         mName = aName;
-        mRGBa = new IColorModulationContainer(aARGB);
+        mRGBa = new GT_Color(aARGB);
     }
 
     public static Dyes get(int aColor) {
-        if (aColor >= 0 && aColor < 16) return VALUES[aColor];
+        if (aColor >= 0 && aColor < 16) return getValidColors()[aColor];
         return _NULL;
     }
 
     public static short[] getModulation(int aColor, short[] aDefaultModulation) {
-        if (aColor >= 0 && aColor < 16) return VALUES[aColor].mRGBa.getRGBA();
+        if (aColor >= 0 && aColor < 16) return getValidColors()[aColor].mRGBa.getRGBA();
         return aDefaultModulation;
     }
 
@@ -83,7 +77,7 @@ public enum Dyes {
     }
 
     public static boolean isAnyFluidDye(Fluid aFluid) {
-        if (aFluid != null) for (Dyes tDye : VALUES) if (tDye.isFluidDye(aFluid)) return true;
+        if (aFluid != null) for (Dyes tDye : getValidColors()) if (tDye.isFluidDye(aFluid)) return true;
         return false;
     }
 
@@ -95,10 +89,9 @@ public enum Dyes {
         return aFluid != null && mFluidDyes.contains(aFluid);
     }
 
-    public boolean addFluidDye(Fluid aDye) {
-        if (aDye == null || mFluidDyes.contains(aDye)) return false;
+    public void addFluidDye(Fluid aDye) {
+        if (aDye == null || mFluidDyes.contains(aDye)) return;
         mFluidDyes.add(aDye);
-        return true;
     }
 
     public int getSizeOfFluidList() {
@@ -113,11 +106,14 @@ public enum Dyes {
         return new FluidStack(mFluidDyes.get(aIndex), (int) aAmount);
     }
 
-    public void setColor(IColorModulationContainer aColor) {
+    @SuppressWarnings({
+            "squid:S3066", // This need be loaded from config at run-time
+    })
+    public void setColor(GT_Color aColor) {
         mRGBa = aColor;
     }
 
-    public IColorModulationContainer getColor() {
+    public GT_Color getColor() {
         return mRGBa;
     }
 

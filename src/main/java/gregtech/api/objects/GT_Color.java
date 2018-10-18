@@ -2,39 +2,20 @@ package gregtech.api.objects;
 
 import gregtech.api.enums.Dyes;
 
-import java.util.Arrays;
-
 /**
  * Color container for anything dealing with colors
  */
-public class IColorModulationContainer {
+@SuppressWarnings({
+        "squid:S00101", // GT_ClassName is the norm here
+})
+public class GT_Color {
     private short[] mRGBA = new short[4];
 
-    public IColorModulationContainer() {
+    GT_Color() {
         setRGBA(255, 255, 255, 0);
     }
 
-    public IColorModulationContainer(short[] aRGBA) {
-        setRGBA(aRGBA);
-    }
-
-    public IColorModulationContainer(short aR, short aG, short aB, short aA) {
-        setRGBA(aR, aG, aB, aA);
-    }
-
-    public IColorModulationContainer(short aR, short aG, short aB) {
-        setRGBA(aR, aG, aB, 0);
-    }
-
-    public IColorModulationContainer(int aR, int aG, int aB, int aA) {
-        setRGBA(aR, aG, aB, aA);
-    }
-
-    public IColorModulationContainer(int aR, int aG, int aB) {
-        setRGBA(aR,  aG, aB, 0);
-    }
-
-    public IColorModulationContainer(int aARGB) {
+    public GT_Color(int aARGB) {
         setARGB(aARGB);
     }
 
@@ -53,7 +34,7 @@ public class IColorModulationContainer {
     public void setRGBA(short[] aRGBA) {
         mRGBA = aRGBA;
     }
-    public void setRGBA(short aR, short aG, short aB, short aA) {
+    private void setRGBA(short aR, short aG, short aB, short aA) {
         this.mRGBA = new short[]{aR, aG, aB, aA};
     }
     public void setRGBA(int aR, int aG, int aB, int aA) {
@@ -124,19 +105,18 @@ public class IColorModulationContainer {
     }
 
     /**
-     * Gets the {@link Dyes} that's a closest match to this {@link IColorModulationContainer}.
+     * Gets the {@link Dyes} that's a closest match to this {@link GT_Color}.
      * @return The closest matching {@link Dyes}
      */
-    public Dyes getDye() {
+    public Dyes getClosestDye() {
         Dyes rDye = Dyes._NULL;
         int shortestDistance = Integer.MAX_VALUE;
+        int distance;
 
-        for ( Dyes matchDye : Dyes.values()) {
-            int distance;
+        for ( Dyes matchDye : Dyes.getValidColors()) {
             distance = getDistanceTo(matchDye.getColor());
 
-            if (distance < shortestDistance)
-            {
+            if (distance < shortestDistance) {
                 rDye = matchDye;
                 shortestDistance = distance;
             }
@@ -144,7 +124,7 @@ public class IColorModulationContainer {
         return rDye;
     }
 
-    private int getDistanceTo(IColorModulationContainer aDestinationColor) {
+    private int getDistanceTo(GT_Color aDestinationColor) {
         int redDifference;
         int greenDifference;
         int blueDifference;

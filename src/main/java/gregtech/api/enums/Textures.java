@@ -117,22 +117,22 @@ public class Textures {
          */
         public static final ITexture[][] HARDENEDFOAMS = new ITexture[][]{
                 new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.CONSTRUCTION_FOAM.getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[0].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[1].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[2].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[3].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[4].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[5].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[6].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[7].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[8].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[9].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[10].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[11].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[12].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[13].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[14].getRGBa())},
-                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.VALUES[15].getRGBa())}
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[0].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[1].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[2].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[3].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[4].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[5].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[6].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[7].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[8].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[9].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[10].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[11].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[12].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[13].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[14].getRGBa())},
+                new ITexture[]{new GT_RenderedTexture(CFOAM_HARDENED, Dyes.getValidColors()[15].getRGBa())}
         };
 
         public static final IIconContainer[]

@@ -296,12 +296,12 @@ implements Runnable {
 			RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_OreDictUnificator.get(OrePrefixes.wireGt01, Materials.RedAlloy, 1L), Dyes.dyeYellow.getFluidDye(j, 72L), NULL_FLUID_STACK, GT_ModHandler.getModItem(MOD_ID_BC_TRANSPORT, "pipeWire", 4L, 3), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 32, 16);
 		}
 		for (byte i = 0; i < 16; i = (byte) (i + 1)) {
-			for (int j = 0; j < Dyes.VALUES[i].getSizeOfFluidList(); j++) {
+			for (int j = 0; j < Dyes.getValidColors()[i].getSizeOfFluidList(); j++) {
 				if (i != 15) {
-					RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(new ItemStack(Blocks.wool, 1, 0), Dyes.VALUES[i].getFluidDye(j, 144L), NULL_FLUID_STACK, new ItemStack(Blocks.wool, 1, 15 - i), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 64, 2);
+					RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(new ItemStack(Blocks.wool, 1, 0), Dyes.getValidColors()[i].getFluidDye(j, 144L), NULL_FLUID_STACK, new ItemStack(Blocks.wool, 1, 15 - i), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 64, 2);
 				}
-				RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(new ItemStack(Blocks.glass, 1, 0), Dyes.VALUES[i].getFluidDye(j, 18L), NULL_FLUID_STACK, new ItemStack(Blocks.stained_glass, 1, 15 - i), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 64, 2);
-				RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(new ItemStack(Blocks.hardened_clay, 1, 0), Dyes.VALUES[i].getFluidDye(j, 18L), NULL_FLUID_STACK, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - i), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 64, 2);
+				RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(new ItemStack(Blocks.glass, 1, 0), Dyes.getValidColors()[i].getFluidDye(j, 18L), NULL_FLUID_STACK, new ItemStack(Blocks.stained_glass, 1, 15 - i), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 64, 2);
+				RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(new ItemStack(Blocks.hardened_clay, 1, 0), Dyes.getValidColors()[i].getFluidDye(j, 18L), NULL_FLUID_STACK, new ItemStack(Blocks.stained_hardened_clay, 1, 15 - i), NULL_ITEM_STACK, NULL_ITEM_STACK, null, 64, 2);
 			}
 		}
 		RECIPE_ADDER_INSTANCE.addFluidExtractionRecipe(ItemList.Dye_SquidInk.get(1L), NULL_ITEM_STACK, FluidRegistry.getFluidStack("squidink", 144), 10000, 128, 4);
