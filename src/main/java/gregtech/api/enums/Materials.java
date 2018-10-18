@@ -3364,8 +3364,8 @@ public class Materials implements ISubTagContainer {
             this.rMaterials.setToolTip(this.mChemicalFormula);
             this.rMaterials.setName(this.mName);
             this.rMaterials.setDefaultLocalName(this.mDefaultLocalName);
-            if (this.mDye == null) {
-                this.rMaterials.setDye(Dyes._NULL);
+            if (this.mDye == null || this.mDye == Dyes._NULL) {
+                this.rMaterials.setDye(this.mSolidARGB.getDye());
             } else {
                 this.rMaterials.setDye(this.mDye);
             }
