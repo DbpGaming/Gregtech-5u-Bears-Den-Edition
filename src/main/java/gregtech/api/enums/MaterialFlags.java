@@ -2,6 +2,11 @@ package gregtech.api.enums;
 
 import static gregtech.api.enums.GT_Values.BITS_32;
 
+@SuppressWarnings({
+        "unused",                   // Because it is an API
+        "WeakerAccess",             // Because it is an API
+        "SpellCheckingInspection",  // Gregtech dictionary
+})
 public class MaterialFlags {
     /**
      * Dusts of all kinds
@@ -142,4 +147,13 @@ public class MaterialFlags {
      * Add Frame Blocks
      */
     public static final int FRAME = BITS_32[27]; // 134217728
+
+    /**
+     * Utility classes should not have public constructors
+     * {@see Code smell Major squid:S1118}
+     * @throws IllegalStateException if instantiated
+     */
+    private MaterialFlags() {
+        throw new IllegalStateException("Utility class");
+    }
 }
