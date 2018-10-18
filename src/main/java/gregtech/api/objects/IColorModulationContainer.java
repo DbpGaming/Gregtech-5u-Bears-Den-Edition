@@ -1,5 +1,9 @@
 package gregtech.api.objects;
 
+import gregtech.api.enums.Dyes;
+
+import java.util.Arrays;
+
 /**
  * Color container for anything dealing with colors
  */
@@ -119,4 +123,37 @@ public class IColorModulationContainer {
         mRGBA[3] = (short)((aARGB >> 24) & 0xff); // Alpha
     }
 
+    /**
+     * Gets the {@link Dyes} that's a closest match to this {@link IColorModulationContainer}.
+     * @return The closest matching {@link Dyes}
+     */
+    public Dyes getDye() {
+        Dyes rDye = Dyes._NULL;
+        int shortestDistance = Integer.MAX_VALUE;
+
+        for ( Dyes matchDye : Dyes.values()) {
+            int distance;
+            distance = getDistanceTo(matchDye.getColor());
+
+            if (distance < shortestDistance)
+            {
+                rDye = matchDye;
+                shortestDistance = distance;
+            }
+        }
+        return rDye;
+    }
+
+    private int getDistanceTo(IColorModulationContainer aDestinationColor) {
+        int redDifference;
+        int greenDifference;
+        int blueDifference;
+
+        redDifference = this.getRed() - aDestinationColor.getRed();
+        greenDifference = this.getGreen() - aDestinationColor.getGreen();
+        blueDifference = this.getBlue() - aDestinationColor.getBlue();
+
+        return redDifference * redDifference + greenDifference * greenDifference +
+                blueDifference * blueDifference;
+    }
 }
