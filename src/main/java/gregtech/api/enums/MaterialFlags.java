@@ -149,8 +149,8 @@ public class MaterialFlags {
     public static final int FRAME = BITS_32[27]; // 134217728
 
     /**
-     * Utility classes should not have public constructors
-     * {@see Code smell Major squid:S1118}
+     * Prevents illegal instantiation of this utility class
+     * See: <a href="https://sbforge.org/sonar/rules/show/squid:S1118">squid:S1118</a>
      * @throws IllegalStateException if instantiated
      */
     private MaterialFlags() {
