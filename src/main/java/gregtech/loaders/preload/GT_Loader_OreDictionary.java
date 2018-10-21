@@ -1,10 +1,11 @@
 package gregtech.loaders.preload;
 
+import cpw.mods.fml.common.Loader;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
-import gregtech.api.materials.Materials;
 import gregtech.api.enums.OreDictNames;
 import gregtech.api.enums.OrePrefixes;
+import gregtech.api.materials.Materials;
 import gregtech.api.util.GT_Log;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_OreDictUnificator;
@@ -14,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import static gregtech.api.enums.GT_Values.MOD_ID_AE;
+import static gregtech.api.enums.GT_Values.MOD_ID_HEE;
 import static gregtech.api.enums.GT_Values.MOD_ID_RC;
 import static gregtech.api.enums.GT_Values.MOD_ID_TC;
 import static gregtech.api.enums.GT_Values.MOD_ID_TE;
@@ -60,6 +62,9 @@ public class GT_Loader_OreDictionary
         GT_OreDictUnificator.set(OrePrefixes.ingot, Materials.get("Lead"), GT_ModHandler.getIC2Item("leadIngot", 1L));
         GT_OreDictUnificator.set(OrePrefixes.ingot, Materials.get("Bronze"), GT_ModHandler.getIC2Item("bronzeIngot", 1L));
         GT_OreDictUnificator.set(OrePrefixes.ingot, Materials.get("Silver"), GT_ModHandler.getIC2Item("silverIngot", 1L));
+        if (Loader.isModLoaded(MOD_ID_HEE)) {
+            GT_OreDictUnificator.set(OrePrefixes.ingot, Materials.get("Endium"), GT_ModHandler.getModItem(MOD_ID_HEE, "endium_ingot", 1), true, true);
+        }
         GT_OreDictUnificator.set(OrePrefixes.gem, Materials.get("Iridium"), GT_ModHandler.getIC2Item("iridiumOre", 1L));
         GT_OreDictUnificator.set(OrePrefixes.gem, Materials.get("Lapis"), new ItemStack(Items.dye, 1, 4));
         GT_OreDictUnificator.set(OrePrefixes.gem, Materials.get("EnderEye"), new ItemStack(Items.ender_eye, 1));
