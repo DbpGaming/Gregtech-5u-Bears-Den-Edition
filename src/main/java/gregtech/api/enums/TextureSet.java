@@ -1,6 +1,14 @@
 package gregtech.api.enums;
 
 import gregtech.api.interfaces.IIconContainer;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import scala.annotation.meta.field;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import static gregtech.api.enums.GT_Values.DIR_MATERIALICONS;
 import static gregtech.api.enums.GT_Values.TEX_DIR_VOID;
@@ -8,6 +16,8 @@ import static gregtech.api.enums.GT_Values.TEX_DIR_VOID;
 public class TextureSet {
     public static final TextureSet
             SET_NONE = new TextureSet("NONE"), SET_DULL = new TextureSet("DULL"), SET_RUBY = new TextureSet("RUBY"), SET_OPAL = new TextureSet("OPAL"), SET_LEAF = new TextureSet("LEAF"), SET_WOOD = new TextureSet("WOOD"), SET_SAND = new TextureSet("SAND"), SET_FINE = new TextureSet("FINE"), SET_FIERY = new TextureSet("FIERY"), SET_FLUID = new TextureSet("FLUID"), SET_ROUGH = new TextureSet("ROUGH"), SET_PAPER = new TextureSet("PAPER"), SET_GLASS = new TextureSet("GLASS"), SET_FLINT = new TextureSet("FLINT"), SET_LAPIS = new TextureSet("LAPIS"), SET_SHINY = new TextureSet("SHINY"), SET_SHARDS = new TextureSet("SHARDS"), SET_POWDER = new TextureSet("POWDER"), SET_QUARTZ = new TextureSet("QUARTZ"), SET_EMERALD = new TextureSet("EMERALD"), SET_DIAMOND = new TextureSet("DIAMOND"), SET_LIGNITE = new TextureSet("LIGNITE"), SET_MAGNETIC = new TextureSet("MAGNETIC"), SET_METALLIC = new TextureSet("METALLIC"), SET_NETHERSTAR = new TextureSet("NETHERSTAR"), SET_GEM_VERTICAL = new TextureSet("GEM_VERTICAL"), SET_GEM_HORIZONTAL = new TextureSet("GEM_HORIZONTAL");
+
+    private static final HashMap<String,TextureSet> textureSetList = new HashMap<>();
 
     /**
      * For the Indices of OrePrefixes you need to look into the OrePrefix Enum.
@@ -19,6 +29,7 @@ public class TextureSet {
     public final String mSetName;
 
     public TextureSet(String aSetName) {
+        textureSetList.put(aSetName, this);
         mSetName = aSetName;
         mTextures[0] = new Textures.ItemIcons.CustomIcon(DIR_MATERIALICONS + mSetName + "/dustTiny");
         mTextures[1] = new Textures.ItemIcons.CustomIcon(DIR_MATERIALICONS + mSetName + "/dustSmall");
@@ -148,5 +159,14 @@ public class TextureSet {
         mTextures[125] = new Textures.ItemIcons.CustomIcon(DIR_MATERIALICONS + mSetName + TEX_DIR_VOID);
         mTextures[126] = new Textures.ItemIcons.CustomIcon(DIR_MATERIALICONS + mSetName + "/handleMallet");
         mTextures[127] = new Textures.ItemIcons.CustomIcon(DIR_MATERIALICONS + mSetName + "/toolHeadMallet");
+    }
+
+    /**
+     * Gets the {@link TextureSet} by name String
+      * @param aName The {@link TextureSet}'s name String
+     * @return The {@link TextureSet}
+     */
+    public static TextureSet get(String aName) {
+        return textureSetList.get(aName);
     }
 }

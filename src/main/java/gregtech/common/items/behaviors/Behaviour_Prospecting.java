@@ -1,7 +1,7 @@
 package gregtech.common.items.behaviors;
 
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.items.GT_MetaBase_Item;
 import gregtech.api.items.GT_MetaGenerated_Tool;
 import gregtech.api.objects.ItemData;

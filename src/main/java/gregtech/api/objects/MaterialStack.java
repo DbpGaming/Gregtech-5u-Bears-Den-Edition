@@ -1,6 +1,6 @@
 package gregtech.api.objects;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 
 import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 

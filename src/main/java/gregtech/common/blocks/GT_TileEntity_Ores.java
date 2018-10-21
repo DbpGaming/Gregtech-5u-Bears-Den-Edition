@@ -1,7 +1,7 @@
 package gregtech.common.blocks;
 
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -250,15 +250,15 @@ public class GT_TileEntity_Ores
                 switch (this.mMetaData / 1000 % 16)
                 {
                     case 0:
-                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.Stone, 1L)); break;
+                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.get("Stone"), 1L)); break;
                     case 1:
-                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.Netherrack, 1L)); break;
+                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.get("Netherrack"), 1L)); break;
                     case 2:
-                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.Endstone, 1L)); break;
+                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.get("Endstone"), 1L)); break;
                     case 3:
-                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.GraniteBlack, 1L)); break;
+                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.get("GraniteBlack"), 1L)); break;
                     case 4:
-                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.GraniteRed, 1L));
+                        rList.add(GT_OreDictUnificator.get(tRandom.nextInt(3) > 0 ? OrePrefixes.dustImpure : OrePrefixes.dust, Materials.get("GraniteRed"), 1L));
                 }
             }
         }

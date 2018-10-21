@@ -3,7 +3,7 @@ package gregtech.api.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.util.GT_LanguageManager;
@@ -107,7 +107,7 @@ public abstract class GT_MetaGenerated_Item_X01 extends GT_MetaGenerated_Item {
         int aMetaData = aStack.getItemDamage();
         if (aMetaData < GregTech_API.sGeneratedMaterials.length && aMetaData >= 0) {
             Materials aMaterial = GregTech_API.sGeneratedMaterials[aMetaData];
-            if (aMaterial != null && aMaterial != Materials.Empty && aMaterial != Materials._NULL) {
+            if (aMaterial != null && aMaterial != Materials.get("Empty") && aMaterial != Materials.get("_NULL")) {
                 return GT_Utility.copyAmount(1, mPrefix.mContainerItem);
             }
         }
@@ -117,7 +117,7 @@ public abstract class GT_MetaGenerated_Item_X01 extends GT_MetaGenerated_Item {
     @Override
     public short[] getRGBa(ItemStack aStack) {
         int aMetaData = getDamage(aStack);
-        return aMetaData < GregTech_API.sGeneratedMaterials.length && GregTech_API.sGeneratedMaterials[aMetaData] != null ? GregTech_API.sGeneratedMaterials[aMetaData].getRGBa() : Materials._NULL.getRGBa();
+        return aMetaData < GregTech_API.sGeneratedMaterials.length && GregTech_API.sGeneratedMaterials[aMetaData] != null ? GregTech_API.sGeneratedMaterials[aMetaData].getRGBa() : Materials.get("_NULL").getRGBa();
     }
 
     @Override

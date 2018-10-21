@@ -1,7 +1,7 @@
 package gregtech.loaders.oreprocessing;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.util.GT_ModHandler;
@@ -24,10 +24,10 @@ public class ProcessingCrushedPurified implements gregtech.api.interfaces.IOreRe
         if (tGem != null)
             RECIPE_ADDER_INSTANCE.addSifterRecipe(GT_Utility.copyAmount(1L, aStack), new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.gemExquisite, aMaterial, tGem, 1L), GT_OreDictUnificator.get(OrePrefixes.gemFlawless, aMaterial, tGem, 1L), tGem, GT_OreDictUnificator.get(OrePrefixes.gemFlawed, aMaterial, tGem, 1L), GT_OreDictUnificator.get(OrePrefixes.gemChipped, aMaterial, tGem, 1L), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, tGem, 1L)}, new int[]{100, 400, 1500, 2000, 4000, 5000}, 800, 16);
         if (aMaterial.contains(SubTag.WASHING_BLUEV))
-            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.SulfuricAcid.getFluid(3000L), new FluidStack(ItemList.sBlueVitriol,3000), GT_OreDictUnificator.get(OrePrefixes.crushedCentrifuged, aMaterial, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 3), NULL_ITEM_STACK,  new int[]{10000, 5000}, 800, 2);
+            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.get("SulfuricAcid").getFluid(3000L), new FluidStack(ItemList.sBlueVitriol,3000), GT_OreDictUnificator.get(OrePrefixes.crushedCentrifuged, aMaterial, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 3), NULL_ITEM_STACK,  new int[]{10000, 5000}, 800, 2);
         if (aMaterial.contains(SubTag.WASHING_GREENV))
-            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.SulfuricAcid.getFluid(3000L), new FluidStack(ItemList.sGreenVitriol,3000), GT_OreDictUnificator.get(OrePrefixes.crushedCentrifuged, aMaterial, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 3), NULL_ITEM_STACK,  new int[]{10000, 5000}, 800, 2);
+            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.get("SulfuricAcid").getFluid(3000L), new FluidStack(ItemList.sGreenVitriol,3000), GT_OreDictUnificator.get(OrePrefixes.crushedCentrifuged, aMaterial, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 3), NULL_ITEM_STACK,  new int[]{10000, 5000}, 800, 2);
         if (aMaterial.contains(SubTag.WASHING_NICKELS))
-            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.SulfuricAcid.getFluid(3000L), new FluidStack(ItemList.sNickelSulfate,3000), GT_OreDictUnificator.get(OrePrefixes.crushedCentrifuged, aMaterial, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 3), NULL_ITEM_STACK,  new int[]{10000, 5000}, 800, 2);
+            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(1L, aStack), Materials.get("SulfuricAcid").getFluid(3000L), new FluidStack(ItemList.sNickelSulfate,3000), GT_OreDictUnificator.get(OrePrefixes.crushedCentrifuged, aMaterial, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, aMaterial, 3), NULL_ITEM_STACK,  new int[]{10000, 5000}, 800, 2);
     }
 }

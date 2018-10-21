@@ -3,7 +3,7 @@ package gregtech.api.items;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.util.GT_LanguageManager;
@@ -59,7 +59,7 @@ public abstract class GT_MetaGenerated_Item_X32 extends GT_MetaGenerated_Item {
                 } else {
                     GT_OreDictUnificator.registerOre(tPrefix.get(tMaterial), tStack);
                 }
-                if ((tPrefix == OrePrefixes.stick || tPrefix == OrePrefixes.wireFine) && (tMaterial == Materials.Lead || tMaterial == Materials.Tin || tMaterial == Materials.SolderingAlloy)) {
+                if ((tPrefix == OrePrefixes.stick || tPrefix == OrePrefixes.wireFine) && (tMaterial == Materials.get("Lead") || tMaterial == Materials.get("Tin") || tMaterial == Materials.get("SolderingAlloy"))) {
                     GregTech_API.sSolderingMetalList.add(tStack);
                 }
             }
@@ -74,7 +74,7 @@ public abstract class GT_MetaGenerated_Item_X32 extends GT_MetaGenerated_Item {
     @Override
     public short[] getRGBa(ItemStack aStack) {
         Materials tMaterial = GregTech_API.sGeneratedMaterials[getDamage(aStack) % 1000];
-        return tMaterial == null ? Materials._NULL.getRGBa() : tMaterial.getRGBa();
+        return tMaterial == null ? Materials.get("_NULL").getRGBa() : tMaterial.getRGBa();
     }
 
     /**
@@ -126,7 +126,7 @@ public abstract class GT_MetaGenerated_Item_X32 extends GT_MetaGenerated_Item {
         int aDamage = aStack.getItemDamage();
         if (aDamage < 32000 && aDamage >= 0) {
             Materials aMaterial = GregTech_API.sGeneratedMaterials[aDamage % 1000];
-            if (aMaterial != null && aMaterial != Materials.Empty && aMaterial != Materials._NULL) {
+            if (aMaterial != null && aMaterial != Materials.get("Empty") && aMaterial != Materials.get("_NULL")) {
                 OrePrefixes aPrefix = mGeneratedPrefixList[aDamage / 1000];
                 if (aPrefix != null) return GT_Utility.copyAmount(1, aPrefix.mContainerItem);
             }

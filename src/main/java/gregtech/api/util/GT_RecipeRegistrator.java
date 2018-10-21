@@ -2,7 +2,7 @@ package gregtech.api.util;
 
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.TC_Aspects;
@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static gregtech.api.enums.GT_Values.FLUID_MATERIAL_UNIT;
 import static gregtech.api.enums.GT_Values.MATERIAL_UNIT;
@@ -153,7 +154,7 @@ public class GT_RecipeRegistrator {
     public static void registerReverseFluidSmelting(ItemStack aStack, Materials aMaterial, long aMaterialAmount, MaterialStack aByproduct) {
         if (aStack == null || aMaterial == null || aMaterial.getSmeltingInto().getStandardMoltenFluid() == null || !aMaterial.contains(SubTag.SMELTING_TO_FLUID) || (FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize) <= 0)
             return;
-        RECIPE_ADDER_INSTANCE.addFluidSmelterRecipe(GT_Utility.copyAmount(1, aStack), aByproduct == null ? null : aByproduct.mMaterial.contains(SubTag.NO_SMELTING) || !aByproduct.mMaterial.contains(SubTag.METAL) ? aByproduct.mMaterial.contains(SubTag.FLAMMABLE) ? GT_OreDictUnificator.getDust(Materials.Ash, aByproduct.mAmount / 2) : aByproduct.mMaterial.contains(SubTag.UNBURNABLE) ? GT_OreDictUnificator.getDustOrIngot(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount) : null : GT_OreDictUnificator.getIngotOrDust(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount), aMaterial.getSmeltingInto().getMolten((FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize)), 10000, (int) Math.max(1, (24 * aMaterialAmount) / MATERIAL_UNIT), Math.max(8, (int) Math.sqrt(2 * aMaterial.getSmeltingInto().getStandardMoltenFluid().getTemperature())));
+        RECIPE_ADDER_INSTANCE.addFluidSmelterRecipe(GT_Utility.copyAmount(1, aStack), aByproduct == null ? null : aByproduct.mMaterial.contains(SubTag.NO_SMELTING) || !aByproduct.mMaterial.contains(SubTag.METAL) ? aByproduct.mMaterial.contains(SubTag.FLAMMABLE) ? GT_OreDictUnificator.getDust(Materials.get("Ash"), aByproduct.mAmount / 2) : aByproduct.mMaterial.contains(SubTag.UNBURNABLE) ? GT_OreDictUnificator.getDustOrIngot(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount) : null : GT_OreDictUnificator.getIngotOrDust(aByproduct.mMaterial.getSmeltingInto(), aByproduct.mAmount), aMaterial.getSmeltingInto().getMolten((FLUID_MATERIAL_UNIT * aMaterialAmount) / (MATERIAL_UNIT * aStack.stackSize)), 10000, (int) Math.max(1, (24 * aMaterialAmount) / MATERIAL_UNIT), Math.max(8, (int) Math.sqrt(2 * aMaterial.getSmeltingInto().getStandardMoltenFluid().getTemperature())));
     }
 
     /**
@@ -166,7 +167,7 @@ public class GT_RecipeRegistrator {
         if (aStack == null || aMaterial == null || aMaterialAmount <= 0 || aMaterial.contains(SubTag.NO_SMELTING) || (aMaterialAmount > MATERIAL_UNIT && aMaterial.contains(SubTag.METAL)))
             return;
         aMaterialAmount /= aStack.stackSize;
-        if(aMaterial== Materials.Naquadah||aMaterial== Materials.NaquadahEnriched)return;
+        if(aMaterial== Materials.get("Naquadah|")|aMaterial== Materials.get("NaquadahEnriched"))return;
         if (aAllowAlloySmelter)
             GT_ModHandler.addSmeltingAndAlloySmeltingRecipe(GT_Utility.copyAmount(1, aStack), GT_OreDictUnificator.getIngot(aMaterial.getSmeltingInto(), aMaterialAmount));
         else
@@ -174,7 +175,7 @@ public class GT_RecipeRegistrator {
     }
 
     public static void registerReverseArcSmelting(ItemStack aStack, Materials aMaterial, long aMaterialAmount, MaterialStack aByProduct01, MaterialStack aByProduct02, MaterialStack aByProduct03) {
-        registerReverseArcSmelting(aStack, new ItemData(aMaterial == null ? null : new MaterialStack(aMaterial, aMaterialAmount), aByProduct01, aByProduct02, aByProduct03));
+        registerReverseArcSmelting(aStack, new ItemData(Objects.requireNonNull(aMaterial == null ? null : new MaterialStack(aMaterial, aMaterialAmount)), aByProduct01, aByProduct02, aByProduct03));
     }
 
     public static void registerReverseArcSmelting(ItemStack aStack, ItemData aData) {
@@ -189,12 +190,12 @@ public class GT_RecipeRegistrator {
                 continue;
             }
             if (tMaterial.mMaterial.contains(SubTag.EXPLOSIVE)) {
-                tMaterial.mMaterial = Materials.Ash;
+                tMaterial.mMaterial = Materials.get("Ash");
                 tMaterial.mAmount /= 4;
                 continue;
             }
             if (tMaterial.mMaterial.contains(SubTag.FLAMMABLE)) {
-                tMaterial.mMaterial = Materials.Ash;
+                tMaterial.mMaterial = Materials.get("Ash");
                 tMaterial.mAmount /= 2;
                 continue;
             }
@@ -212,7 +213,7 @@ public class GT_RecipeRegistrator {
         aData = new ItemData(aData);
 
         if (aData.mByProducts.length > 3) for (MaterialStack tMaterial : aData.getAllMaterialStacks())
-            if (tMaterial.mMaterial == Materials.Ash) tMaterial.mAmount = 0;
+            if (tMaterial.mMaterial == Materials.get("Ash")) tMaterial.mAmount = 0;
 
         aData = new ItemData(aData);
 

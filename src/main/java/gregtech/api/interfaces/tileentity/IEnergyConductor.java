@@ -1,6 +1,6 @@
 package gregtech.api.interfaces.tileentity;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 
 /**
  * Informative Class for Cables. Not used for now.

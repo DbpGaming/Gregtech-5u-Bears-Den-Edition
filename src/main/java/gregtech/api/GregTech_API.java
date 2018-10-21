@@ -2,8 +2,7 @@ package gregtech.api;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.MaterialsOld;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IDamagableItem;
 import gregtech.api.interfaces.ITexture;

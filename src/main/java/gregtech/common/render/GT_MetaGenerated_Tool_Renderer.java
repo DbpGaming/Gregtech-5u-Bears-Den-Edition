@@ -1,6 +1,6 @@
 package gregtech.common.render;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.interfaces.IToolStats;
 import gregtech.api.items.GT_MetaGenerated_Tool;

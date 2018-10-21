@@ -1,7 +1,7 @@
 package gregtech.common.tileentities.machines.basic;
 
 import gregtech.api.enums.ConfigCategories;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.Textures;
 import gregtech.api.events.TeleporterUsingEvent;
 import gregtech.api.interfaces.ITexture;
@@ -230,7 +230,7 @@ public class GT_MetaTileEntity_Teleporter extends GT_MetaTileEntity_BasicTank {
     }
 
     public boolean hasDimensionalTeleportCapability() {
-        return (this.mDebug) || (this.hasEgg) || (mFluid != null && mFluid.isFluidEqual(Materials.Nitrogen.getPlasma(1)) && mFluid.amount >= 10);
+        return (this.mDebug) || (this.hasEgg) || (mFluid != null && mFluid.isFluidEqual(Materials.get("Nitrogen").getPlasma(1)) && mFluid.amount >= 10);
     }
 
     public boolean isDimensionalTeleportAvailable() {
@@ -240,7 +240,7 @@ public class GT_MetaTileEntity_Teleporter extends GT_MetaTileEntity_BasicTank {
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         if (mFluid == null) {
-            mFluid = Materials.Nitrogen.getPlasma(0);
+            mFluid = Materials.get("Nitrogen").getPlasma(0);
         }
         super.onPostTick(aBaseMetaTileEntity, aTick);
         if (getBaseMetaTileEntity().isServerSide()) {
@@ -249,7 +249,7 @@ public class GT_MetaTileEntity_Teleporter extends GT_MetaTileEntity_BasicTank {
             }
             if ((getBaseMetaTileEntity().isAllowedToWork()) && (getBaseMetaTileEntity().getRedstone())) {
                 if (getBaseMetaTileEntity().decreaseStoredEnergyUnits(sPassiveEnergyDrain, false)) {
-                    if (hasDimensionalTeleportCapability() && this.mTargetD != getBaseMetaTileEntity().getWorld().provider.dimensionId && (hasEgg || mFluid.isFluidEqual(Materials.Nitrogen.getPlasma(1)))&& new XSTR().nextInt(10)==0) {
+                    if (hasDimensionalTeleportCapability() && this.mTargetD != getBaseMetaTileEntity().getWorld().provider.dimensionId && (hasEgg || mFluid.isFluidEqual(Materials.get("Nitrogen").getPlasma(1)))&& new XSTR().nextInt(10)==0) {
                         mFluid.amount--;
                         if (mFluid.amount < 1) {
                             mFluid = null;
@@ -282,7 +282,7 @@ public class GT_MetaTileEntity_Teleporter extends GT_MetaTileEntity_BasicTank {
                             TeleporterUsingEvent tEvent = new TeleporterUsingEvent(tEntity, mTargetX, mTargetY, mTargetZ, mTargetD, hasEgg);
                             MinecraftForge.EVENT_BUS.post(tEvent);
                             if (!tEvent.isCanceled() && getBaseMetaTileEntity().decreaseStoredEnergyUnits((int) (Math.pow(tDistance, 1.5) * weightCalculation(tEntity) * sFPowerMultiplyer), false)) {
-                                if (hasDimensionalTeleportCapability() && this.mTargetD != getBaseMetaTileEntity().getWorld().provider.dimensionId && (hasEgg || mFluid.isFluidEqual(Materials.Nitrogen.getPlasma(1)))) {
+                                if (hasDimensionalTeleportCapability() && this.mTargetD != getBaseMetaTileEntity().getWorld().provider.dimensionId && (hasEgg || mFluid.isFluidEqual(Materials.get("Nitrogen").getPlasma(1)))) {
                                     mFluid.amount = mFluid.amount - ((int) Math.min(10, (Math.pow(tDistance, 1.5) * weightCalculation(tEntity) / 8192)));
                                     if (mFluid.amount < 1) {
                                         mFluid = null;

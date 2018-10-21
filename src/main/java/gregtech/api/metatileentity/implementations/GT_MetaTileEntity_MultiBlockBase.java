@@ -3,7 +3,7 @@ package gregtech.api.metatileentity.implementations;
 import gregtech.GT_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.gui.GT_Container_MultiMachine;
 import gregtech.api.gui.GT_GUIContainer_MultiMachine;
@@ -483,7 +483,7 @@ public abstract class GT_MetaTileEntity_MultiBlockBase extends MetaTileEntity {
                                 tNBT2.setTag("Ingredient.1", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.2", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.3", tStack.writeToNBT(new NBTTagCompound()));
-                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.Magnalium, 1);
+                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.get("Magnalium"), 1);
                                 tNBT2.setTag("Ingredient.4", tStack.writeToNBT(new NBTTagCompound()));
                             } else if (i == 172) {
                                 ItemStack tStack = GT_Utility.copyAmount(1, tTurbine);
@@ -495,7 +495,7 @@ public abstract class GT_MetaTileEntity_MultiBlockBase extends MetaTileEntity {
                                 tNBT2.setTag("Ingredient.6", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.7", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.8", tStack.writeToNBT(new NBTTagCompound()));
-                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.Titanium, 1);
+                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.get("Titanium"), 1);
                                 tNBT2.setTag("Ingredient.4", tStack.writeToNBT(new NBTTagCompound()));
                             } else if (i == 174) {
                                 ItemStack tStack = GT_Utility.copyAmount(2, tTurbine);
@@ -505,7 +505,7 @@ public abstract class GT_MetaTileEntity_MultiBlockBase extends MetaTileEntity {
                                 tNBT2.setTag("Ingredient.3", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.5", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.6", tStack.writeToNBT(new NBTTagCompound()));
-                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.TungstenSteel, 1);
+                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.get("TungstenSteel"), 1);
                                 tNBT2.setTag("Ingredient.4", tStack.writeToNBT(new NBTTagCompound()));
                             } else if (i == 176) {
                                 ItemStack tStack = GT_Utility.copyAmount(2, tTurbine);
@@ -517,7 +517,7 @@ public abstract class GT_MetaTileEntity_MultiBlockBase extends MetaTileEntity {
                                 tNBT2.setTag("Ingredient.6", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.7", tStack.writeToNBT(new NBTTagCompound()));
                                 tNBT2.setTag("Ingredient.8", tStack.writeToNBT(new NBTTagCompound()));
-                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.Americium, 1);
+                                tStack = GT_OreDictUnificator.get(OrePrefixes.stickLong, Materials.get("Americium"), 1);
                                 tNBT2.setTag("Ingredient.4", tStack.writeToNBT(new NBTTagCompound()));
                             }
                             tNBT.setTag("GT.CraftingComponents", tNBT2);

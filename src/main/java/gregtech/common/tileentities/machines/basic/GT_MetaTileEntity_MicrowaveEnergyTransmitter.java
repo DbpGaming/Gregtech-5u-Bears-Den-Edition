@@ -1,7 +1,7 @@
 package gregtech.common.tileentities.machines.basic;
 
 import gregtech.api.enums.ConfigCategories;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -142,7 +142,7 @@ public class GT_MetaTileEntity_MicrowaveEnergyTransmitter extends GT_MetaTileEnt
     }
 
     public boolean hasDimensionalTeleportCapability() {
-        return (this.mDebug) || (this.hasEgg) || (mFluid != null && mFluid.isFluidEqual(Materials.Nitrogen.getPlasma(1)) && mFluid.amount >= 1000);
+        return (this.mDebug) || (this.hasEgg) || (mFluid != null && mFluid.isFluidEqual(Materials.get("Nitrogen").getPlasma(1)) && mFluid.amount >= 1000);
     }
 
     public boolean isDimensionalTeleportAvailable() {
@@ -152,7 +152,7 @@ public class GT_MetaTileEntity_MicrowaveEnergyTransmitter extends GT_MetaTileEnt
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         if (mFluid == null) {
-            mFluid = Materials.Nitrogen.getPlasma(0);
+            mFluid = Materials.get("Nitrogen").getPlasma(0);
         }
         super.onPostTick(aBaseMetaTileEntity, aTick);
         if (getBaseMetaTileEntity().isServerSide()) {
@@ -164,7 +164,7 @@ public class GT_MetaTileEntity_MicrowaveEnergyTransmitter extends GT_MetaTileEnt
                     if (mPassiveEnergyUse) {
                         getBaseMetaTileEntity().decreaseStoredEnergyUnits((long) Math.pow(2, mTier), false);
                     }
-                    if (hasDimensionalTeleportCapability() && this.mTargetD != getBaseMetaTileEntity().getWorld().provider.dimensionId && mFluid.isFluidEqual(Materials.Nitrogen.getPlasma(1))) {
+                    if (hasDimensionalTeleportCapability() && this.mTargetD != getBaseMetaTileEntity().getWorld().provider.dimensionId && mFluid.isFluidEqual(Materials.get("Nitrogen").getPlasma(1))) {
                         mFluid.amount--;
                         if (mFluid.amount < 1) {
                             mFluid = null;

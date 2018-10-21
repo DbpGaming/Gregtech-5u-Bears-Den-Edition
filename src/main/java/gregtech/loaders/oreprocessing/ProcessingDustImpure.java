@@ -1,6 +1,6 @@
 package gregtech.loaders.oreprocessing;
 
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.util.GT_OreDictUnificator;
@@ -22,15 +22,15 @@ public class ProcessingDustImpure implements gregtech.api.interfaces.IOreRecipeR
 
         if (aPrefix == OrePrefixes.dustPure) {
             if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_GOLD))
-                RECIPE_ADDER_INSTANCE.addElectromagneticSeparatorRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.Gold, 1L), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Gold, 1L), new int[]{10000, 4000, 2000}, 400, 24);
+                RECIPE_ADDER_INSTANCE.addElectromagneticSeparatorRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.get("Gold"), 1L), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.get("Gold"), 1L), new int[]{10000, 4000, 2000}, 400, 24);
             if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_IRON))
-                RECIPE_ADDER_INSTANCE.addElectromagneticSeparatorRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.Iron, 1L), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Iron, 1L), new int[]{10000, 4000, 2000}, 400, 24);
+                RECIPE_ADDER_INSTANCE.addElectromagneticSeparatorRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.get("Iron"), 1L), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.get("Iron"), 1L), new int[]{10000, 4000, 2000}, 400, 24);
             if (aMaterial.contains(SubTag.ELECTROMAGNETIC_SEPERATION_NEODYMIUM)) {
-                RECIPE_ADDER_INSTANCE.addElectromagneticSeparatorRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.Neodymium, 1L), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.Neodymium, 1L), new int[]{10000, 4000, 2000}, 400, 24);
+                RECIPE_ADDER_INSTANCE.addElectromagneticSeparatorRecipe(GT_Utility.copyAmount(1L, aStack), GT_OreDictUnificator.get(OrePrefixes.dust, aMaterial, 1L), GT_OreDictUnificator.get(OrePrefixes.dustSmall, Materials.get("Neodymium"), 1L), GT_OreDictUnificator.get(OrePrefixes.nugget, Materials.get("Neodymium"), 1L), new int[]{10000, 4000, 2000}, 400, 24);
             }
         }
         if (aMaterial.contains(SubTag.CRYSTALLISABLE)) {
-            RECIPE_ADDER_INSTANCE.addAutoclaveRecipe(GT_Utility.copyAmount(1L, aStack), Materials.Water.getFluid(200L), GT_OreDictUnificator.get(OrePrefixes.gem, aMaterial, 1L), 9000, 2000, 24);
+            RECIPE_ADDER_INSTANCE.addAutoclaveRecipe(GT_Utility.copyAmount(1L, aStack), Materials.get("Water").getFluid(200L), GT_OreDictUnificator.get(OrePrefixes.gem, aMaterial, 1L), 9000, 2000, 24);
             RECIPE_ADDER_INSTANCE.addAutoclaveRecipe(GT_Utility.copyAmount(1L, aStack), gregtech.api.util.GT_ModHandler.getDistilledWater(200L), GT_OreDictUnificator.get(OrePrefixes.gem, aMaterial, 1L), 9500, 1500, 24);
         }
 

@@ -1,7 +1,7 @@
 package gregtech.common;
 
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.world.GT_Worldgen;
 import gregtech.common.blocks.GT_TileEntity_Ores;
 import gregtech.loaders.misc.GT_Achievements;

@@ -1,7 +1,7 @@
 package gregtech.loaders.oreprocessing;
 
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
 import gregtech.api.objects.GT_MultiTexture;

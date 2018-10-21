@@ -12,7 +12,7 @@ public class GT_RenderedTexture extends GT_Color implements ITexture {
     private final IIconContainer mIconContainer;
     private final boolean mAllowAlpha;
     /**
-     * DO NOT MANIPULATE THE VALUES INSIDE THIS ARRAY!!!
+     * DO NOT MANIPULATE THE MATERIALS_HASH_MAP INSIDE THIS ARRAY!!!
      * <p/>
      * Just set this variable to another different Array instead.
      * Otherwise some colored things will get Problems.

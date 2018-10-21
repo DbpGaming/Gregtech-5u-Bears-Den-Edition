@@ -1,7 +1,7 @@
 package gregtech.loaders.oreprocessing;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.util.GT_ModHandler;
@@ -60,7 +60,7 @@ public class ProcessingIngot1 implements gregtech.api.interfaces.IOreRecipeRegis
 
         GT_RecipeRegistrator.registerUsagesForMaterials(GT_Utility.copyAmount(1L, aStack), OrePrefixes.plate.get(aMaterial).toString(), !aMaterial.contains(SubTag.NO_SMASHING));
 
-        if (aMaterial == Materials.Mercury) {
+        if (aMaterial == Materials.get("Mercury")) {
             System.err.println("Quicksilver Ingots?, Don't tell me there is an Armor made of that highly toxic and very likely to be melting Material!");
         }
     }

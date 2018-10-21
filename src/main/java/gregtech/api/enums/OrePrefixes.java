@@ -4,6 +4,7 @@ import gregtech.api.enums.TC_Aspects.TC_AspectStack;
 import gregtech.api.interfaces.ICondition;
 import gregtech.api.interfaces.IOreRecipeRegistrator;
 import gregtech.api.interfaces.ISubTagContainer;
+import gregtech.api.materials.Materials;
 import gregtech.api.objects.ItemData;
 import gregtech.api.objects.MaterialStack;
 import gregtech.api.util.GT_Log;
@@ -335,8 +336,8 @@ public enum OrePrefixes {
         ingotHot.mHeatDamage = 3.0F;
         cellPlasma.mHeatDamage = 6.0F;
 
-        block.ignoreMaterials(Materials.Ice, Materials.Snow, Materials.Concrete, Materials.Glass, Materials.Glowstone, Materials.DarkIron, Materials.Marble, Materials.Quartz, Materials.CertusQuartz, Materials.Limestone);
-        ingot.ignoreMaterials(Materials.Brick, Materials.NetherBrick);
+        block.ignoreMaterials(Materials.get("Ice"), Materials.get("Snow"), Materials.get("Concrete"), Materials.get("Glass"), Materials.get("Glowstone"), Materials.get("DarkIron"), Materials.get("Marble"), Materials.get("Quartz"), Materials.get("CertusQuartz"), Materials.get("Limestone"));
+        ingot.ignoreMaterials(Materials.get("Brick"), Materials.get("NetherBrick"));
 
         dust.addFamiliarPrefix(dustTiny);
         dust.addFamiliarPrefix(dustSmall);
@@ -362,86 +363,86 @@ public enum OrePrefixes {
                 if (tPrefix2.name().startsWith("cableGt")) tPrefix1.addFamiliarPrefix(tPrefix2);
 
         // These are only the important ones.
-        gem.mNotGeneratedItems.add(Materials.Coal);
-        gem.mNotGeneratedItems.add(Materials.Charcoal);
-        gem.mNotGeneratedItems.add(Materials.NetherStar);
-        gem.mNotGeneratedItems.add(Materials.Diamond);
-        gem.mNotGeneratedItems.add(Materials.Emerald);
-        gem.mNotGeneratedItems.add(Materials.NetherQuartz);
-        gem.mNotGeneratedItems.add(Materials.EnderPearl);
-        gem.mNotGeneratedItems.add(Materials.EnderEye);
-        gem.mNotGeneratedItems.add(Materials.Flint);
-        gem.mNotGeneratedItems.add(Materials.Lapis);
-        dust.mNotGeneratedItems.add(Materials.Bone);
-        dust.mNotGeneratedItems.add(Materials.Redstone);
-        dust.mNotGeneratedItems.add(Materials.Glowstone);
-        dust.mNotGeneratedItems.add(Materials.Gunpowder);
-        dust.mNotGeneratedItems.add(Materials.Sugar);
-        dust.mNotGeneratedItems.add(Materials.Blaze);
-        stick.mNotGeneratedItems.add(Materials.Wood);
-        stick.mNotGeneratedItems.add(Materials.Bone);
-        stick.mNotGeneratedItems.add(Materials.Blaze);
-        ingot.mNotGeneratedItems.add(Materials.Iron);
-        ingot.mNotGeneratedItems.add(Materials.Gold);
-        ingot.mNotGeneratedItems.add(Materials.Brick);
-        ingot.mNotGeneratedItems.add(Materials.BrickNether);
-        ingot.mNotGeneratedItems.add(Materials.WoodSealed);
-        ingot.mNotGeneratedItems.add(Materials.Wood);
-        nugget.mNotGeneratedItems.add(Materials.Gold);
-        plate.mNotGeneratedItems.add(Materials.Paper);
-        cell.mNotGeneratedItems.add(Materials.Empty);
-        cell.mNotGeneratedItems.add(Materials.Water);
-        cell.mNotGeneratedItems.add(Materials.Lava);
-        cell.mNotGeneratedItems.add(Materials.ConstructionFoam);
-        cell.mNotGeneratedItems.add(Materials.UUMatter);
-        cell.mNotGeneratedItems.add(Materials.BioFuel);
-        cell.mNotGeneratedItems.add(Materials.CoalFuel);
-        bucket.mNotGeneratedItems.add(Materials.Empty);
-        bucket.mNotGeneratedItems.add(Materials.Lava);
-        bucket.mNotGeneratedItems.add(Materials.Milk);
-        bucket.mNotGeneratedItems.add(Materials.Water);
-        bottle.mNotGeneratedItems.add(Materials.Empty);
-        bottle.mNotGeneratedItems.add(Materials.Water);
-        bottle.mNotGeneratedItems.add(Materials.Milk);
-        block.mNotGeneratedItems.add(Materials.Iron);
-        block.mNotGeneratedItems.add(Materials.Gold);
-        block.mNotGeneratedItems.add(Materials.Lapis);
-        block.mNotGeneratedItems.add(Materials.Emerald);
-        block.mNotGeneratedItems.add(Materials.Redstone);
-        block.mNotGeneratedItems.add(Materials.Diamond);
-        block.mNotGeneratedItems.add(Materials.Coal);
-        toolHeadArrow.mNotGeneratedItems.add(Materials.Glass);
+        gem.mNotGeneratedItems.add(Materials.get("Coal"));
+        gem.mNotGeneratedItems.add(Materials.get("Charcoal"));
+        gem.mNotGeneratedItems.add(Materials.get("NetherStar"));
+        gem.mNotGeneratedItems.add(Materials.get("Diamond"));
+        gem.mNotGeneratedItems.add(Materials.get("Emerald"));
+        gem.mNotGeneratedItems.add(Materials.get("NetherQuartz"));
+        gem.mNotGeneratedItems.add(Materials.get("EnderPearl"));
+        gem.mNotGeneratedItems.add(Materials.get("EnderEye"));
+        gem.mNotGeneratedItems.add(Materials.get("Flint"));
+        gem.mNotGeneratedItems.add(Materials.get("Lapis"));
+        dust.mNotGeneratedItems.add(Materials.get("Bone"));
+        dust.mNotGeneratedItems.add(Materials.get("Redstone"));
+        dust.mNotGeneratedItems.add(Materials.get("Glowstone"));
+        dust.mNotGeneratedItems.add(Materials.get("Gunpowder"));
+        dust.mNotGeneratedItems.add(Materials.get("Sugar"));
+        dust.mNotGeneratedItems.add(Materials.get("Blaze"));
+        stick.mNotGeneratedItems.add(Materials.get("Wood"));
+        stick.mNotGeneratedItems.add(Materials.get("Bone"));
+        stick.mNotGeneratedItems.add(Materials.get("Blaze"));
+        ingot.mNotGeneratedItems.add(Materials.get("Iron"));
+        ingot.mNotGeneratedItems.add(Materials.get("Gold"));
+        ingot.mNotGeneratedItems.add(Materials.get("Brick"));
+        ingot.mNotGeneratedItems.add(Materials.get("BrickNether"));
+        ingot.mNotGeneratedItems.add(Materials.get("WoodSealed"));
+        ingot.mNotGeneratedItems.add(Materials.get("Wood"));
+        nugget.mNotGeneratedItems.add(Materials.get("Gold"));
+        plate.mNotGeneratedItems.add(Materials.get("Paper"));
+        cell.mNotGeneratedItems.add(Materials.get("Empty"));
+        cell.mNotGeneratedItems.add(Materials.get("Water"));
+        cell.mNotGeneratedItems.add(Materials.get("Lava"));
+        cell.mNotGeneratedItems.add(Materials.get("ConstructionFoam"));
+        cell.mNotGeneratedItems.add(Materials.get("UUMatter"));
+        cell.mNotGeneratedItems.add(Materials.get("BioFuel"));
+        cell.mNotGeneratedItems.add(Materials.get("CoalFuel"));
+        bucket.mNotGeneratedItems.add(Materials.get("Empty"));
+        bucket.mNotGeneratedItems.add(Materials.get("Lava"));
+        bucket.mNotGeneratedItems.add(Materials.get("Milk"));
+        bucket.mNotGeneratedItems.add(Materials.get("Water"));
+        bottle.mNotGeneratedItems.add(Materials.get("Empty"));
+        bottle.mNotGeneratedItems.add(Materials.get("Water"));
+        bottle.mNotGeneratedItems.add(Materials.get("Milk"));
+        block.mNotGeneratedItems.add(Materials.get("Iron"));
+        block.mNotGeneratedItems.add(Materials.get("Gold"));
+        block.mNotGeneratedItems.add(Materials.get("Lapis"));
+        block.mNotGeneratedItems.add(Materials.get("Emerald"));
+        block.mNotGeneratedItems.add(Materials.get("Redstone"));
+        block.mNotGeneratedItems.add(Materials.get("Diamond"));
+        block.mNotGeneratedItems.add(Materials.get("Coal"));
+        toolHeadArrow.mNotGeneratedItems.add(Materials.get("Glass"));
 
         //-----
 
-        dustImpure.mGeneratedItems.add(Materials.GraniteRed);
-        dustImpure.mGeneratedItems.add(Materials.GraniteBlack);
-        dustImpure.mGeneratedItems.add(Materials.Quartzite);
-        dustImpure.mGeneratedItems.add(Materials.Flint);
-        dustImpure.mGeneratedItems.add(Materials.Redrock);
-        dustImpure.mGeneratedItems.add(Materials.Basalt);
-        dustImpure.mGeneratedItems.add(Materials.Marble);
-        dustImpure.mGeneratedItems.add(Materials.Netherrack);
-        dustImpure.mGeneratedItems.add(Materials.Endstone);
-        dustImpure.mGeneratedItems.add(Materials.Stone);
+        dustImpure.mGeneratedItems.add(Materials.get("GraniteRed"));
+        dustImpure.mGeneratedItems.add(Materials.get("GraniteBlack"));
+        dustImpure.mGeneratedItems.add(Materials.get("Quartzite"));
+        dustImpure.mGeneratedItems.add(Materials.get("Flint"));
+        dustImpure.mGeneratedItems.add(Materials.get("Redrock"));
+        dustImpure.mGeneratedItems.add(Materials.get("Basalt"));
+        dustImpure.mGeneratedItems.add(Materials.get("Marble"));
+        dustImpure.mGeneratedItems.add(Materials.get("Netherrack"));
+        dustImpure.mGeneratedItems.add(Materials.get("Endstone"));
+        dustImpure.mGeneratedItems.add(Materials.get("Stone"));
 
-        plate.mGeneratedItems.add(Materials.Redstone);
-        plate.mGeneratedItems.add(Materials.Concrete);
-        plate.mGeneratedItems.add(Materials.GraniteRed);
-        plate.mGeneratedItems.add(Materials.GraniteBlack);
-        plate.mGeneratedItems.add(Materials.Glowstone);
-        plate.mGeneratedItems.add(Materials.Teslatite);
-        plate.mGeneratedItems.add(Materials.Obsidian);
-        plate.mGeneratedItems.add(Materials.Paper);
-        plateDouble.mGeneratedItems.add(Materials.Paper);
-        plateTriple.mGeneratedItems.add(Materials.Paper);
-        plateQuadruple.mGeneratedItems.add(Materials.Paper);
-        plateQuintuple.mGeneratedItems.add(Materials.Paper);
+        plate.mGeneratedItems.add(Materials.get("Redstone"));
+        plate.mGeneratedItems.add(Materials.get("Concrete"));
+        plate.mGeneratedItems.add(Materials.get("GraniteRed"));
+        plate.mGeneratedItems.add(Materials.get("GraniteBlack"));
+        plate.mGeneratedItems.add(Materials.get("Glowstone"));
+        plate.mGeneratedItems.add(Materials.get("Teslatite"));
+        plate.mGeneratedItems.add(Materials.get("Obsidian"));
+        plate.mGeneratedItems.add(Materials.get("Paper"));
+        plateDouble.mGeneratedItems.add(Materials.get("Paper"));
+        plateTriple.mGeneratedItems.add(Materials.get("Paper"));
+        plateQuadruple.mGeneratedItems.add(Materials.get("Paper"));
+        plateQuintuple.mGeneratedItems.add(Materials.get("Paper"));
 
-        lens.mGeneratedItems.add(Materials.EnderPearl);
-        lens.mGeneratedItems.add(Materials.EnderEye);
+        lens.mGeneratedItems.add(Materials.get("EnderPearl"));
+        lens.mGeneratedItems.add(Materials.get("EnderEye"));
 
-        stickLong.mGeneratedItems.add(Materials.Blaze);
+        stickLong.mGeneratedItems.add(Materials.get("Blaze"));
 
         //-----
 
@@ -492,40 +493,40 @@ public enum OrePrefixes {
 
         //-----
 
-        pipeRestrictiveTiny.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount);
-        pipeRestrictiveSmall.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 2);
-        pipeRestrictiveMedium.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 3);
-        pipeRestrictiveLarge.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 4);
-        pipeRestrictiveHuge.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 5);
-        cableGt12.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 4);
-        cableGt08.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 3);
-        cableGt04.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 2);
-        cableGt02.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount);
-        cableGt01.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount);
-        bucket.mSecondaryMaterial = new MaterialStack(Materials.Iron, ingot.mMaterialAmount * 3);
-        cell.mSecondaryMaterial = new MaterialStack(Materials.Tin, plate.mMaterialAmount * 2);
-        cellPlasma.mSecondaryMaterial = new MaterialStack(Materials.Tin, plate.mMaterialAmount * 2);
-        oreRedgranite.mSecondaryMaterial = new MaterialStack(Materials.GraniteRed, dust.mMaterialAmount);
-        oreBlackgranite.mSecondaryMaterial = new MaterialStack(Materials.GraniteBlack, dust.mMaterialAmount);
-        oreNetherrack.mSecondaryMaterial = new MaterialStack(Materials.Netherrack, dust.mMaterialAmount);
-        oreNether.mSecondaryMaterial = new MaterialStack(Materials.Netherrack, dust.mMaterialAmount);
-        oreEndstone.mSecondaryMaterial = new MaterialStack(Materials.Endstone, dust.mMaterialAmount);
-        oreEnd.mSecondaryMaterial = new MaterialStack(Materials.Endstone, dust.mMaterialAmount);
-        oreDense.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount);
-        orePoor.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount * 2);
-        oreSmall.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount * 2);
-        oreNormal.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount * 2);
-        oreRich.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount * 2);
-        ore.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount);
-        crushed.mSecondaryMaterial = new MaterialStack(Materials.Stone, dust.mMaterialAmount);
-        toolHeadDrill.mSecondaryMaterial = new MaterialStack(Materials.Steel, plate.mMaterialAmount * 4);
-        toolHeadChainsaw.mSecondaryMaterial = new MaterialStack(Materials.Steel, plate.mMaterialAmount * 4 + ring.mMaterialAmount * 2);
-        toolHeadWrench.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount + screw.mMaterialAmount * 2);
-        arrowGtWood.mSecondaryMaterial = new MaterialStack(Materials.Wood, stick.mMaterialAmount);
-        arrowGtPlastic.mSecondaryMaterial = new MaterialStack(Materials.Plastic, stick.mMaterialAmount);
-        bulletGtSmall.mSecondaryMaterial = new MaterialStack(Materials.Brass, ingot.mMaterialAmount / 9);
-        bulletGtMedium.mSecondaryMaterial = new MaterialStack(Materials.Brass, ingot.mMaterialAmount / 6);
-        bulletGtLarge.mSecondaryMaterial = new MaterialStack(Materials.Brass, ingot.mMaterialAmount / 3);
+        pipeRestrictiveTiny.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), ring.mMaterialAmount);
+        pipeRestrictiveSmall.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), ring.mMaterialAmount * 2);
+        pipeRestrictiveMedium.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), ring.mMaterialAmount * 3);
+        pipeRestrictiveLarge.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), ring.mMaterialAmount * 4);
+        pipeRestrictiveHuge.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), ring.mMaterialAmount * 5);
+        cableGt12.mSecondaryMaterial = new MaterialStack(Materials.get("Rubber"), plate.mMaterialAmount * 4);
+        cableGt08.mSecondaryMaterial = new MaterialStack(Materials.get("Rubber"), plate.mMaterialAmount * 3);
+        cableGt04.mSecondaryMaterial = new MaterialStack(Materials.get("Rubber"), plate.mMaterialAmount * 2);
+        cableGt02.mSecondaryMaterial = new MaterialStack(Materials.get("Rubber"), plate.mMaterialAmount);
+        cableGt01.mSecondaryMaterial = new MaterialStack(Materials.get("Rubber"), plate.mMaterialAmount);
+        bucket.mSecondaryMaterial = new MaterialStack(Materials.get("Iron"), ingot.mMaterialAmount * 3);
+        cell.mSecondaryMaterial = new MaterialStack(Materials.get("Tin"), plate.mMaterialAmount * 2);
+        cellPlasma.mSecondaryMaterial = new MaterialStack(Materials.get("Tin"), plate.mMaterialAmount * 2);
+        oreRedgranite.mSecondaryMaterial = new MaterialStack(Materials.get("GraniteRed"), dust.mMaterialAmount);
+        oreBlackgranite.mSecondaryMaterial = new MaterialStack(Materials.get("GraniteBlack"), dust.mMaterialAmount);
+        oreNetherrack.mSecondaryMaterial = new MaterialStack(Materials.get("Netherrack"), dust.mMaterialAmount);
+        oreNether.mSecondaryMaterial = new MaterialStack(Materials.get("Netherrack"), dust.mMaterialAmount);
+        oreEndstone.mSecondaryMaterial = new MaterialStack(Materials.get("Endstone"), dust.mMaterialAmount);
+        oreEnd.mSecondaryMaterial = new MaterialStack(Materials.get("Endstone"), dust.mMaterialAmount);
+        oreDense.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount);
+        orePoor.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount * 2);
+        oreSmall.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount * 2);
+        oreNormal.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount * 2);
+        oreRich.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount * 2);
+        ore.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount);
+        crushed.mSecondaryMaterial = new MaterialStack(Materials.get("Stone"), dust.mMaterialAmount);
+        toolHeadDrill.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), plate.mMaterialAmount * 4);
+        toolHeadChainsaw.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), plate.mMaterialAmount * 4 + ring.mMaterialAmount * 2);
+        toolHeadWrench.mSecondaryMaterial = new MaterialStack(Materials.get("Steel"), ring.mMaterialAmount + screw.mMaterialAmount * 2);
+        arrowGtWood.mSecondaryMaterial = new MaterialStack(Materials.get("Wood"), stick.mMaterialAmount);
+        arrowGtPlastic.mSecondaryMaterial = new MaterialStack(Materials.get("Plastic"), stick.mMaterialAmount);
+        bulletGtSmall.mSecondaryMaterial = new MaterialStack(Materials.get("Brass"), ingot.mMaterialAmount / 9);
+        bulletGtMedium.mSecondaryMaterial = new MaterialStack(Materials.get("Brass"), ingot.mMaterialAmount / 6);
+        bulletGtLarge.mSecondaryMaterial = new MaterialStack(Materials.get("Brass"), ingot.mMaterialAmount / 3);
     }
 
     public final ArrayList<ItemStack> mPrefixedItems = new ArrayList<ItemStack>();
@@ -677,7 +678,7 @@ public enum OrePrefixes {
     }
 
     public boolean doGenerateItem(Materials aMaterial) {
-        return aMaterial != null && aMaterial != Materials._NULL && ((aMaterial.getTypes() & mMaterialGenerationBits) != 0 || mGeneratedItems.contains(aMaterial)) && !mNotGeneratedItems.contains(aMaterial) && (mCondition == null || mCondition.isTrue(aMaterial));
+        return aMaterial != null && aMaterial != Materials.get("_NULL") && ((aMaterial.getTypes() & mMaterialGenerationBits) != 0 || mGeneratedItems.contains(aMaterial)) && !mNotGeneratedItems.contains(aMaterial) && (mCondition == null || mCondition.isTrue(aMaterial));
     }
 
     public boolean ignoreMaterials(Materials... aMaterials) {
@@ -701,7 +702,7 @@ public enum OrePrefixes {
     }
 
     public void processOre(Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
-        if (aMaterial != null && (aMaterial != Materials._NULL || mIsSelfReferencing || !mIsMaterialBased) && GT_Utility.isStackValid(aStack))
+        if (aMaterial != null && (aMaterial != Materials.get("_NULL") || mIsSelfReferencing || !mIsMaterialBased) && GT_Utility.isStackValid(aStack))
             for (IOreRecipeRegistrator tRegistrator : mOreProcessing) {
                 if (DEBUG_LEVEL_2)
                     GT_Log.ore.println("Processing '" + aOreDictName + "' with the Prefix '" + name() + "' and the Material '" + aMaterial.name() + "' at " + GT_Utility.getClassName(tRegistrator));

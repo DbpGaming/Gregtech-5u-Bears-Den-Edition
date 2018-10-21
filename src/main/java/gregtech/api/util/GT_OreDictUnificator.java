@@ -2,7 +2,7 @@ package gregtech.api.util;
 
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.objects.GT_HashSet;
@@ -318,7 +318,7 @@ public class GT_OreDictUnificator {
 
     public static ItemStack getIngotOrDust(MaterialStack aMaterial) {
         ItemStack rStack = getIngot(aMaterial);
-        if(aMaterial!=null&&aMaterial.mMaterial!=null&&(aMaterial.mMaterial== Materials.Naquadah||aMaterial.mMaterial== Materials.NaquadahEnriched))rStack = getDust(aMaterial);
+        if(aMaterial!=null&&aMaterial.mMaterial!=null&&(aMaterial.mMaterial== Materials.get("Naquadah|")|aMaterial.mMaterial== Materials.get("NaquadahEnriched")))rStack = getDust(aMaterial);
         if (rStack == null) rStack = getDust(aMaterial);
         return rStack;
     }

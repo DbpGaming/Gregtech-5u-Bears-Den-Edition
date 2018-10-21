@@ -1,7 +1,7 @@
 package gregtech.loaders.oreprocessing;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.interfaces.IOreRecipeRegistrator;
 import gregtech.api.objects.MaterialStack;
@@ -23,7 +23,7 @@ public class ProcessingCell
     }
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
-        if (aMaterial == Materials.Empty) {
+        if (aMaterial == Materials.get("Empty")) {
             GT_ModHandler.removeRecipeByOutput(aStack);
             if (aModName.equalsIgnoreCase("AtomicScience")) {
                 GT_ModHandler.addExtractionRecipe(ItemList.Cell_Empty.get(1L), aStack);
@@ -45,7 +45,7 @@ public class ProcessingCell
                 for (MaterialStack tMat : aMaterial.getMaterialStackList()) {
                     if (tMat.mAmount > 0L) {
                         ItemStack tStack;
-                        if (tMat.mMaterial == Materials.Air) {
+                        if (tMat.mMaterial == Materials.get("Air")) {
                             tStack = ItemList.Cell_Air.get(tMat.mAmount * tDensityMultiplier / 2L);
                         } else {
                             tStack = GT_OreDictUnificator.get(OrePrefixes.dust, tMat.mMaterial, tMat.mAmount);

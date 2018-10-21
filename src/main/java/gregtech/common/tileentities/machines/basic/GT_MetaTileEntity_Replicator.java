@@ -3,7 +3,7 @@ package gregtech.common.tileentities.machines.basic;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Element;
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -16,8 +16,6 @@ import gregtech.api.util.GT_Utility;
 import gregtech.common.items.behaviors.Behaviour_DataOrb;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-
-import java.util.Iterator;
 
 import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
@@ -40,7 +38,7 @@ public class GT_MetaTileEntity_Replicator
 
     public int checkRecipe() {
         FluidStack tFluid = getFillableStack();
-        if ((tFluid != null) && (tFluid.isFluidEqual(Materials.UUMatter.getFluid(1L)))) {
+        if ((tFluid != null) && (tFluid.isFluidEqual(Materials.get("UUMatter").getFluid(1L)))) {
             ItemStack tDataOrb = getSpecialSlot();
             if ((ItemList.Tool_DataOrb.isStackEqual(tDataOrb, false, true)) && (Behaviour_DataOrb.getDataTitle(tDataOrb).equals("Elemental-Scan"))) {
                 Materials tMaterial = Element.get(Behaviour_DataOrb.getDataName(tDataOrb)).mLinkedMaterials.get(0);
@@ -84,12 +82,12 @@ public class GT_MetaTileEntity_Replicator
     }
 
     public boolean isFluidInputAllowed(FluidStack aFluid) {
-        return aFluid.isFluidEqual(Materials.UUMatter.getFluid(1L));
+        return aFluid.isFluidEqual(Materials.get("UUMatter").getFluid(1L));
     }
 
     public int getCapacity() {
         if ((sHeaviestElementMass == 0) && (GregTech_API.sPostloadFinished)) {
-            for (Materials tMaterial : Materials.VALUES) {
+            for (Materials tMaterial : Materials.values()) {
                 if ((tMaterial.getElement() == null) || (tMaterial.getElement().mIsIsotope)) {
                     setHeaviestElementMass(Math.max(sHeaviestElementMass, (int) tMaterial.getMass()));
                 }

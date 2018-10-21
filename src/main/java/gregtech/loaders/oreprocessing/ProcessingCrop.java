@@ -1,7 +1,7 @@
 package gregtech.loaders.oreprocessing;
 
 import gregtech.api.enums.ItemList;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_OreDictUnificator;
@@ -23,9 +23,9 @@ public class ProcessingCrop implements gregtech.api.interfaces.IOreRecipeRegistr
             RECIPE_ADDER_INSTANCE.addBrewingRecipe(aStack, FluidRegistry.WATER, FluidRegistry.getFluid("potion.grapejuice"), false);
             RECIPE_ADDER_INSTANCE.addBrewingRecipe(aStack, GT_ModHandler.getDistilledWater(1L).getFluid(), FluidRegistry.getFluid("potion.grapejuice"), false);
         } else if (aOreDictName.equals("cropChilipepper")) {
-            GT_ModHandler.addPulverisationRecipe(aStack, GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Chili, 1L));
+            GT_ModHandler.addPulverisationRecipe(aStack, GT_OreDictUnificator.get(OrePrefixes.dust, Materials.get("Chili"), 1L));
         } else if (aOreDictName.equals("cropCoffee")) {
-            GT_ModHandler.addPulverisationRecipe(aStack, GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Coffee, 1L));
+            GT_ModHandler.addPulverisationRecipe(aStack, GT_OreDictUnificator.get(OrePrefixes.dust, Materials.get("Coffee"), 1L));
         } else if (aOreDictName.equals("cropPotato")) {
             RECIPE_ADDER_INSTANCE.addSlicerRecipe(aStack, ItemList.Shape_Slicer_Flat.get(0L), ItemList.Food_Raw_PotatoChips.get(1L), 64, 4);
             RECIPE_ADDER_INSTANCE.addSlicerRecipe(aStack, ItemList.Shape_Slicer_Stripes.get(0L), ItemList.Food_Raw_Fries.get(1L), 64, 4);

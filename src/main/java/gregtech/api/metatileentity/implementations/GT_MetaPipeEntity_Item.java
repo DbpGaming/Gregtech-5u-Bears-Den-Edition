@@ -2,7 +2,7 @@ package gregtech.api.metatileentity.implementations;
 
 import gregtech.GT_Mod;
 import gregtech.api.enums.Dyes;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.enums.OrePrefixes;
 import gregtech.api.enums.SubTag;
 import gregtech.api.enums.Textures;

@@ -7,7 +7,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import gregtech.GT_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
-import gregtech.api.enums.Materials;
+import gregtech.api.materials.Materials;
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.ITurnable;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
@@ -89,24 +89,24 @@ public class GT_Client extends GT_Proxy
         mAnimationDirection = false;
         isFirstClientPlayerTick = true;
         mMessage = EMPTY_STRING;
-        mPosR = Arrays.asList( /**Materials.ChargedCertusQuartz, **/Materials.Enderium, Materials.Vinteum, Materials.Uranium235, Materials.InfusedGold, Materials.Plutonium241, Materials.NaquadahEnriched, Materials.Naquadria, Materials.InfusedOrder,
-                Materials.Pyrotheum, Materials.Sunnarium, Materials.Glowstone, Materials.Thaumium, Materials.InfusedVis, Materials.InfusedAir, Materials.InfusedFire, Materials.FierySteel, Materials.Firestone);
-        mPosG = Arrays.asList( /**Materials.ChargedCertusQuartz, **/Materials.Enderium, Materials.Vinteum, Materials.Uranium235, Materials.InfusedGold, Materials.Plutonium241, Materials.NaquadahEnriched, Materials.Naquadria, Materials.InfusedOrder,
-                Materials.Pyrotheum, Materials.Sunnarium, Materials.Glowstone, Materials.InfusedAir, Materials.InfusedEarth);
-        mPosB = Arrays.asList( /**Materials.ChargedCertusQuartz, **/Materials.Enderium, Materials.Vinteum, Materials.Uranium235, Materials.InfusedGold, Materials.Plutonium241, Materials.NaquadahEnriched, Materials.Naquadria, Materials.InfusedOrder, Materials.InfusedVis,
-                Materials.InfusedWater, Materials.Thaumium);
-        mNegR = Arrays.asList(Materials.InfusedEntropy, Materials.NetherStar);
-        mNegG = Arrays.asList(Materials.InfusedEntropy, Materials.NetherStar);
-        mNegB = Arrays.asList(Materials.InfusedEntropy, Materials.NetherStar);
-        mMoltenPosR = Arrays.asList(Materials.Enderium, Materials.NetherStar, Materials.Vinteum, Materials.Uranium235, Materials.InfusedGold, Materials.Plutonium241, Materials.NaquadahEnriched, Materials.Naquadria, Materials.InfusedOrder,
-                Materials.Pyrotheum, Materials.Sunnarium, Materials.Glowstone, Materials.Thaumium, Materials.InfusedVis, Materials.InfusedAir, Materials.InfusedFire, Materials.FierySteel, Materials.Firestone);
-        mMoltenPosG = Arrays.asList(Materials.Enderium, Materials.NetherStar, Materials.Vinteum, Materials.Uranium235, Materials.InfusedGold, Materials.Plutonium241, Materials.NaquadahEnriched, Materials.Naquadria, Materials.InfusedOrder,
-                Materials.Pyrotheum, Materials.Sunnarium, Materials.Glowstone, Materials.InfusedAir, Materials.InfusedEarth);
-        mMoltenPosB = Arrays.asList(Materials.Enderium, Materials.NetherStar, Materials.Vinteum, Materials.Uranium235, Materials.InfusedGold, Materials.Plutonium241, Materials.NaquadahEnriched, Materials.Naquadria, Materials.InfusedOrder, Materials.InfusedVis,
-                Materials.InfusedWater, Materials.Thaumium);
-        mMoltenNegR = Arrays.asList(Materials.InfusedEntropy);
-        mMoltenNegG = Arrays.asList(Materials.InfusedEntropy);
-        mMoltenNegB = Arrays.asList(Materials.InfusedEntropy);
+        mPosR = Arrays.asList( /**Materials.get("ChargedCertusQuartz"), **/Materials.get("Enderium"), Materials.get("Vinteum"), Materials.get("Uranium235"), Materials.get("InfusedGold"), Materials.get("Plutonium241"), Materials.get("NaquadahEnriched"), Materials.get("Naquadria"), Materials.get("InfusedOrder"),
+                Materials.get("Pyrotheum"), Materials.get("Sunnarium"), Materials.get("Glowstone"), Materials.get("Thaumium"), Materials.get("InfusedVis"), Materials.get("InfusedAir"), Materials.get("InfusedFire"), Materials.get("FierySteel"), Materials.get("Firestone"));
+        mPosG = Arrays.asList( /**Materials.get("ChargedCertusQuartz"), **/Materials.get("Enderium"), Materials.get("Vinteum"), Materials.get("Uranium235"), Materials.get("InfusedGold"), Materials.get("Plutonium241"), Materials.get("NaquadahEnriched"), Materials.get("Naquadria"), Materials.get("InfusedOrder"),
+                Materials.get("Pyrotheum"), Materials.get("Sunnarium"), Materials.get("Glowstone"), Materials.get("InfusedAir"), Materials.get("InfusedEarth"));
+        mPosB = Arrays.asList( /**Materials.get("ChargedCertusQuartz"), **/Materials.get("Enderium"), Materials.get("Vinteum"), Materials.get("Uranium235"), Materials.get("InfusedGold"), Materials.get("Plutonium241"), Materials.get("NaquadahEnriched"), Materials.get("Naquadria"), Materials.get("InfusedOrder"), Materials.get("InfusedVis"),
+                Materials.get("InfusedWater"), Materials.get("Thaumium"));
+        mNegR = Arrays.asList(Materials.get("InfusedEntropy"), Materials.get("NetherStar"));
+        mNegG = Arrays.asList(Materials.get("InfusedEntropy"), Materials.get("NetherStar"));
+        mNegB = Arrays.asList(Materials.get("InfusedEntropy"), Materials.get("NetherStar"));
+        mMoltenPosR = Arrays.asList(Materials.get("Enderium"), Materials.get("NetherStar"), Materials.get("Vinteum"), Materials.get("Uranium235"), Materials.get("InfusedGold"), Materials.get("Plutonium241"), Materials.get("NaquadahEnriched"), Materials.get("Naquadria"), Materials.get("InfusedOrder"),
+                Materials.get("Pyrotheum"), Materials.get("Sunnarium"), Materials.get("Glowstone"), Materials.get("Thaumium"), Materials.get("InfusedVis"), Materials.get("InfusedAir"), Materials.get("InfusedFire"), Materials.get("FierySteel"), Materials.get("Firestone"));
+        mMoltenPosG = Arrays.asList(Materials.get("Enderium"), Materials.get("NetherStar"), Materials.get("Vinteum"), Materials.get("Uranium235"), Materials.get("InfusedGold"), Materials.get("Plutonium241"), Materials.get("NaquadahEnriched"), Materials.get("Naquadria"), Materials.get("InfusedOrder"),
+                Materials.get("Pyrotheum"), Materials.get("Sunnarium"), Materials.get("Glowstone"), Materials.get("InfusedAir"), Materials.get("InfusedEarth"));
+        mMoltenPosB = Arrays.asList(Materials.get("Enderium"), Materials.get("NetherStar"), Materials.get("Vinteum"), Materials.get("Uranium235"), Materials.get("InfusedGold"), Materials.get("Plutonium241"), Materials.get("NaquadahEnriched"), Materials.get("Naquadria"), Materials.get("InfusedOrder"), Materials.get("InfusedVis"),
+                Materials.get("InfusedWater"), Materials.get("Thaumium"));
+        mMoltenNegR = Arrays.asList(Materials.get("InfusedEntropy"));
+        mMoltenNegG = Arrays.asList(Materials.get("InfusedEntropy"));
+        mMoltenNegB = Arrays.asList(Materials.get("InfusedEntropy"));
     }
 
     private static void drawGrid(DrawBlockHighlightEvent aEvent) {
