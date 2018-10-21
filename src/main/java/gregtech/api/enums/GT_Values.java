@@ -123,6 +123,7 @@ public class GT_Values {
     public static final String MOD_ID = "gregtech";
     public static final String MOD_ID_GS = "GraviSuite";
     public static final String MOD_ID_HaC = "harvestcraft";
+    public static final String MOD_ID_HEE = "HardcoreEnderExpansion";
     public static final String MOD_ID_IC2 = "IC2";
     public static final String MOD_ID_NC = "IC2NuclearControl";
     public static final String MOD_ID_MaCr = "magicalcrops";
@@ -134,6 +135,8 @@ public class GT_Values {
     public static final String MOD_ID_TC = "Thaumcraft";
     public static final String MOD_ID_TE = "ThermalExpansion";
     public static final String MOD_ID_TF = "TwilightForest";
+    public static final String MOD_ID_TMa = "TaintedMagic";
+    public static final String MOD_ID_TTi = "ThaumicTinkerer";
     public static final String MOD_ID_UKN = "UNKNOWN";
     public static final String MOD_ID_XyC = "xycraft";
 
