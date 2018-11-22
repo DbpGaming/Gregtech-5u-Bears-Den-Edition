@@ -1,6 +1,6 @@
 package gregtech.common.tools;
 
-import gregtech.GT5_Mod;
+import gregtech.GT_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.items.GT_MetaGenerated_Tool;
@@ -58,7 +58,7 @@ public class GT_Tool_UniversalSpade
     }
 
     public String getBreakingSound() {
-        return GregTech_API.sSoundList.get(0);
+        return (String) GregTech_API.sSoundList.get(Integer.valueOf(0));
     }
 
     public String getMiningSound() {
@@ -102,7 +102,7 @@ public class GT_Tool_UniversalSpade
         super.onToolCrafted(aStack, aPlayer);
         aPlayer.triggerAchievement(AchievementList.buildSword);
         try {
-            GT5_Mod.achievements.issueAchievement(aPlayer, "unitool");
+            GT_Mod.instance.achievements.issueAchievement(aPlayer, "unitool");
         } catch (Exception e) {
         }
     }

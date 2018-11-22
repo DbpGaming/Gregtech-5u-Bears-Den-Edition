@@ -1,7 +1,6 @@
 package gregtech.api.gui;
 
 import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
-
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Utility;
 import net.minecraft.entity.player.InventoryPlayer;

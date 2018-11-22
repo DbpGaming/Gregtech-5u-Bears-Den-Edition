@@ -1,5 +1,10 @@
 package gregtech.common.render;
 
+import gregtech.api.enums.Materials;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.interfaces.IToolStats;
+import gregtech.api.items.GT_MetaGenerated_Tool;
+import gregtech.api.util.GT_Utility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -8,13 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
-import org.lwjgl.opengl.GL11;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.interfaces.IToolStats;
-import gregtech.api.items.GT_MetaGenerated_Tool;
-import gregtech.api.util.GT_Utility;
+import org.lwjgl.opengl.GL11;
 
 public class GT_MetaGenerated_Tool_Renderer
         implements IItemRenderer {

@@ -1,12 +1,5 @@
 package gregtech.common.tileentities.machines.multi;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -14,8 +7,15 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Utility;
 import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
+import gregtech.api.util.GT_Utility;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 public class GT_MetaTileEntity_LargeTurbine_Plasma extends GT_MetaTileEntity_LargeTurbine {
 
@@ -41,8 +41,7 @@ public class GT_MetaTileEntity_LargeTurbine_Plasma extends GT_MetaTileEntity_Lar
                 "1x Dynamo Hatch (back centered)",
                 "1x Maintenance Hatch (side centered)",
                 "Turbine Casings for the rest (24 at least!)",
-                "Needs a Turbine Item (inside controller GUI)",
-                "Needs air in front of 3x3 Turbine facing!"};
+                "Needs a Turbine Item (inside controller GUI)"};
     }
 
     public int getFuelValue(FluidStack aLiquid) {
@@ -91,7 +90,7 @@ public class GT_MetaTileEntity_LargeTurbine_Plasma extends GT_MetaTileEntity_Lar
         if (aFluids.size() >= 1) {
             FluidStack firstFuelType = new FluidStack(aFluids.get(0), 0); // Identify a SINGLE type of fluid to process.  Doesn't matter which one. Ignore the rest!
             int fuelValue = getFuelValue(firstFuelType);
-            actualOptimalFlow = (aOptFlow + fuelValue - 1) / fuelValue;
+            actualOptimalFlow = (int) ((aOptFlow + fuelValue - 1) / fuelValue);
 
             int remainingFlow = (int) (actualOptimalFlow * 1.25f); // Allowed to use up to 125% of optimal flow.  Variable required outside of loop for multi-hatch scenarios.
             int flow = 0;

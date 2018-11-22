@@ -1,7 +1,5 @@
 package gregtech.common.covers;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_CoverBehavior;
@@ -12,7 +10,7 @@ import net.minecraftforge.fluids.Fluid;
 
 public class GT_Cover_PlayerDetector extends GT_CoverBehavior {
 
-	private String placer = EMPTY_STRING;
+	private String placer = "";
 	private int range = 8;
 
 	public int doCoverThings(byte aSide, byte aInputRedstone, int aCoverID, int aCoverVariable, ICoverable aTileEntity, long aTimer) {

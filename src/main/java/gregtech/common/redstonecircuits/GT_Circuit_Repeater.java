@@ -1,7 +1,5 @@
 package gregtech.common.redstonecircuits;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
 import gregtech.api.interfaces.IRedstoneCircuitBlock;
 import gregtech.api.util.GT_CircuitryBehavior;
 
@@ -65,7 +63,7 @@ public class GT_Circuit_Repeater
             case 0:
                 return "Delay";
         }
-        return EMPTY_STRING;
+        return "";
     }
 
     public boolean displayItemStack(int[] aCircuitData, IRedstoneCircuitBlock aRedstoneCircuitBlock, int aIndex) {
@@ -74,7 +72,7 @@ public class GT_Circuit_Repeater
 
     public String getDataDisplay(int[] aCircuitData, int aCircuitDataIndex) {
         if (aCircuitDataIndex > 0) {
-            return EMPTY_STRING;
+            return "";
         }
         return null;
     }

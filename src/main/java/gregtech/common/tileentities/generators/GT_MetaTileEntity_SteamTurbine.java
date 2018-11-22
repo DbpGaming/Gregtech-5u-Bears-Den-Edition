@@ -21,7 +21,7 @@ public class GT_MetaTileEntity_SteamTurbine extends GT_MetaTileEntity_BasicGener
 	}
 
 	public GT_MetaTileEntity_SteamTurbine(int aID, String aName, String aNameRegional, int aTier) {
-		super(aID, aName, aNameRegional, aTier, "Requires Steam to run");
+		super(aID, aName, aNameRegional, aTier, "Requires Steam to run", new ITexture[0]);
 		onConfigLoad();
 	}
 

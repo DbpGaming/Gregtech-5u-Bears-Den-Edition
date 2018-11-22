@@ -1,16 +1,16 @@
 package gregtech.common.items.behaviors;
 
+import gregtech.api.items.GT_MetaBase_Item;
+import gregtech.api.items.GT_MetaGenerated_Tool;
+import gregtech.api.util.GT_LanguageManager;
 import ic2.api.crops.ICropTile;
+
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import gregtech.api.items.GT_MetaBase_Item;
-import gregtech.api.items.GT_MetaGenerated_Tool;
-import gregtech.api.util.GT_LanguageManager;
 
 public class Behaviour_Sense
         extends Behaviour_None {

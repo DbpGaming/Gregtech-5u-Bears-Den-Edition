@@ -1,7 +1,5 @@
 package gregtech.common.gui;
 
-import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
-
 import gregtech.api.gui.GT_GUIContainerMetaTile_Machine;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,7 +7,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 public class GT_GUIContainer_TypeFilter
         extends GT_GUIContainerMetaTile_Machine {
     public GT_GUIContainer_TypeFilter(InventoryPlayer aInventoryPlayer, IGregTechTileEntity aTileEntity) {
-        super(new GT_Container_TypeFilter(aInventoryPlayer, aTileEntity), RES_PATH_GUI + "TypeFilter.png");
+        super(new GT_Container_TypeFilter(aInventoryPlayer, aTileEntity), "gregtech:textures/gui/TypeFilter.png");
     }
 
     protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {

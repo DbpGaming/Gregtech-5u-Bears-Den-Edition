@@ -1,7 +1,5 @@
 package gregtech.common.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -10,52 +8,53 @@ import gregtech.api.items.GT_Generic_Item;
 import gregtech.api.util.GT_LanguageManager;
 import gregtech.api.util.GT_Log;
 import gregtech.api.util.GT_ModHandler;
+
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
-import java.util.List;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GT_IntegratedCircuit_Item
         extends GT_Generic_Item {
     public GT_IntegratedCircuit_Item() {
-        super("integrated_circuit", "Integrated Circuit", EMPTY_STRING);
+        super("integrated_circuit", "Integrated Circuit", "");
         setHasSubtypes(true);
         setMaxDamage(0);
 
         ItemList.Circuit_Integrated.set(this);
 
 
-        GT_ModHandler.addShapelessCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 0L), GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{OrePrefixes.circuit.get(Materials.Basic)});
+        GT_ModHandler.addShapelessCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 0L, new Object[0]), GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{OrePrefixes.circuit.get(Materials.Basic)});
 
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 1L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"d  ", " P ", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 2L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{" d ", " P ", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 3L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  d", " P ", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 4L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " Pd", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 5L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " P ", "  d", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 6L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " P ", " d ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 7L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " P ", "d  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 8L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "dP ", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 1L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"d  ", " P ", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 2L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{" d ", " P ", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 3L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  d", " P ", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 4L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " Pd", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 5L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " P ", "  d", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 6L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " P ", " d ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 7L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", " P ", "d  ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 8L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "dP ", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
 
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 9L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P d", "   ", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 10L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P  ", "  d", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 11L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P  ", "   ", "  d", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 12L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P  ", "   ", " d ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 13L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "   ", "  d", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 14L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "   ", " d ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 15L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "   ", "d  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 16L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "d  ", "   ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 17L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "   ", "d P", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 18L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "d  ", "  P", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 19L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"d  ", "   ", "  P", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 20L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{" d ", "   ", "  P", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 21L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"d  ", "   ", "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 22L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{" d ", "   ", "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 23L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  d", "   ", "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 24L), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "  d", "P  ", 'P', ItemList.Circuit_Integrated.getWildcard(1L)});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 9L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P d", "   ", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 10L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P  ", "  d", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 11L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P  ", "   ", "  d", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 12L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"P  ", "   ", " d ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 13L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "   ", "  d", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 14L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "   ", " d ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 15L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "   ", "d  ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 16L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  P", "d  ", "   ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 17L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "   ", "d P", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 18L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "d  ", "  P", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 19L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"d  ", "   ", "  P", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 20L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{" d ", "   ", "  P", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 21L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"d  ", "   ", "P  ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 22L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{" d ", "   ", "P  ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 23L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"  d", "   ", "P  ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
+        GT_ModHandler.addCraftingRecipe(ItemList.Circuit_Integrated.getWithDamage(1L, 24L, new Object[0]), GT_ModHandler.RecipeBits.BUFFERED | GT_ModHandler.RecipeBits.NOT_REMOVABLE, new Object[]{"   ", "  d", "P  ", Character.valueOf('P'), ItemList.Circuit_Integrated.getWildcard(1L, new Object[0])});
     }
 
     private static String getModeString(int aMetaData) {
@@ -71,7 +70,7 @@ public class GT_IntegratedCircuit_Item
             case 4:
                 return ">";
         }
-        return EMPTY_STRING;
+        return "";
     }
 
     private static String getConfigurationString(int aMetaData) {

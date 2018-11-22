@@ -1,11 +1,15 @@
 package gregtech.api.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static gregtech.api.enums.GT_Values.RES_PATH_ITEM;
 import gregtech.api.GregTech_API;
 import gregtech.api.util.GT_LanguageManager;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_Utility;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,12 +26,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
-
-import static gregtech.api.enums.GT_Values.RES_PATH_ITEM;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GT_EnergyArmor_Item extends ItemArmor implements ISpecialArmor {
     public static Map jumpChargeMap = new HashMap();
@@ -155,7 +155,7 @@ public class GT_EnergyArmor_Item extends ItemArmor implements ISpecialArmor {
                 }
             }
 
-            jumpChargeMap.put(aPlayer, var6);
+            jumpChargeMap.put(aPlayer, Float.valueOf(var6));
         }
 
         if ((mSpecials & 256) != 0) {

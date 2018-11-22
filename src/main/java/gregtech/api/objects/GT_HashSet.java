@@ -1,6 +1,7 @@
 package gregtech.api.objects;
 
-import net.minecraft.item.ItemStack;
+import gregtech.api.GregTech_API;
+import gregtech.api.util.GT_Utility;
 
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -8,8 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
-import gregtech.api.GregTech_API;
-import gregtech.api.util.GT_Utility;
+import net.minecraft.item.ItemStack;
 
 public class GT_HashSet<E extends GT_ItemStack> extends AbstractSet<E> {
     private static final Object OBJECT = new Object();

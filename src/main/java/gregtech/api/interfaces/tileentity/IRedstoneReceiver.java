@@ -10,20 +10,20 @@ public interface IRedstoneReceiver extends IHasWorldObjectAndCoords {
      * Do not use this if ICoverable is implemented. ICoverable has @getInternalInputRedstoneSignal for Machine internal Input Redstone
      * This returns the true incoming Redstone Signal. Only Cover Behaviors should check it, not MetaTileEntities.
      */
-    byte getInputRedstoneSignal(byte aSide);
+    public byte getInputRedstoneSignal(byte aSide);
 
     /**
      * gets the strongest Redstone Level the TileEntity receives
      */
-    byte getStrongestRedstone();
+    public byte getStrongestRedstone();
 
     /**
      * gets if the TileEntity receives Redstone
      */
-    boolean getRedstone();
+    public boolean getRedstone();
 
     /**
      * gets if the TileEntity receives Redstone at this Side
      */
-    boolean getRedstone(byte aSide);
+    public boolean getRedstone(byte aSide);
 }

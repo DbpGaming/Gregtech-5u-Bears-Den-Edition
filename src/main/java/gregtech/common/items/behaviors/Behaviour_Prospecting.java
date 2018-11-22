@@ -1,19 +1,5 @@
 package gregtech.common.items.behaviors;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.IFluidBlock;
-
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
-import java.util.List;
-import java.util.Random;
-
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Materials;
 import gregtech.api.items.GT_MetaBase_Item;
@@ -25,6 +11,18 @@ import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Utility;
 import gregtech.common.blocks.GT_Block_Ores;
 import gregtech.common.blocks.GT_TileEntity_Ores;
+
+import java.util.List;
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.IFluidBlock;
 
 public class Behaviour_Prospecting
         extends Behaviour_None {
@@ -51,20 +49,20 @@ public class Behaviour_Prospecting
         ItemData tAssotiation = GT_OreDictUnificator.getAssociation(new ItemStack(aBlock, 1, aMeta));
         if ((tAssotiation != null) && (tAssotiation.mPrefix.toString().startsWith("ore"))) {
             GT_Utility.sendChatToPlayer(aPlayer, "This is " + tAssotiation.mMaterial.mMaterial.mDefaultLocalName + " Ore.");
-            GT_Utility.sendSoundToPlayers(aWorld, GregTech_API.sSoundList.get(1), 1.0F, -1.0F, aX, aY, aZ);
+            GT_Utility.sendSoundToPlayers(aWorld, (String) GregTech_API.sSoundList.get(Integer.valueOf(1)), 1.0F, -1.0F, aX, aY, aZ);
             return true;
         }
-        if ((aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, Blocks.stone)) || (aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, GregTech_API.sBlockGranites)) || aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, GregTech_API.sBlockStones) || (aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, Blocks.netherrack)) || (aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, Blocks.end_stone))) {
+        if ((aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, Blocks.stone)) || (aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, GregTech_API.sBlockGranites)) || (aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, Blocks.netherrack)) || (aBlock.isReplaceableOreGen(aWorld, aX, aY, aZ, Blocks.end_stone))) {
             if (GT_ModHandler.damageOrDechargeItem(aStack, this.mVanillaCosts, this.mEUCosts, aPlayer)) {
-                GT_Utility.sendSoundToPlayers(aWorld, GregTech_API.sSoundList.get(1), 1.0F, -1.0F, aX, aY, aZ);
+                GT_Utility.sendSoundToPlayers(aWorld, (String) GregTech_API.sSoundList.get(Integer.valueOf(1)), 1.0F, -1.0F, aX, aY, aZ);
                 int tX = aX;
                 int tY = aY;
                 int tZ = aZ;
                 int tMetaID = 0;
-                int tQuality = (aItem instanceof GT_MetaGenerated_Tool) ? aItem.getHarvestLevel(aStack, EMPTY_STRING) : 0;
+                int tQuality = (aItem instanceof GT_MetaGenerated_Tool) ? ((GT_MetaGenerated_Tool) aItem).getHarvestLevel(aStack, "") : 0;
 
                 int i = 0;
-                for (int j = 16 + tQuality; i < j; i++) {
+                for (int j = 6 + tQuality; i < j; i++) {
                     tX -= ForgeDirection.getOrientation(aSide).offsetX;
                     tY -= ForgeDirection.getOrientation(aSide).offsetY;
                     tZ -= ForgeDirection.getOrientation(aSide).offsetZ;
@@ -86,7 +84,7 @@ public class Behaviour_Prospecting
                         if (i >= 4) {
                             break;
                         }
-                        GT_Utility.sendChatToPlayer(aPlayer, "Material is changing behind this Block.");
+                        GT_Utility.sendChatToPlayer(aPlayer, "Material is changing behind this Rock.");
                         break;
                     }
                 }
@@ -115,7 +113,7 @@ public class Behaviour_Prospecting
                         }
                     }
                 }
-                GT_Utility.sendChatToPlayer(aPlayer, "No Ores found :(");
+                GT_Utility.sendChatToPlayer(aPlayer, "No Ores found.");
             }
             return true;
         }

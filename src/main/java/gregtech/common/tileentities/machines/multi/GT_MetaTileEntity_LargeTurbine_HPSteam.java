@@ -1,12 +1,6 @@
 package gregtech.common.tileentities.machines.multi;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
-
-import gregtech.GT5_Mod;
+import gregtech.GT_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -14,6 +8,12 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_ModHandler;
+
+import java.util.ArrayList;
+
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 public class GT_MetaTileEntity_LargeTurbine_HPSteam extends GT_MetaTileEntity_LargeTurbine {
 
@@ -40,8 +40,7 @@ public class GT_MetaTileEntity_LargeTurbine_HPSteam extends GT_MetaTileEntity_La
                 "1x Dynamo Hatch (back centered)",
                 "1x Maintenance Hatch (side centered)",
                 "Turbine Casings for the rest (24 at least!)",
-                "Needs a Turbine Item (inside controller GUI)",
-                "Needs air in front of 3x3 Turbine facing!"};
+                "Needs a Turbine Item (inside controller GUI)"};
     }
 
     @Override
@@ -86,7 +85,7 @@ public class GT_MetaTileEntity_LargeTurbine_HPSteam extends GT_MetaTileEntity_La
                 totalFlow += flow; // track total used
                 if (!achievement) {
                     try {
-                        GT5_Mod.achievements.issueAchievement(this.getBaseMetaTileEntity().getWorld().getPlayerEntityByName(this.getBaseMetaTileEntity().getOwnerName()), "efficientsteam");
+                        GT_Mod.instance.achievements.issueAchievement(this.getBaseMetaTileEntity().getWorld().getPlayerEntityByName(this.getBaseMetaTileEntity().getOwnerName()), "efficientsteam");
                     } catch (Exception e) {
                     }
                     achievement = true;

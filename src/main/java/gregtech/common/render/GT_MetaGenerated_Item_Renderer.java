@@ -1,5 +1,11 @@
 package gregtech.common.render;
 
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.items.GT_MetaGenerated_Item;
+import gregtech.api.util.GT_Utility;
+
+import java.util.Iterator;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -10,13 +16,8 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
-
-import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.items.GT_MetaGenerated_Item;
-import gregtech.api.util.GT_Utility;
-
-import java.util.Iterator;
 
 public class GT_MetaGenerated_Item_Renderer
         implements IItemRenderer {
@@ -121,7 +122,7 @@ public class GT_MetaGenerated_Item_Renderer
         } else {
             IIcon tIcon;
             if (aItem.mIconList[(aMetaData - aItem.mOffset)].length > 1) {
-                Long[] tStats = aItem.mElectricStats.get(aMetaData);
+                Long[] tStats = (Long[]) aItem.mElectricStats.get(Short.valueOf(aMetaData));
 
                 if ((tStats != null) && (tStats[3].longValue() < 0L)) {
                     long tCharge = aItem.getRealCharge(aStack);

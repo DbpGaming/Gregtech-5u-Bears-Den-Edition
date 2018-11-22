@@ -1,7 +1,6 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
-
+import static gregtech.api.enums.GT_Values.V;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -65,12 +64,12 @@ public class GT_MetaTileEntity_Hatch_Energy extends GT_MetaTileEntity_Hatch {
 
     @Override
     public long maxEUInput() {
-        return TIERED_VOLTAGES[mTier];
+        return V[mTier];
     }
 
     @Override
     public long maxEUStore() {
-        return 512 + TIERED_VOLTAGES[mTier] * 8;
+        return 512 + V[mTier] * 8;
     }
 
     @Override

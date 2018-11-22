@@ -1,7 +1,5 @@
 package gregtech.common.redstonecircuits;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
 import gregtech.api.interfaces.IRedstoneCircuitBlock;
 import gregtech.api.util.GT_CircuitryBehavior;
 
@@ -46,7 +44,7 @@ public class GT_Circuit_Pulser
                 aCircuitData[4] = 0;
             }
         }
-        aRedstoneCircuitBlock.setRedstone(((aCircuitData[4] > 0) && (aCircuitData[4] <= aCircuitData[0]) ? (byte) aCircuitData[1] : (aCircuitData[1] <= 0) || (aCircuitData[1] > 15) ? (byte) aCircuitData[5] : 0), aRedstoneCircuitBlock.getOutputFacing());
+        aRedstoneCircuitBlock.setRedstone((byte) ((aCircuitData[4] > 0) && (aCircuitData[4] <= aCircuitData[0]) ? (byte) aCircuitData[1] : (aCircuitData[1] <= 0) || (aCircuitData[1] > 15) ? (byte) aCircuitData[5] : 0), aRedstoneCircuitBlock.getOutputFacing());
     }
 
     public String getName() {
@@ -64,7 +62,7 @@ public class GT_Circuit_Pulser
             case 1:
                 return "RS Out";
         }
-        return EMPTY_STRING;
+        return "";
     }
 
     public boolean displayItemStack(int[] aCircuitData, IRedstoneCircuitBlock aRedstoneCircuitBlock, int aIndex) {
@@ -80,6 +78,6 @@ public class GT_Circuit_Pulser
                 return "LOWEST";
             }
         }
-        return aCircuitDataIndex > 1 ? EMPTY_STRING : null;
+        return aCircuitDataIndex > 1 ? "" : null;
     }
 }

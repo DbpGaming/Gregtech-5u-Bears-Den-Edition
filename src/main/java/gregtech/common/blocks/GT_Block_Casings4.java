@@ -1,7 +1,5 @@
 package gregtech.common.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -13,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class GT_Block_Casings4
         extends GT_Block_Casings_Abstract {
@@ -33,10 +33,6 @@ public class GT_Block_Casings4
         GT_LanguageManager.addStringLocalization(getUnlocalizedName() + ".7.name", "Fusion Coil");
         GT_LanguageManager.addStringLocalization(getUnlocalizedName() + ".8.name", "Fusion Casing MK II");
         GT_LanguageManager.addStringLocalization(getUnlocalizedName() + ".9.name", "Turbine Casing");
-        GT_LanguageManager.addStringLocalization(getUnlocalizedName() + ".13.name", "Dummy Casing");
-        GT_LanguageManager.addStringLocalization(getUnlocalizedName() + ".14.name", "Plastic Casing");
-        GT_LanguageManager.addStringLocalization(getUnlocalizedName() + ".15.name", "Dense Bricks");
-
 
         ItemList.Casing_RobustTungstenSteel.set(new ItemStack(this, 1, 0));
         ItemList.Casing_CleanStainlessSteel.set(new ItemStack(this, 1, 1));
@@ -46,10 +42,6 @@ public class GT_Block_Casings4
         ItemList.Casing_Fusion_Coil.set(new ItemStack(this, 1, 7));
         ItemList.Casing_Fusion2.set(new ItemStack(this, 1, 8));
         ItemList.Casing_Turbine.set(new ItemStack(this, 1, 9));
-        ItemList.Casing_Pyro.set(new ItemStack(this, 1, 13));
-        ItemList.Casing_Plastic.set(new ItemStack(this, 1, 14));
-        ItemList.Casing_DenseBricks.set(new ItemStack(this, 1, 15));
-
     }
 
     public IIcon getIcon(int aSide, int aMeta) {
@@ -81,11 +73,11 @@ public class GT_Block_Casings4
             case 12:
                 return Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
             case 13:
-                return Textures.BlockIcons.MACHINE_8V_SIDE.getIcon();
+                return Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
             case 14:
-                return Textures.BlockIcons.MACHINE_CASING_PLASTIC.getIcon();
+                return Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
             case 15:
-                return Textures.BlockIcons.MACHINE_CASING_DENSEBRICKS.getIcon();
+                return Textures.BlockIcons.MACHINE_CASING_ROBUST_TUNGSTENSTEEL.getIcon();
         }
         return Textures.BlockIcons.MACHINE_CASING_SOLID_STEEL.getIcon();
     }

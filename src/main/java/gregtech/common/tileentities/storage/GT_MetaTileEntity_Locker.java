@@ -1,7 +1,5 @@
 package gregtech.common.tileentities.storage;
 
-import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
-
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -20,7 +18,7 @@ public class GT_MetaTileEntity_Locker
     public byte mType = 0;
 
     public GT_MetaTileEntity_Locker(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, 4, "Stores and recharges Armor");
+        super(aID, aName, aNameRegional, aTier, 4, "Stores and recharges Armor", new ITexture[0]);
     }
 
     public GT_MetaTileEntity_Locker(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {
@@ -84,11 +82,11 @@ public class GT_MetaTileEntity_Locker
     }
 
     public long maxEUStore() {
-        return TIERED_VOLTAGES[this.mTier] * maxAmperesIn();
+        return gregtech.api.enums.GT_Values.V[this.mTier] * maxAmperesIn();
     }
 
     public long maxEUInput() {
-        return TIERED_VOLTAGES[this.mTier];
+        return gregtech.api.enums.GT_Values.V[this.mTier];
     }
 
     public long maxAmperesIn() {
@@ -125,7 +123,7 @@ public class GT_MetaTileEntity_Locker
 
     public void doSound(byte aIndex, double aX, double aY, double aZ) {
         if (aIndex == 16) {
-            GT_Utility.doSoundAtClient(GregTech_API.sSoundList.get(3), 1, 1.0F);
+            GT_Utility.doSoundAtClient((String) GregTech_API.sSoundList.get(Integer.valueOf(3)), 1, 1.0F);
         }
     }
 

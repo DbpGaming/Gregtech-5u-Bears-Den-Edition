@@ -1,21 +1,21 @@
 package gregtech.api.interfaces.metatileentity;
 
-import java.util.Map;
-
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.util.GT_Utility;
+
+import java.util.Map;
 
 public interface IMetaTileEntityItemPipe extends IMetaTileEntity {
     /**
      * @return if this Pipe can still be used.
      */
-    boolean pipeCapacityCheck();
+    public boolean pipeCapacityCheck();
 
     /**
      * @return if this Pipe can still be used.
      */
-    boolean incrementTransferCounter(int aIncrement);
+    public boolean incrementTransferCounter(int aIncrement);
 
     /**
      * Sends an ItemStack from aSender to the adjacent Blocks.
@@ -23,7 +23,7 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntity {
      * @param aSender the BaseMetaTileEntity sending the Stack.
      * @return if it was able to send something
      */
-    boolean sendItemStack(Object aSender);
+    public boolean sendItemStack(Object aSender);
 
     /**
      * Executes the Sending Code for inserting Stacks into the TileEntities.
@@ -32,19 +32,19 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntity {
      * @param aSide   the Side of the PIPE facing the TileEntity.
      * @return if this Side was allowed to Output into the Block.
      */
-    boolean insertItemStackIntoTileEntity(Object aSender, byte aSide);
+    public boolean insertItemStackIntoTileEntity(Object aSender, byte aSide);
 
     /**
      * Can be used to make flow control Pipes, like Redpowers Restriction Tubes.
      * Every normal Pipe returns a Value of 32768, so you can easily insert lower Numbers to set Routing priorities.
      * Negative Numbers to "suck" Items into a certain direction are also possible.
      */
-    int getStepSize();
+    public int getStepSize();
 
     /**
      * Utility for the Item Network
      */
-    class Util {
+    public static class Util {
         /**
          * @return a List of connected Item Pipes
          */
@@ -55,7 +55,6 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntity {
                     IGregTechTileEntity aBaseMetaTileEntity = aMetaTileEntity.getBaseMetaTileEntity();
                     aMap.put(aMetaTileEntity, aStep);
                     for (byte i = 0, j = 0; i < 6; i++) {
-                    	if (aMetaTileEntity instanceof IConnectable && !((IConnectable) aMetaTileEntity).isConnectedAtSide(i)) continue;
                         j = GT_Utility.getOppositeSide(i);
                         if (aSuckItems) {
                             if (aBaseMetaTileEntity.getCoverBehaviorAtSide(i).letsItemsIn(i, aBaseMetaTileEntity.getCoverIDAtSide(i), aBaseMetaTileEntity.getCoverDataAtSide(i), -2, aBaseMetaTileEntity)) {
@@ -66,9 +65,9 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntity {
                                         continue;
                                     }
                                 }
-                                if (tItemPipe instanceof BaseMetaPipeEntity) {
+                                if (tItemPipe != null && tItemPipe instanceof BaseMetaPipeEntity) {
                                     IMetaTileEntity tMetaTileEntity = tItemPipe.getMetaTileEntity();
-                                    if (tMetaTileEntity instanceof IMetaTileEntityItemPipe && tItemPipe.getCoverBehaviorAtSide(j).letsItemsOut(j, tItemPipe.getCoverIDAtSide(j), tItemPipe.getCoverDataAtSide(j), -2, tItemPipe)) {
+                                    if (tMetaTileEntity != null && tMetaTileEntity instanceof IMetaTileEntityItemPipe && tItemPipe.getCoverBehaviorAtSide(j).letsItemsOut(j, tItemPipe.getCoverIDAtSide(j), tItemPipe.getCoverDataAtSide(j), -2, tItemPipe)) {
                                         scanPipes((IMetaTileEntityItemPipe) tMetaTileEntity, aMap, aStep, aSuckItems, aIgnoreCapacity);
                                     }
                                 }
@@ -85,7 +84,7 @@ public interface IMetaTileEntityItemPipe extends IMetaTileEntity {
                                     }
                                     if (tItemPipe instanceof BaseMetaPipeEntity) {
                                         IMetaTileEntity tMetaTileEntity = tItemPipe.getMetaTileEntity();
-                                        if (tMetaTileEntity instanceof IMetaTileEntityItemPipe && tItemPipe.getCoverBehaviorAtSide(j).letsItemsIn(j, tItemPipe.getCoverIDAtSide(j), tItemPipe.getCoverDataAtSide(j), -2, tItemPipe)) {
+                                        if (tMetaTileEntity != null && tMetaTileEntity instanceof IMetaTileEntityItemPipe && tItemPipe.getCoverBehaviorAtSide(j).letsItemsIn(j, tItemPipe.getCoverIDAtSide(j), tItemPipe.getCoverDataAtSide(j), -2, tItemPipe)) {
                                             scanPipes((IMetaTileEntityItemPipe) tMetaTileEntity, aMap, aStep, aSuckItems, aIgnoreCapacity);
                                         }
                                     }

@@ -1,21 +1,19 @@
 package gregtech.common.items.behaviors;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+import gregtech.api.items.GT_MetaBase_Item;
+import gregtech.api.util.GT_Utility;
 
 import java.util.List;
 
-import gregtech.api.items.GT_MetaBase_Item;
-import gregtech.api.util.GT_Utility;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Behaviour_PrintedPages
         extends Behaviour_None {
     public static String getTitle(ItemStack aStack) {
         NBTTagCompound tNBT = aStack.getTagCompound();
         if (tNBT == null) {
-            return EMPTY_STRING;
+            return "";
         }
         return tNBT.getString("title");
     }
@@ -23,7 +21,7 @@ public class Behaviour_PrintedPages
     public static String getAuthor(ItemStack aStack) {
         NBTTagCompound tNBT = aStack.getTagCompound();
         if (tNBT == null) {
-            return EMPTY_STRING;
+            return "";
         }
         return tNBT.getString("author");
     }

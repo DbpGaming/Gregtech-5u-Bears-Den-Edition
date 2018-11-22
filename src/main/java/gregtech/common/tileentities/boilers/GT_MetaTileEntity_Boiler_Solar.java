@@ -18,7 +18,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 public class GT_MetaTileEntity_Boiler_Solar
         extends GT_MetaTileEntity_Boiler {
     public GT_MetaTileEntity_Boiler_Solar(int aID, String aName, String aNameRegional) {
-        super(aID, aName, aNameRegional, "Steam Power by the Sun");
+        super(aID, aName, aNameRegional, "Steam Power by the Sun", new ITexture[0]);
     }
 
     public GT_MetaTileEntity_Boiler_Solar(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {

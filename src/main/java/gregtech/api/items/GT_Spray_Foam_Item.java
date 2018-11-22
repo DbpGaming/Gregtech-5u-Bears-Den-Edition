@@ -1,7 +1,6 @@
 package gregtech.api.items;
 
-import static gregtech.api.enums.GT_Values.DEBUG_LEVEL_1;
-
+import static gregtech.api.enums.GT_Values.D1;
 import gregtech.api.GregTech_API;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.util.GT_Log;
@@ -80,7 +79,7 @@ public class GT_Spray_Foam_Item extends GT_Tool_Item {
                 return false;
             }
         } catch (Throwable e) {
-            if (DEBUG_LEVEL_1) e.printStackTrace(GT_Log.err);
+            if (D1) e.printStackTrace(GT_Log.err);
         }
 
         if (aTileEntity instanceof BaseMetaPipeEntity && (((BaseMetaPipeEntity) aTileEntity).mConnections & -64) == 0) {

@@ -1,7 +1,5 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_Container_1by1;
 import gregtech.api.gui.GT_Container_2by2;
@@ -15,8 +13,8 @@ import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.objects.GT_RenderedTexture;
-import gregtech.api.util.GT_Utility;
 import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
+import gregtech.api.util.GT_Utility;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,7 +23,7 @@ public class GT_MetaTileEntity_Hatch_InputBus extends GT_MetaTileEntity_Hatch {
     public GT_Recipe_Map mRecipeMap = null;
 
     public GT_MetaTileEntity_Hatch_InputBus(int aID, String aName, String aNameRegional, int aTier) {
-        super(aID, aName, aNameRegional, aTier, getSlots(aTier), "Item Input for Multiblocks (" + getSlots(aTier) + " slot" + (getSlots(aTier) >= 2 ? "s" : EMPTY_STRING) + ")");
+        super(aID, aName, aNameRegional, aTier, getSlots(aTier), "Item Input for Multiblocks (" + getSlots(aTier) + " slot" + (getSlots(aTier) >= 2 ? "s" : "") + ")");
     }
 
     public GT_MetaTileEntity_Hatch_InputBus(String aName, int aTier, String aDescription, ITexture[][][] aTextures) {

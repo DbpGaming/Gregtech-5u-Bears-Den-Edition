@@ -1,17 +1,17 @@
 package gregtech.api.util;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import static gregtech.api.enums.GT_Values.E;
 import gregtech.api.GregTech_API;
+
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
-import java.util.HashMap;
-import java.util.Map.Entry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class GT_LanguageManager {
     public static final HashMap<String, String> TEMPMAP = new HashMap<String, String>(), BUFFERMAP = new HashMap<String, String>();
@@ -22,7 +22,7 @@ public class GT_LanguageManager {
     }
 
     public static String addStringLocalization(String aKey, String aEnglish, boolean aWriteIntoLangFile) {
-        if (aKey == null) return EMPTY_STRING;
+        if (aKey == null) return E;
         if (aWriteIntoLangFile) aEnglish = writeToLangFile(aKey, aEnglish);
         TEMPMAP.put(aKey.trim(), aEnglish);
         LanguageRegistry.instance().injectLanguage("en_US", TEMPMAP);
@@ -31,7 +31,7 @@ public class GT_LanguageManager {
     }
 
     private static synchronized String writeToLangFile(String aKey, String aEnglish) {
-        if (aKey == null) return EMPTY_STRING;
+        if (aKey == null) return E;
         if (sEnglishFile == null) {
             BUFFERMAP.put(aKey.trim(), aEnglish);
         } else {
@@ -51,7 +51,7 @@ public class GT_LanguageManager {
     }
 
     public static String getTranslation(String aKey) {
-        if (aKey == null) return EMPTY_STRING;
+        if (aKey == null) return E;
         String tTrimmedKey = aKey.trim(), rTranslation = LanguageRegistry.instance().getStringLocalization(tTrimmedKey);
         if (GT_Utility.isStringInvalid(rTranslation)) {
             rTranslation = StatCollector.translateToLocal(tTrimmedKey);
@@ -73,8 +73,8 @@ public class GT_LanguageManager {
     }
 
     public static String getTranslation(String aKey, String aSeperator) {
-        if (aKey == null) return EMPTY_STRING;
-        String rTranslation = EMPTY_STRING;
+        if (aKey == null) return E;
+        String rTranslation = E;
         for (String tString : aKey.split(aSeperator)) {
             rTranslation += getTranslation(tString);
         }

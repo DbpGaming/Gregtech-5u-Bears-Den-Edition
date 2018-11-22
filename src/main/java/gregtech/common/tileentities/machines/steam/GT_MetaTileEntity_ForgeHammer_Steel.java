@@ -1,7 +1,5 @@
 package gregtech.common.tileentities.machines.steam;
 
-import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
-
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_GUIContainer_BasicMachine;
@@ -33,7 +31,7 @@ public class GT_MetaTileEntity_ForgeHammer_Steel
     }
 
     public int checkRecipe() {
-        GT_Recipe tRecipe = GT_Recipe.GT_Recipe_Map.sHammerRecipes.findRecipe(getBaseMetaTileEntity(), false, TIERED_VOLTAGES[2], null, getAllInputs());
+        GT_Recipe tRecipe = GT_Recipe.GT_Recipe_Map.sHammerRecipes.findRecipe(getBaseMetaTileEntity(), false, gregtech.api.enums.GT_Values.V[2], null, getAllInputs());
         if ((tRecipe != null) && (canOutput(tRecipe.mOutputs)) && (tRecipe.isRecipeInputEqual(true, null, getAllInputs()))) {
             this.mOutputItems[0] = tRecipe.getOutput(0);
             if (tRecipe.mEUt <= 16) {
@@ -51,7 +49,7 @@ public class GT_MetaTileEntity_ForgeHammer_Steel
     public void startSoundLoop(byte aIndex, double aX, double aY, double aZ) {
         super.startSoundLoop(aIndex, aX, aY, aZ);
         if (aIndex == 1) {
-            GT_Utility.doSoundAtClient(GregTech_API.sSoundList.get(1), 10, 1.0F, aX, aY, aZ);
+            GT_Utility.doSoundAtClient((String) GregTech_API.sSoundList.get(Integer.valueOf(1)), 10, 1.0F, aX, aY, aZ);
         }
     }
 

@@ -1,11 +1,11 @@
 package gregtech.common.items.behaviors;
 
-import net.minecraft.item.ItemStack;
+import gregtech.api.items.GT_MetaBase_Item;
+import gregtech.api.util.GT_Utility;
 
 import java.util.List;
 
-import gregtech.api.items.GT_MetaBase_Item;
-import gregtech.api.util.GT_Utility;
+import net.minecraft.item.ItemStack;
 
 public class Behaviour_DataStick
         extends Behaviour_None {

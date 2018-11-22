@@ -1,7 +1,6 @@
 package gregtech.loaders.oreprocessing;
 
-import static gregtech.api.enums.GT_Values.RECIPE_ADDER_INSTANCE;
-
+import gregtech.api.enums.GT_Values;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -17,6 +16,6 @@ public class ProcessingGear implements gregtech.api.interfaces.IOreRecipeRegistr
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
         GT_ModHandler.removeRecipeByOutput(aStack);
         if (aMaterial.mStandardMoltenFluid != null)
-            RECIPE_ADDER_INSTANCE.addFluidSolidifierRecipe(ItemList.Shape_Mold_Gear.get(0L), aMaterial.getMolten(576L), GT_OreDictUnificator.get(aPrefix, aMaterial, 1L), 128, 8);
+            GT_Values.RA.addFluidSolidifierRecipe(ItemList.Shape_Mold_Gear.get(0L, new Object[0]), aMaterial.getMolten(576L), GT_OreDictUnificator.get(aPrefix, aMaterial, 1L), 128, 8);
     }
 }

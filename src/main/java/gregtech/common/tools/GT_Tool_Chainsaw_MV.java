@@ -1,6 +1,5 @@
 package gregtech.common.tools;
 
-import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.IIconContainer;
 import net.minecraft.item.ItemStack;
@@ -25,11 +24,6 @@ public class GT_Tool_Chainsaw_MV
 
     public int getBaseQuality() {
         return 1;
-    }
-
-    @Override
-    public ItemStack getBrokenItem(ItemStack aStack) {
-        return (ItemList.ToolHull_MV.get(1L));
     }
 
     public float getBaseDamage() {

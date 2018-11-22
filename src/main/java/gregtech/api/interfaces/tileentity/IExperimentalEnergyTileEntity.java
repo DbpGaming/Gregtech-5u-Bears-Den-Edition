@@ -1,11 +1,11 @@
 package gregtech.api.interfaces.tileentity;
 
-import cofh.api.energy.IEnergyReceiver;
 import gregtech.api.enums.SubTag;
 import gregtech.api.util.GT_Utility;
 import ic2.api.energy.tile.IEnergySink;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import cofh.api.energy.IEnergyReceiver;
 
 /**
  * THIS IS GOING TO BE USED IN 1.8
@@ -25,22 +25,22 @@ public interface IExperimentalEnergyTileEntity extends IColoredTileEntity, IHasW
      * @param aSide 0 - 5 = Vanilla Directions of YOUR Block the Energy gets inserted to. 6 = No specific Side (don't do Side checks for this Side)
      * @return amount of used Amperes. 0 if not accepted anything.
      */
-    long injectEnergy(SubTag aEnergyType, byte aSide, long aPrimary, long aSecondary);
+    public long injectEnergy(SubTag aEnergyType, byte aSide, long aPrimary, long aSecondary);
 
     /**
      * Sided Energy Input
      */
-    boolean inputEnergyFrom(SubTag aEnergyType, byte aSide);
+    public boolean inputEnergyFrom(SubTag aEnergyType, byte aSide);
 
     /**
      * Sided Energy Output
      */
-    boolean outputsEnergyTo(SubTag aEnergyType, byte aSide);
+    public boolean outputsEnergyTo(SubTag aEnergyType, byte aSide);
 
     /**
      * Utility for the Network
      */
-    class Util {
+    public static class Util {
         public static int RF_PER_EU = 4;
         private static boolean RF_ENERGY = false, IC_ENERGY = false, CHECK_ALL = true;
 

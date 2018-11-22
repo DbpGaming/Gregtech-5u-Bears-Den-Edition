@@ -1,7 +1,5 @@
 package gregtech.common.redstonecircuits;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
 import gregtech.api.interfaces.IRedstoneCircuitBlock;
 import gregtech.api.util.GT_CircuitryBehavior;
 
@@ -85,7 +83,7 @@ public class GT_Circuit_BasicLogic
                     return "BIT_INVERT";
             }
         }
-        return EMPTY_STRING;
+        return "";
     }
 
     public boolean displayItemStack(int[] aCircuitData, IRedstoneCircuitBlock aRedstoneCircuitBlock, int aIndex) {
@@ -93,6 +91,6 @@ public class GT_Circuit_BasicLogic
     }
 
     public String getDataDisplay(int[] aCircuitData, int aCircuitDataIndex) {
-        return EMPTY_STRING;
+        return "";
     }
 }

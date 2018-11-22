@@ -1,5 +1,14 @@
 package gregtech.common.tools;
 
+import gregtech.api.GregTech_API;
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.items.GT_MetaGenerated_Tool;
+import gregtech.common.items.behaviors.Behaviour_Wrench;
+
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -12,18 +21,9 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
-import java.util.Arrays;
-import java.util.List;
-
-import gregtech.api.GregTech_API;
-import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.items.GT_MetaGenerated_Tool;
-import gregtech.common.items.behaviors.Behaviour_Wrench;
-
 public class GT_Tool_Wrench
 extends GT_Tool {
-	public static final List<String> mEffectiveList = Arrays.asList(EntityIronGolem.class.getName(), "EntityTowerGuardian");
+	public static final List<String> mEffectiveList = Arrays.asList(new String[]{EntityIronGolem.class.getName(), "EntityTowerGuardian"});
 
 	public float getNormalDamageAgainstEntity(float aOriginalDamage, Entity aEntity, ItemStack aStack, EntityPlayer aPlayer) {
 		String tName = aEntity.getClass().getName();
@@ -68,7 +68,7 @@ extends GT_Tool {
 	}
 
 	public String getCraftingSound() {
-		return GregTech_API.sSoundList.get(100);
+		return (String) GregTech_API.sSoundList.get(Integer.valueOf(100));
 	}
 
 	public String getEntityHitSound() {
@@ -76,11 +76,11 @@ extends GT_Tool {
 	}
 
 	public String getBreakingSound() {
-		return GregTech_API.sSoundList.get(0);
+		return (String) GregTech_API.sSoundList.get(Integer.valueOf(0));
 	}
 
 	public String getMiningSound() {
-		return GregTech_API.sSoundList.get(100);
+		return (String) GregTech_API.sSoundList.get(Integer.valueOf(100));
 	}
 
 	public boolean canBlock() {

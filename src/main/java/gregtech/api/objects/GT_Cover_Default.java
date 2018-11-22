@@ -1,7 +1,5 @@
 package gregtech.api.objects;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.util.GT_CoverBehavior;
 import gregtech.api.util.GT_Utility;
@@ -24,7 +22,7 @@ public class GT_Cover_Default extends GT_CoverBehavior {
     @Override
     public int onCoverScrewdriverclick(byte aSide, int aCoverID, int aCoverVariable, ICoverable aTileEntity, EntityPlayer aPlayer, float aX, float aY, float aZ) {
         aCoverVariable = ((aCoverVariable + 1) & 15);
-        GT_Utility.sendChatToPlayer(aPlayer, ((aCoverVariable & 1) != 0 ? "Redstone " : EMPTY_STRING) + ((aCoverVariable & 2) != 0 ? "Energy " : EMPTY_STRING) + ((aCoverVariable & 4) != 0 ? "Fluids " : EMPTY_STRING) + ((aCoverVariable & 8) != 0 ? "Items " : EMPTY_STRING));
+        GT_Utility.sendChatToPlayer(aPlayer, ((aCoverVariable & 1) != 0 ? "Redstone " : "") + ((aCoverVariable & 2) != 0 ? "Energy " : "") + ((aCoverVariable & 4) != 0 ? "Fluids " : "") + ((aCoverVariable & 8) != 0 ? "Items " : ""));
         return aCoverVariable;
     }
 

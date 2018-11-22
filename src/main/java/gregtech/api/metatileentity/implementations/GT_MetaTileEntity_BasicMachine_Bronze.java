@@ -1,15 +1,6 @@
 package gregtech.api.metatileentity.implementations;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import static gregtech.api.enums.GT_Values.DEBUG_LEVEL_1;
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
-import java.util.ArrayList;
-
+import static gregtech.api.enums.GT_Values.D1;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Textures;
@@ -18,6 +9,13 @@ import gregtech.api.objects.GT_ItemStack;
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_Log;
 import gregtech.api.util.GT_Utility;
+
+import java.util.ArrayList;
+
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -35,11 +33,11 @@ public abstract class GT_MetaTileEntity_BasicMachine_Bronze extends GT_MetaTileE
     public boolean mNeedsSteamVenting = false;
 
     public GT_MetaTileEntity_BasicMachine_Bronze(int aID, String aName, String aNameRegional, String aDescription, int aInputSlotCount, int aOutputSlotCount, boolean aBricked) {
-        super(aID, aName, aNameRegional, aBricked ? 1 : 0, 0, aDescription, aInputSlotCount, aOutputSlotCount, EMPTY_STRING, EMPTY_STRING);
+        super(aID, aName, aNameRegional, aBricked ? 1 : 0, 0, aDescription, aInputSlotCount, aOutputSlotCount, "", "");
     }
 
     public GT_MetaTileEntity_BasicMachine_Bronze(String aName, String aDescription, ITexture[][][] aTextures, int aInputSlotCount, int aOutputSlotCount, boolean aBricked) {
-        super(aName, aBricked ? 1 : 0, 0, aDescription, aTextures, aInputSlotCount, aOutputSlotCount, EMPTY_STRING, EMPTY_STRING);
+        super(aName, aBricked ? 1 : 0, 0, aDescription, aTextures, aInputSlotCount, aOutputSlotCount, "", "");
     }
 
     @Override
@@ -134,7 +132,7 @@ public abstract class GT_MetaTileEntity_BasicMachine_Bronze extends GT_MetaTileE
                     GT_Utility.applyHeatDamage(tLiving, getSteamDamage());
                 }
             } catch (Throwable e) {
-                if (DEBUG_LEVEL_1) e.printStackTrace(GT_Log.err);
+                if (D1) e.printStackTrace(GT_Log.err);
             }
         }
         return !mNeedsSteamVenting;

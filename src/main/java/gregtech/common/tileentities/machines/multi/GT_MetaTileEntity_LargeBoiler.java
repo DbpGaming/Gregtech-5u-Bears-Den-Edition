@@ -1,14 +1,6 @@
 package gregtech.common.tileentities.machines.multi;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-
-import java.util.ArrayList;
-
-import gregtech.GT5_Mod;
+import gregtech.GT_Mod;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_GUIContainer_MultiMachine;
@@ -19,6 +11,14 @@ import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
+
+import java.util.ArrayList;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 
 public abstract class GT_MetaTileEntity_LargeBoiler
   extends GT_MetaTileEntity_MultiBlockBase
@@ -168,7 +168,7 @@ private boolean firstRun = true;
 @Override
 public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
 	if (mProgresstime>0&&firstRun) {firstRun = false;try{
-		GT5_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "extremepressure");}catch (Exception e){}
+		GT_Mod.instance.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "extremepressure");}catch (Exception e){}
 	}
 	super.onPostTick(aBaseMetaTileEntity, aTick);
 }
@@ -249,7 +249,7 @@ public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
   
   public int getPollutionPerTick(ItemStack aStack)
   {
-    return 0;
+    return 10;
   }
   
   public int getDamageToComponent(ItemStack aStack)

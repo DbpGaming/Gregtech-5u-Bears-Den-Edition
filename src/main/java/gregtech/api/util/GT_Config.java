@@ -1,7 +1,6 @@
 package gregtech.api.util;
 
-import static gregtech.api.enums.GT_Values.EMPTY_STRING;
-
+import static gregtech.api.enums.GT_Values.E;
 import gregtech.api.GregTech_API;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
@@ -31,7 +30,7 @@ public class GT_Config implements Runnable {
     }
 
     public static String getStackConfigName(ItemStack aStack) {
-        if (GT_Utility.isStackInvalid(aStack)) return EMPTY_STRING;
+        if (GT_Utility.isStackInvalid(aStack)) return E;
         Object rName = GT_OreDictUnificator.getAssociation(aStack);
         if (rName != null) return rName.toString();
         try {
