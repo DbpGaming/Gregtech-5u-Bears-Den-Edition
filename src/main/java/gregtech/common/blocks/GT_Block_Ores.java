@@ -2,7 +2,7 @@ package gregtech.common.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -68,7 +68,7 @@ public class GT_Block_Ores
                     GT_OreDictUnificator.registerOre(OrePrefixes.oreRedgranite.get(GregTech_API.sGeneratedMaterials[i]), new ItemStack(this, 1, i + 4000));
                     GT_OreDictUnificator.registerOre(OrePrefixes.oreMarble.get(GregTech_API.sGeneratedMaterials[i]), new ItemStack(this, 1, i + 5000));
                     GT_OreDictUnificator.registerOre(OrePrefixes.oreBasalt.get(GregTech_API.sGeneratedMaterials[i]), new ItemStack(this, 1, i + 6000));
-                    if (GT_Mod.gregtechproxy.HideOresInNEI) {
+                    if (GT5_Mod.gregtechproxy.HideOresInNEI) {
                         codechicken.nei.api.API.hideItem(new ItemStack(this, 1, i + 1000));
                         codechicken.nei.api.API.hideItem(new ItemStack(this, 1, i + 2000));
                         codechicken.nei.api.API.hideItem(new ItemStack(this, 1, i + 3000));

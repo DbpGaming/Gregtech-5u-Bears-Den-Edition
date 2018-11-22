@@ -1,7 +1,7 @@
 package gregtech.loaders.oreprocessing;
 
 import appeng.core.Api;
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -30,7 +30,7 @@ public class ProcessingNugget implements gregtech.api.interfaces.IOreRecipeRegis
         GT_RecipeRegistrator.registerReverseFluidSmelting(aStack, aMaterial, aPrefix.mMaterialAmount, null);
         GT_RecipeRegistrator.registerReverseMacerating(aStack, aMaterial, aPrefix.mMaterialAmount, null, null, null, false);
 
-        if (GT_Mod.gregtechproxy.mAE2Integration) {
+        if (GT5_Mod.gregtechproxy.mAE2Integration) {
             Api.INSTANCE.registries().matterCannon().registerAmmo(GT_OreDictUnificator.get(OrePrefixes.round, aMaterial, 1L), aMaterial.getMass());
         }
     }

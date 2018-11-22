@@ -1,6 +1,6 @@
 package gregtech.api.metatileentity;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Textures;
@@ -420,7 +420,7 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
                                             if (GregTech_API.sMachineRainExplosions && worldObj.isRaining() && getBiome().rainfall > 0) {
                                                 if (getRandomNumber(10) == 0) {
                                                     try {
-                                                        GT_Mod.achievements.issueAchievement(this.getWorldObj().getPlayerEntityByName(mOwnerName), "badweather");
+                                                        GT5_Mod.achievements.issueAchievement(this.getWorldObj().getPlayerEntityByName(mOwnerName), "badweather");
                                                     } catch (Exception e) {
                                                     }
                                                     doEnergyExplosion();
@@ -432,7 +432,7 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
                                             }
                                             if (GregTech_API.sMachineThunderExplosions && worldObj.isThundering() && getBiome().rainfall > 0 && getRandomNumber(3) == 0) {
                                                 try {
-                                                    GT_Mod.achievements.issueAchievement(this.getWorldObj().getPlayerEntityByName(mOwnerName), "badweather");
+                                                    GT5_Mod.achievements.issueAchievement(this.getWorldObj().getPlayerEntityByName(mOwnerName), "badweather");
                                                 } catch (Exception e) {
                                                 }
                                                 doEnergyExplosion();
@@ -907,27 +907,27 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
 
     @Override
     public boolean inputEnergyFrom(byte aSide) {
-        return inputEnergyFrom(aSide, true);
+        return inputEnergyFrom(aSide);
     }
 
-    @Override
-    public boolean inputEnergyFrom(byte aSide, boolean waitForActive) {
-        if (aSide == 6) return true;
-        if (isServerSide() && waitForActive) return ((aSide >= 0 && aSide < 6) && mActiveEUInputs[aSide]) && !mReleaseEnergy;
-        return isEnergyInputSide(aSide);
-    }
+    //@Override
+    //public boolean inputEnergyFrom(byte aSide, boolean waitForActive) {
+    //    if (aSide == 6) return true;
+    //    if (isServerSide() && waitForActive) return ((aSide >= 0 && aSide < 6) && mActiveEUInputs[aSide]) && !mReleaseEnergy;
+    //    return isEnergyInputSide(aSide);
+    //}
 
     @Override
     public boolean outputsEnergyTo(byte aSide) {
-        return outputsEnergyTo(aSide, true);
+        return outputsEnergyTo(aSide);
     }
 
-    @Override
-    public boolean outputsEnergyTo(byte aSide, boolean waitForActive) {
-        if (aSide == 6) return true;
-        if (isServerSide() && waitForActive) return ((aSide >= 0 && aSide < 6) && mActiveEUOutputs[aSide]) || mReleaseEnergy;
-        return isEnergyOutputSide(aSide);
-    }
+    //@Override
+    //public boolean outputsEnergyTo(byte aSide, boolean waitForActive) {
+    //    if (aSide == 6) return true;
+    //    if (isServerSide() && waitForActive) return ((aSide >= 0 && aSide < 6) && mActiveEUOutputs[aSide]) || mReleaseEnergy;
+    //    return isEnergyOutputSide(aSide);
+    //}
 
     @Override
     public long getOutputAmperage() {
@@ -1108,7 +1108,7 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
     public void doEnergyExplosion() {
         if (getUniversalEnergyCapacity() > 0 && getUniversalEnergyStored() >= getUniversalEnergyCapacity() / 5) {
             doExplosion(oOutput * (getUniversalEnergyStored() >= getUniversalEnergyCapacity() ? 4 : getUniversalEnergyStored() >= getUniversalEnergyCapacity() / 2 ? 2 : 1));
-            GT_Mod.achievements.issueAchievement(this.getWorldObj().getPlayerEntityByName(mOwnerName), "electricproblems");
+            GT5_Mod.achievements.issueAchievement(this.getWorldObj().getPlayerEntityByName(mOwnerName), "electricproblems");
         }
     }
 

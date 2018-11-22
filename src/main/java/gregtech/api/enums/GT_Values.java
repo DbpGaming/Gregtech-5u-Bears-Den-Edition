@@ -120,7 +120,7 @@ public class GT_Values {
     public static final String MOD_ID_GC_CORE = "GalacticraftCore";
     public static final String MOD_ID_GC_MARS = "GalacticraftMars";
     public static final String MOD_ID_GC_PLANETS = "GalacticraftPlanets";
-    public static final String MOD_ID = "gregtech";
+    public static final String MOD_ID = "gregtech5";
     public static final String MOD_ID_GS = "GraviSuite";
     public static final String MOD_ID_HaC = "harvestcraft";
     public static final String MOD_ID_IC2 = "IC2";

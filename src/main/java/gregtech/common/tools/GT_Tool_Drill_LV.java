@@ -1,6 +1,6 @@
 package gregtech.common.tools;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Textures;
@@ -19,7 +19,7 @@ import net.minecraft.util.IChatComponent;
 public class GT_Tool_Drill_LV
         extends GT_Tool {
     public int getToolDamagePerBlockBreak() {
-        return GT_Mod.gregtechproxy.mHardRock ? 25 : 50;
+        return GT5_Mod.gregtechproxy.mHardRock ? 25 : 50;
     }
 
     public int getToolDamagePerDropConversion() {
@@ -99,7 +99,7 @@ public class GT_Tool_Drill_LV
         aPlayer.triggerAchievement(AchievementList.buildPickaxe);
         aPlayer.triggerAchievement(AchievementList.buildBetterPickaxe);
         try {
-            GT_Mod.achievements.issueAchievement(aPlayer, "driltime");
+            GT5_Mod.achievements.issueAchievement(aPlayer, "driltime");
         } catch (Exception e) {
         }
     }

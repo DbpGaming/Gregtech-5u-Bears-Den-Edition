@@ -1,6 +1,6 @@
 package gregtech.common.tileentities.machines.multi;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -94,7 +94,7 @@ public class GT_MetaTileEntity_LargeTurbine_Steam extends GT_MetaTileEntity_Larg
                 totalFlow += flow; // track total input used
                 if (!achievement) {
                     try {
-                        GT_Mod.achievements.issueAchievement(this.getBaseMetaTileEntity().getWorld().getPlayerEntityByName(this.getBaseMetaTileEntity().getOwnerName()), "muchsteam");
+                        GT5_Mod.achievements.issueAchievement(this.getBaseMetaTileEntity().getWorld().getPlayerEntityByName(this.getBaseMetaTileEntity().getOwnerName()), "muchsteam");
                     } catch (Exception e) {
                     }
                     achievement = true;

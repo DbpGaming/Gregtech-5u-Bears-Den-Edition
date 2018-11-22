@@ -2,7 +2,7 @@ package gregtech.common.tileentities.machines.basic;
 
 import forestry.api.genetics.AlleleManager;
 import forestry.api.genetics.IIndividual;
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -149,7 +149,7 @@ public class GT_MetaTileEntity_Scanner
         if (mProgresstime >= (mMaxProgresstime - 1)) {
             try {
                 if (this.mOutputItems[0].getUnlocalizedName().equals("gt.metaitem.01.32707")) {
-                    GT_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "scanning");
+                    GT5_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "scanning");
                 }
             } catch (Exception e) {
             }

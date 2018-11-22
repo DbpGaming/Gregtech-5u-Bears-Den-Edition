@@ -5,7 +5,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemSmeltedEvent;
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -162,7 +162,7 @@ public class GT_Achievements {
         registerAchievement("fullefficiency", 10, 12, ItemList.Generator_Plasma_ZPMV.get(1), "denseaspossible", false);
         registerAchievement("whatnow", 8, 10, ItemList.ZPM2.get(1), "denseaspossible", false);
 
-        if (GT_Mod.gregtechproxy.mAchievements) {
+        if (GT5_Mod.gregtechproxy.mAchievements) {
             AchievementPage.registerAchievementPage(new AchievementPage("GregTech 5", (Achievement[]) this.achievementList.values().toArray(
                     new Achievement[this.achievementList.size()])));
             MinecraftForge.EVENT_BUS.register(this);
@@ -178,7 +178,7 @@ public class GT_Achievements {
     }
 
     public Achievement registerAchievement(String textId, int x, int y, ItemStack icon, Achievement requirement, boolean special) {
-        if (!GT_Mod.gregtechproxy.mAchievements) {
+        if (!GT5_Mod.gregtechproxy.mAchievements) {
             return null;
         }
         Achievement achievement = new Achievement(textId, textId, this.adjX + x, this.adjY + y, icon, requirement);
@@ -195,7 +195,7 @@ public class GT_Achievements {
     }
 
     public Achievement registerAchievement(String textId, int x, int y, ItemStack icon, String requirement, boolean special) {
-        if (!GT_Mod.gregtechproxy.mAchievements) {
+        if (!GT5_Mod.gregtechproxy.mAchievements) {
             return null;
         }
         Achievement achievement = new Achievement(textId, textId, this.adjX + x, this.adjY + y, icon, getAchievement(requirement));
@@ -221,7 +221,7 @@ public class GT_Achievements {
     }
 
     public void issueAchievement(EntityPlayer entityplayer, String textId) {
-        if (entityplayer == null || !GT_Mod.gregtechproxy.mAchievements) {
+        if (entityplayer == null || !GT5_Mod.gregtechproxy.mAchievements) {
             return;
         }
 //		if (this.achievementList.containsKey(textId)) {

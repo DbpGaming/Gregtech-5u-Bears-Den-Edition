@@ -1,6 +1,6 @@
 package gregtech.api.metatileentity.implementations;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Materials;
@@ -188,7 +188,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
     		if (mFluids[i] != null)
     			aNBT.setTag("mFluid"+(i==0? EMPTY_STRING:i), mFluids[i].writeToNBT(new NBTTagCompound()));
         aNBT.setByte("mLastReceivedFrom", mLastReceivedFrom);
-        if (GT_Mod.gregtechproxy.gt6Pipe) {
+        if (GT5_Mod.gregtechproxy.gt6Pipe) {
         	aNBT.setByte("mConnections", mConnections);
         	aNBT.setByte("mDisableInput", mDisableInput);
         }
@@ -199,7 +199,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
     	for (int i = 0; i < mPipeAmount; i++)
     		mFluids[i] = FluidStack.loadFluidStackFromNBT(aNBT.getCompoundTag("mFluid"+(i==0? EMPTY_STRING : i)));
         mLastReceivedFrom = aNBT.getByte("mLastReceivedFrom");
-        if (GT_Mod.gregtechproxy.gt6Pipe) {
+        if (GT5_Mod.gregtechproxy.gt6Pipe) {
         	mConnections = aNBT.getByte("mConnections");
         	mDisableInput = aNBT.getByte("mDisableInput");
         }
@@ -229,7 +229,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
                 mLastReceivedFrom = 0;
             }
 
-            if (!GT_Mod.gregtechproxy.gt6Pipe || mCheckConnections) checkConnections();
+            if (!GT5_Mod.gregtechproxy.gt6Pipe || mCheckConnections) checkConnections();
 
             boolean shouldDistribute = (oLastReceivedFrom == mLastReceivedFrom);
             for (int i = 0, j = aBaseMetaTileEntity.getRandomNumber(mPipeAmount); i < mPipeAmount; i++) {
@@ -341,7 +341,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
 
     @Override
     public boolean onWrenchRightClick(byte aSide, byte aWrenchingSide, EntityPlayer aPlayer, float aX, float aY, float aZ) {
-    	if (GT_Mod.gregtechproxy.gt6Pipe) {
+    	if (GT5_Mod.gregtechproxy.gt6Pipe) {
     		byte tSide = GT_Utility.determineWrenchingSide(aSide, aX, aY, aZ);
     		byte tMask = (byte) (1 << tSide);
     		if (aPlayer.isSneaking()) {
@@ -407,7 +407,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
     @Override
     public boolean getGT6StyleConnection() {
         // Yes if GT6 pipes are enabled
-        return GT_Mod.gregtechproxy.gt6Pipe;
+        return GT5_Mod.gregtechproxy.gt6Pipe;
     }
 
     @Override
@@ -605,7 +605,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World aWorld, int aX, int aY, int aZ) {
-    	if (GT_Mod.instance.isClientSide() )
+    	if (GT5_Mod.instance.isClientSide() )
     		return AxisAlignedBB.getBoundingBox(aX, aY, aZ, aX + 1, aY + 1, aZ + 1);
     	else
     		return getActualCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
@@ -641,7 +641,7 @@ public class GT_MetaPipeEntity_Fluid extends MetaPipeEntity {
     @Override
     public void addCollisionBoxesToList(World aWorld, int aX, int aY, int aZ, AxisAlignedBB inputAABB, List<AxisAlignedBB> outputAABB, Entity collider) {
     	super.addCollisionBoxesToList(aWorld, aX, aY, aZ, inputAABB, outputAABB, collider);
-    	if (GT_Mod.instance.isClientSide()) {
+    	if (GT5_Mod.instance.isClientSide()) {
     		AxisAlignedBB aabb = getActualCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
     		if (inputAABB.intersectsWith(aabb)) outputAABB.add(aabb);
     	}

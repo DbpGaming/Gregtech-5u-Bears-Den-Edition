@@ -640,20 +640,20 @@ public class BaseMetaPipeEntity extends BaseTileEntity implements IGregTechTileE
         return false;
     }
 
-    @Override
-    public boolean inputEnergyFrom(byte aSide, boolean waitForActive) {
-        return false;
-    }
+    //@Override
+    //public boolean inputEnergyFrom(byte aSide, boolean waitForActive) {
+    //    return false;
+    //}
 
     @Override
     public boolean outputsEnergyTo(byte aSide) {
         return false;
     }
 
-    @Override
-    public boolean outputsEnergyTo(byte aSide, boolean waitForActive) {
-        return false;
-    }
+    //@Override
+    //public boolean outputsEnergyTo(byte aSide, boolean waitForActive) {
+    //    return false;
+    //}
 
     @Override
     public long getOutputAmperage() {

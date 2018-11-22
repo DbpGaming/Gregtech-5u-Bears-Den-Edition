@@ -4,7 +4,7 @@ import codechicken.lib.vec.Rotation;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
 import gregtech.api.enums.Materials;
@@ -267,14 +267,14 @@ public class GT_Client extends GT_Proxy
                     }
                     if (tVersion < 624) {
                         aEvent.player.addChatComponentMessage(new ChatComponentText("GregTech: Please update your IndustrialCraft here:"));
-                        aEvent.player.addChatComponentMessage(new ChatComponentText("ic2api.player.to:8080/job/IC2_experimental/" + (GT_Mod.MAX_IC2 < Integer.MAX_VALUE ? GT_Mod.MAX_IC2 : 624) + "/"));
-                    } else if (tVersion > GT_Mod.MAX_IC2) {
+                        aEvent.player.addChatComponentMessage(new ChatComponentText("ic2api.player.to:8080/job/IC2_experimental/" + (GT5_Mod.MAX_IC2 < Integer.MAX_VALUE ? GT5_Mod.MAX_IC2 : 624) + "/"));
+                    } else if (tVersion > GT5_Mod.MAX_IC2) {
                         aEvent.player.addChatComponentMessage(new ChatComponentText("GregTech: Please downgrade your IndustrialCraft here:"));
-                        aEvent.player.addChatComponentMessage(new ChatComponentText("ic2api.player.to:8080/job/IC2_experimental/" + GT_Mod.MAX_IC2 + "/"));
+                        aEvent.player.addChatComponentMessage(new ChatComponentText("ic2api.player.to:8080/job/IC2_experimental/" + GT5_Mod.MAX_IC2 + "/"));
                     }
                 } catch (Throwable e) {
                     aEvent.player.addChatComponentMessage(new ChatComponentText("GregTech: Please get the recommended Version of IndustrialCraft here:"));
-                    aEvent.player.addChatComponentMessage(new ChatComponentText("ic2api.player.to:8080/job/IC2_experimental/" + (GT_Mod.MAX_IC2 < Integer.MAX_VALUE ? GT_Mod.MAX_IC2 : 624) + "/"));
+                    aEvent.player.addChatComponentMessage(new ChatComponentText("ic2api.player.to:8080/job/IC2_experimental/" + (GT5_Mod.MAX_IC2 < Integer.MAX_VALUE ? GT5_Mod.MAX_IC2 : 624) + "/"));
                 }
             }
         }

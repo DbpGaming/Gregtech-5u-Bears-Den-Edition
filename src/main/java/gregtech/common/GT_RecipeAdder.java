@@ -1,6 +1,6 @@
 package gregtech.common;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -318,12 +318,12 @@ public class GT_RecipeAdder
         if ((aItemStack == null) || (aSoundName == null) || (aSoundName.equals(EMPTY_STRING))) {
             return false;
         }
-        GT_Mod.gregtechproxy.mSoundItems.add(aItemStack);
-        GT_Mod.gregtechproxy.mSoundNames.add(aSoundName);
+        GT5_Mod.gregtechproxy.mSoundItems.add(aItemStack);
+        GT5_Mod.gregtechproxy.mSoundNames.add(aSoundName);
         if (aSoundName.startsWith("note.")) {
-            GT_Mod.gregtechproxy.mSoundCounts.add(25);
+            GT5_Mod.gregtechproxy.mSoundCounts.add(25);
         } else {
-            GT_Mod.gregtechproxy.mSoundCounts.add(1);
+            GT5_Mod.gregtechproxy.mSoundCounts.add(1);
         }
         return true;
     }

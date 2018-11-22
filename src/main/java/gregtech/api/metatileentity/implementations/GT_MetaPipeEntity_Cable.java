@@ -3,7 +3,7 @@ package gregtech.api.metatileentity.implementations;
 import appeng.api.parts.IPartHost;
 import cofh.api.energy.IEnergyReceiver;
 import com.google.common.collect.Sets;
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Materials;
@@ -177,7 +177,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
     }
 
     private void pullFromIc2EnergySources(IGregTechTileEntity aBaseMetaTileEntity) {
-        if(!GT_Mod.gregtechproxy.ic2EnergySourceCompat) return;
+        if(!GT5_Mod.gregtechproxy.ic2EnergySourceCompat) return;
 
         for( byte aSide = 0 ; aSide < 6 ; aSide++) if(isConnectedAtSide(aSide)) {
             final TileEntity tTileEntity = aBaseMetaTileEntity.getTileEntityAtSide(aSide);
@@ -250,7 +250,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
         mTransferredVoltageLast20 = Math.max(mTransferredVoltageLast20, aVoltage);
         mTransferredAmperageLast20 = Math.max(mTransferredAmperageLast20, mTransferredAmperage);
         if (aVoltage > mVoltage || mTransferredAmperage > mAmperage) {
-            if (mOverheat > GT_Mod.gregtechproxy.mWireHeatingTicks * 100) {
+            if (mOverheat > GT5_Mod.gregtechproxy.mWireHeatingTicks * 100) {
                 getBaseMetaTileEntity().setToFire();
             } else {
                 mOverheat += 100;
@@ -271,7 +271,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
         }
 
         // AE2 Compat
-        if (GT_Mod.gregtechproxy.mAE2Integration && tTileEntity instanceof appeng.tile.powersink.IC2) {
+        if (GT5_Mod.gregtechproxy.mAE2Integration && tTileEntity instanceof appeng.tile.powersink.IC2) {
             if (((appeng.tile.powersink.IC2) tTileEntity).acceptsEnergyFrom((TileEntity) baseMetaTile, tDirection)) {
                 long rUsedAmperes = 0;
                 while (aAmperage > rUsedAmperes && ((appeng.tile.powersink.IC2) tTileEntity).getDemandedEnergy() > 0 && ((appeng.tile.powersink.IC2) tTileEntity).injectEnergy(tDirection, aVoltage, aVoltage) <= aVoltage)
@@ -351,21 +351,21 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
     @Override
     public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
         if (aBaseMetaTileEntity.isServerSide()) {
-            if (GT_Mod.gregtechproxy.ic2EnergySourceCompat) pullFromIc2EnergySources(aBaseMetaTileEntity);
+            if (GT5_Mod.gregtechproxy.ic2EnergySourceCompat) pullFromIc2EnergySources(aBaseMetaTileEntity);
 
             mTransferredAmperage = 0;
             if(mOverheat>0)mOverheat--;
             if (aTick % 20 == 0) {
                 mTransferredVoltageLast20 = 0;
                 mTransferredAmperageLast20 = 0;
-                if (!GT_Mod.gregtechproxy.gt6Cable || mCheckConnections) checkConnections();
+                if (!GT5_Mod.gregtechproxy.gt6Cable || mCheckConnections) checkConnections();
                         }
         }
     }
 
     @Override
     public boolean onWireCutterRightClick(byte aSide, byte aWrenchingSide, EntityPlayer aPlayer, float aX, float aY, float aZ) {
-        if (GT_Mod.gregtechproxy.gt6Cable && GT_ModHandler.damageOrDechargeItem(aPlayer.inventory.getCurrentItem(), 1, 500, aPlayer)) {
+        if (GT5_Mod.gregtechproxy.gt6Cable && GT_ModHandler.damageOrDechargeItem(aPlayer.inventory.getCurrentItem(), 1, 500, aPlayer)) {
             if(isConnectedAtSide(aWrenchingSide)) {
                 disconnect(aWrenchingSide);
                 GT_Utility.sendChatToPlayer(aPlayer, "Disconnected");
@@ -398,7 +398,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
 
         // GT Machine handling
         if ((tTileEntity instanceof IEnergyConnected) &&
-            (((IEnergyConnected) tTileEntity).inputEnergyFrom(tSide, false) || ((IEnergyConnected) tTileEntity).outputsEnergyTo(tSide, false)))
+            (((IEnergyConnected) tTileEntity).inputEnergyFrom(tSide) || ((IEnergyConnected) tTileEntity).outputsEnergyTo(tSide)))
             return true;
 
         // Solar Panel Compat
@@ -413,7 +413,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
         }
 
         // AE2-p2p Compat
-        if (GT_Mod.gregtechproxy.mAE2Integration) {
+        if (GT5_Mod.gregtechproxy.mAE2Integration) {
             if (tTileEntity instanceof IEnergySource && tTileEntity instanceof IPartHost && ((IPartHost)tTileEntity).getPart(tDir) instanceof PartP2PGTPower && ((IEnergySource) tTileEntity).emitsEnergyTo((TileEntity) baseMetaTile, tDir))
                 return true;
             if (tTileEntity instanceof appeng.tile.powersink.IC2 && ((appeng.tile.powersink.IC2)tTileEntity).acceptsEnergyFrom((TileEntity)baseMetaTile, tDir))
@@ -435,7 +435,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
                 return true;
 
             // IC2 Source Compat
-            if (GT_Mod.gregtechproxy.ic2EnergySourceCompat && (ic2Energy instanceof IEnergySource)) {
+            if (GT5_Mod.gregtechproxy.ic2EnergySourceCompat && (ic2Energy instanceof IEnergySource)) {
                 if (((IEnergySource) ic2Energy).emitsEnergyTo((TileEntity) baseMetaTile, tDir)) {
                     return true;
                 }
@@ -454,7 +454,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
 	@Override
     public boolean getGT6StyleConnection() {
         // Yes if GT6 Cables are enabled
-        return GT_Mod.gregtechproxy.gt6Cable;
+        return GT5_Mod.gregtechproxy.gt6Cable;
             }
 
 
@@ -484,13 +484,13 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
 
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
-        if (GT_Mod.gregtechproxy.gt6Cable)
+        if (GT5_Mod.gregtechproxy.gt6Cable)
         	aNBT.setByte("mConnections", mConnections);
     }
 
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
-        if (GT_Mod.gregtechproxy.gt6Cable) {
+        if (GT5_Mod.gregtechproxy.gt6Cable) {
         	mConnections = aNBT.getByte("mConnections");
         }
     }
@@ -525,7 +525,7 @@ public class GT_MetaPipeEntity_Cable extends MetaPipeEntity implements IMetaTile
     @Override
     public void addCollisionBoxesToList(World aWorld, int aX, int aY, int aZ, AxisAlignedBB inputAABB, List<AxisAlignedBB> outputAABB, Entity collider) {
         super.addCollisionBoxesToList(aWorld, aX, aY, aZ, inputAABB, outputAABB, collider);
-        if (GT_Mod.instance.isClientSide() ) {
+        if (GT5_Mod.instance.isClientSide() ) {
             AxisAlignedBB aabb = getActualCollisionBoundingBoxFromPool(aWorld, aX, aY, aZ);
             if (inputAABB.intersectsWith(aabb)) outputAABB.add(aabb);
         }

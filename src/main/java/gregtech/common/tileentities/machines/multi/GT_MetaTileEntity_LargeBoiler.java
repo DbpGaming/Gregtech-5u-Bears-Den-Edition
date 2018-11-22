@@ -1,6 +1,6 @@
 package gregtech.common.tileentities.machines.multi;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_GUIContainer_MultiMachine;
@@ -167,7 +167,7 @@ private boolean firstRun = true;
 @Override
 public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
 	if (mProgresstime>0&&firstRun) {firstRun = false;try{
-		GT_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "extremepressure");}catch (Exception e){}
+		GT5_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "extremepressure");}catch (Exception e){}
 	}
 	super.onPostTick(aBaseMetaTileEntity, aTick);
 }

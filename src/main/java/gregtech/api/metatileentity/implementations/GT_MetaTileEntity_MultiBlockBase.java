@@ -1,6 +1,6 @@
 package gregtech.api.metatileentity.implementations;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ConfigCategories;
 import gregtech.api.enums.Materials;
@@ -299,7 +299,7 @@ public abstract class GT_MetaTileEntity_MultiBlockBase extends MetaTileEntity {
                                     if (mOutputItems != null) for (ItemStack tStack : mOutputItems)
                                         if (tStack != null) {
                                             try {
-                                                GT_Mod.achievements.issueAchivementHatch(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), tStack);
+                                                GT5_Mod.achievements.issueAchivementHatch(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), tStack);
                                             } catch (Exception e) {
                                             }
                                             addOutput(tStack);
@@ -320,7 +320,7 @@ public abstract class GT_MetaTileEntity_MultiBlockBase extends MetaTileEntity {
                                     if (aBaseMetaTileEntity.isAllowedToWork()) checkRecipe(mInventory[1]);
                                     if (mOutputFluids != null && mOutputFluids.length > 0) {
                                         if (mOutputFluids.length > 1) {
-                                            GT_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "oilplant");
+                                            GT5_Mod.achievements.issueAchievement(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), "oilplant");
                                         }
                                     }
                                 }

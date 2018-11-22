@@ -619,7 +619,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 											new Object[]{"sf", "G ", 'G', OrePrefixes.gemFlawless.get(aMaterial)});
 									GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.stickLong, aMaterial, 2L), tBits,
 											new Object[]{"sf", "G ", 'G', OrePrefixes.gemExquisite.get(aMaterial)});
-									GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.wireGt01, aMaterial, 1L), tBits,
+									GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.wireGt501, aMaterial, 1L), tBits,
 											new Object[]{"Xx", 'X', OrePrefixes.plate.get(aMaterial)});
 									GT_ModHandler.addCraftingRecipe(GT_OreDictUnificator.get(OrePrefixes.wireFine, aMaterial, 1L), tBits,
 											new Object[]{"Xx", 'X', OrePrefixes.foil.get(aMaterial)});
@@ -1221,7 +1221,7 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 										break;
 									}
 									break;
-								case cableGt01:
+								case cableGt501:
 									if (aMaterial == Materials.Tin) {
 										GT_OreDictUnificator.registerOre(OreDictNames.craftingWireTin, aEvent.Ore);
 									}
@@ -1867,11 +1867,11 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
 	}
 
 	public void activateOreDictHandler() {
-		this.mOreDictActivated = true;
-		OreDictEventContainer tEvent;
-		for (Iterator i$ = this.mEvents.iterator(); i$.hasNext(); registerRecipes(tEvent)) {
-			tEvent = (OreDictEventContainer) i$.next();
-		}
+		//this.mOreDictActivated = true;
+		//OreDictEventContainer tEvent;
+		//for (Iterator i$ = this.mEvents.iterator(); i$.hasNext(); registerRecipes(tEvent)) {
+		//	tEvent = (OreDictEventContainer) i$.next();
+		//}
 	}
 
 	public static class OreDictEventContainer {

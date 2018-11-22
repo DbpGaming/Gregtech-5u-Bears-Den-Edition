@@ -1,6 +1,6 @@
 package gregtech.common.tileentities.machines.multi;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_Container_MultiMachine;
@@ -359,7 +359,7 @@ public abstract class GT_MetaTileEntity_FusionComputer extends GT_MetaTileEntity
                                 mEfficiencyIncrease = 0;
                                 if (mOutputFluids != null && mOutputFluids.length > 0) {
                                     try {
-                                        GT_Mod.achievements.issueAchivementHatchFluid(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), mOutputFluids[0]);
+                                        GT5_Mod.achievements.issueAchivementHatchFluid(aBaseMetaTileEntity.getWorld().getPlayerEntityByName(aBaseMetaTileEntity.getOwnerName()), mOutputFluids[0]);
                                     } catch (Exception e) {
                                     }
                                 }

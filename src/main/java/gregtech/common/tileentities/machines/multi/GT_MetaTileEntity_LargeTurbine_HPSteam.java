@@ -1,6 +1,6 @@
 package gregtech.common.tileentities.machines.multi;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -85,7 +85,7 @@ public class GT_MetaTileEntity_LargeTurbine_HPSteam extends GT_MetaTileEntity_La
                 totalFlow += flow; // track total used
                 if (!achievement) {
                     try {
-                        GT_Mod.achievements.issueAchievement(this.getBaseMetaTileEntity().getWorld().getPlayerEntityByName(this.getBaseMetaTileEntity().getOwnerName()), "efficientsteam");
+                        GT5_Mod.achievements.issueAchievement(this.getBaseMetaTileEntity().getWorld().getPlayerEntityByName(this.getBaseMetaTileEntity().getOwnerName()), "efficientsteam");
                     } catch (Exception e) {
                     }
                     achievement = true;
