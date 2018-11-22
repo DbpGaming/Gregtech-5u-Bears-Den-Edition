@@ -1,6 +1,8 @@
 package gregtech.loaders.oreprocessing;
 
-import gregtech.api.enums.GT_Values;
+import static gregtech.api.enums.GT_Values.NULL_FLUID_STACK;
+import static gregtech.api.enums.GT_Values.RECIPE_ADDER_INSTANCE;
+
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -14,7 +16,7 @@ public class ProcessingSlab implements gregtech.api.interfaces.IOreRecipeRegistr
 
     public void registerOre(OrePrefixes aPrefix, Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
         if (aOreDictName.startsWith("slabWood")) {
-            GT_Values.RA.addChemicalBathRecipe(GT_Utility.copyAmount(3L, new Object[]{aStack}), Materials.Creosote.getFluid(1000L), ItemList.RC_Tie_Wood.get(1L, new Object[0]), null, null, null, 200, 4);
+            RECIPE_ADDER_INSTANCE.addChemicalBathRecipe(GT_Utility.copyAmount(3L, aStack), Materials.Creosote.getFluid(1000L), NULL_FLUID_STACK, ItemList.RC_Tie_Wood.get(1L), null, null, null, 200, 4);
         }
     }
 }

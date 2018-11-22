@@ -1,6 +1,12 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.V;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import cofh.api.energy.IEnergyProvider;
+import cofh.api.energy.IEnergyStorage;
+import crazypants.enderio.machine.capbank.TileCapBank;
+import crazypants.enderio.machine.capbank.network.ICapBankNetwork;
+import crazypants.enderio.power.IPowerContainer;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
@@ -13,11 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyProvider;
-import cofh.api.energy.IEnergyStorage;
-import crazypants.enderio.machine.capbank.TileCapBank;
-import crazypants.enderio.machine.capbank.network.ICapBankNetwork;
-import crazypants.enderio.power.IPowerContainer;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -91,7 +92,7 @@ public class GT_MetaTileEntity_Transformer extends GT_MetaTileEntity_TieredMachi
 
     @Override
     public boolean isInputFacing(byte aSide) {
-        return getBaseMetaTileEntity().isAllowedToWork() ? aSide == getBaseMetaTileEntity().getFrontFacing() : aSide != getBaseMetaTileEntity().getFrontFacing();
+        return getBaseMetaTileEntity().isAllowedToWork() == (aSide == getBaseMetaTileEntity().getFrontFacing());
     }
 
     @Override
@@ -111,27 +112,27 @@ public class GT_MetaTileEntity_Transformer extends GT_MetaTileEntity_TieredMachi
 
     @Override
     public long maxEUStore() {
-        return 512 + V[mTier + 1] * 2;
+        return 512 + TIERED_VOLTAGES[mTier + 1] * 2;
     }
 
     @Override
     public long maxEUInput() {
-        return V[getBaseMetaTileEntity().isAllowedToWork() ? mTier + 1 : mTier];
+        return TIERED_VOLTAGES[getBaseMetaTileEntity().isAllowedToWork() ? mTier + 1 : mTier];
     }
 
     @Override
     public long maxEUOutput() {
-        return V[getBaseMetaTileEntity().isAllowedToWork() ? mTier : mTier + 1];
+        return TIERED_VOLTAGES[getBaseMetaTileEntity().isAllowedToWork() ? mTier : mTier + 1];
     }
 
     @Override
     public long maxAmperesOut() {
-        return getBaseMetaTileEntity().isAllowedToWork() ? V[mTier + 1] / V[mTier] : 1;
+        return getBaseMetaTileEntity().isAllowedToWork() ? TIERED_VOLTAGES[mTier + 1] / TIERED_VOLTAGES[mTier] : 1;
     }
 
     @Override
     public long maxAmperesIn() {
-        return getBaseMetaTileEntity().isAllowedToWork() ? 1 : V[mTier + 1] / V[mTier];
+        return getBaseMetaTileEntity().isAllowedToWork() ? 1 : TIERED_VOLTAGES[mTier + 1] / TIERED_VOLTAGES[mTier];
     }
 
     @Override

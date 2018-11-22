@@ -1,7 +1,8 @@
 package gregtech.api.metatileentity;
 
-import static gregtech.api.enums.GT_Values.GT;
-import static gregtech.api.enums.GT_Values.NW;
+import static gregtech.api.enums.GT_Values.GT_MOD_INSTANCE;
+import static gregtech.api.enums.GT_Values.NETWORK_HANDLER;
+
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.interfaces.tileentity.IHasWorldObjectAndCoords;
 import gregtech.api.net.GT_Packet_Block_Event;
@@ -105,7 +106,7 @@ public abstract class BaseTileEntity extends TileEntity implements IHasWorldObje
     @Override
     public final boolean openGUI(EntityPlayer aPlayer, int aID) {
         if (aPlayer == null) return false;
-        aPlayer.openGui(GT, aID, worldObj, xCoord, yCoord, zCoord);
+        aPlayer.openGui(GT_MOD_INSTANCE, aID, worldObj, xCoord, yCoord, zCoord);
         return true;
     }
 
@@ -419,7 +420,7 @@ public abstract class BaseTileEntity extends TileEntity implements IHasWorldObje
 
     @Override
     public final void sendBlockEvent(byte aID, byte aValue) {
-        NW.sendPacketToAllPlayersInRange(worldObj, new GT_Packet_Block_Event(xCoord, (short) yCoord, zCoord, aID, aValue), xCoord, zCoord);
+        NETWORK_HANDLER.sendPacketToAllPlayersInRange(worldObj, new GT_Packet_Block_Event(xCoord, (short) yCoord, zCoord, aID, aValue), xCoord, zCoord);
     }
 
     private boolean crossedChunkBorder(int aX, int aZ) {

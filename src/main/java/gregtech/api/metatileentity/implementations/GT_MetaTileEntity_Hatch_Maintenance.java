@@ -1,6 +1,6 @@
 package gregtech.api.metatileentity.implementations;
 
-import gregtech.GT_Mod;
+import gregtech.GT5_Mod;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_Container_MaintenanceHatch;
@@ -113,7 +113,7 @@ public class GT_MetaTileEntity_Hatch_Maintenance extends GT_MetaTileEntity_Hatch
         if (mSolderingTool && aPlayer instanceof EntityPlayerMP) {
             EntityPlayerMP tPlayer = (EntityPlayerMP) aPlayer;
             try {
-                GT_Mod.instance.achievements.issueAchievement(tPlayer, "maintainance");
+                GT5_Mod.achievements.issueAchievement(tPlayer, "maintainance");
             } catch (Exception e) {
             }
         }

@@ -1,13 +1,5 @@
 package gregtech.common.tools;
 
-import gregtech.api.GregTech_API;
-import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.IIconContainer;
-import gregtech.api.items.GT_MetaGenerated_Tool;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +11,14 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.world.BlockEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import gregtech.api.GregTech_API;
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.IIconContainer;
+import gregtech.api.items.GT_MetaGenerated_Tool;
 
 public class GT_Tool_Saw
         extends GT_Tool {
@@ -63,7 +63,7 @@ public class GT_Tool_Saw
     }
 
     public String getBreakingSound() {
-        return (String) GregTech_API.sSoundList.get(Integer.valueOf(0));
+        return GregTech_API.sSoundList.get(0);
     }
 
     public String getMiningSound() {

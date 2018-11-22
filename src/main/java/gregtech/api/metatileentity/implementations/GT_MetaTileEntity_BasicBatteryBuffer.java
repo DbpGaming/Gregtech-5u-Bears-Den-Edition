@@ -1,6 +1,8 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.V;
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_Container_1by1;
 import gregtech.api.gui.GT_Container_2by2;
@@ -115,22 +117,22 @@ public class GT_MetaTileEntity_BasicBatteryBuffer extends GT_MetaTileEntity_Tier
 
     @Override
     public long getMinimumStoredEU() {
-        return V[mTier] * 16 * mInventory.length;
+        return TIERED_VOLTAGES[mTier] * 16 * mInventory.length;
     }
 
     @Override
     public long maxEUStore() {
-        return V[mTier] * 64 * mInventory.length;
+        return TIERED_VOLTAGES[mTier] * 64 * mInventory.length;
     }
 
     @Override
     public long maxEUInput() {
-        return V[mTier];
+        return TIERED_VOLTAGES[mTier];
     }
 
     @Override
     public long maxEUOutput() {
-        return V[mTier];
+        return TIERED_VOLTAGES[mTier];
     }
 
     @Override
@@ -292,6 +294,11 @@ public class GT_MetaTileEntity_BasicBatteryBuffer extends GT_MetaTileEntity_Tier
     }
 
     @Override
+    public int getInventoryStackLimit() {
+        return 1;
+    }
+
+    @Override
     public String[] getInfoData() {
         count++;
         if (mMax == 0 || count % 20 == 0) {
@@ -304,7 +311,11 @@ public class GT_MetaTileEntity_BasicBatteryBuffer extends GT_MetaTileEntity_Tier
                 getLocalName(),
                 "Stored Items:",
                 GT_Utility.formatNumbers(mStored) + " EU /",
-                GT_Utility.formatNumbers(mMax) + " EU"};
+                GT_Utility.formatNumbers(mMax) + " EU",
+                "Average input:",
+                getBaseMetaTileEntity().getAverageElectricInput()+ EMPTY_STRING,
+                "Average output:",
+                getBaseMetaTileEntity().getAverageElectricOutput()+ EMPTY_STRING};
     }
 
     @Override

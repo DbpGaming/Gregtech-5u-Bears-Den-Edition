@@ -1,5 +1,15 @@
 package gregtech.common.tileentities.machines.multi;
 
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_GUIContainer_MultiMachine;
@@ -10,14 +20,6 @@ import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockB
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
 
 public class GT_MetaTileEntity_ElectricBlastFurnace
         extends GT_MetaTileEntity_MultiBlockBase {
@@ -66,8 +68,8 @@ public class GT_MetaTileEntity_ElectricBlastFurnace
         ArrayList<ItemStack> tInputList = getStoredInputs();
         for (int i = 0; i < tInputList.size() - 1; i++) {
             for (int j = i + 1; j < tInputList.size(); j++) {
-                if (GT_Utility.areStacksEqual((ItemStack) tInputList.get(i), (ItemStack) tInputList.get(j))) {
-                    if (((ItemStack) tInputList.get(i)).stackSize >= ((ItemStack) tInputList.get(j)).stackSize) {
+                if (GT_Utility.areStacksEqual(tInputList.get(i), tInputList.get(j))) {
+                    if (tInputList.get(i).stackSize >= tInputList.get(j).stackSize) {
                         tInputList.remove(j--);
                     } else {
                         tInputList.remove(i--);
@@ -76,13 +78,13 @@ public class GT_MetaTileEntity_ElectricBlastFurnace
                 }
             }
         }
-        ItemStack[] tInputs = (ItemStack[]) Arrays.copyOfRange(tInputList.toArray(new ItemStack[tInputList.size()]), 0, 2);
+        ItemStack[] tInputs = Arrays.copyOfRange(tInputList.toArray(new ItemStack[tInputList.size()]), 0, 2);
 
         ArrayList<FluidStack> tFluidList = getStoredFluids();
         for (int i = 0; i < tFluidList.size() - 1; i++) {
             for (int j = i + 1; j < tFluidList.size(); j++) {
-                if (GT_Utility.areFluidsEqual((FluidStack) tFluidList.get(i), (FluidStack) tFluidList.get(j))) {
-                    if (((FluidStack) tFluidList.get(i)).amount >= ((FluidStack) tFluidList.get(j)).amount) {
+                if (GT_Utility.areFluidsEqual(tFluidList.get(i), tFluidList.get(j))) {
+                    if (tFluidList.get(i).amount >= tFluidList.get(j).amount) {
                         tFluidList.remove(j--);
                     } else {
                         tFluidList.remove(i--);
@@ -91,11 +93,11 @@ public class GT_MetaTileEntity_ElectricBlastFurnace
                 }
             }
         }
-        FluidStack[] tFluids = (FluidStack[]) Arrays.copyOfRange(tFluidList.toArray(new FluidStack[tInputList.size()]), 0, 1);
+        FluidStack[] tFluids = Arrays.copyOfRange(tFluidList.toArray(new FluidStack[tInputList.size()]), 0, 1);
         if (tInputList.size() > 0) {
             long tVoltage = getMaxInputVoltage();
             byte tTier = (byte) Math.max(1, GT_Utility.getTier(tVoltage));
-            GT_Recipe tRecipe = GT_Recipe.GT_Recipe_Map.sBlastRecipes.findRecipe(getBaseMetaTileEntity(), false, gregtech.api.enums.GT_Values.V[tTier], tFluids, tInputs);
+            GT_Recipe tRecipe = GT_Recipe.GT_Recipe_Map.sBlastRecipes.findRecipe(getBaseMetaTileEntity(), false, TIERED_VOLTAGES[tTier], tFluids, tInputs);
             if ((tRecipe != null) && (this.mHeatingCapacity >= tRecipe.mSpecialValue) && (tRecipe.isRecipeInputEqual(true, tFluids, tInputs))) {
                 this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
                 this.mEfficiencyIncrease = 10000;
@@ -105,7 +107,7 @@ public class GT_MetaTileEntity_ElectricBlastFurnace
                 } else {
                     this.mEUt = tRecipe.mEUt;
                     this.mMaxProgresstime = tRecipe.mDuration;
-                    while (this.mEUt <= gregtech.api.enums.GT_Values.V[(tTier - 1)]) {
+                    while (this.mEUt <= TIERED_VOLTAGES[(tTier - 1)]) {
                         this.mEUt *= 4;
                         this.mMaxProgresstime /= 2;
                     }

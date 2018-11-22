@@ -15,6 +15,7 @@ import gregtech.common.gui.GT_GUIContainer_TypeFilter;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class GT_MetaTileEntity_TypeFilter
         extends GT_MetaTileEntity_Buffer {
@@ -87,8 +88,8 @@ public class GT_MetaTileEntity_TypeFilter
             if (this.mPrefix.mPrefixedItems.isEmpty()) {
                 this.mInventory[9] = null;
             } else {
-                this.mInventory[9] = GT_Utility.copyAmount(1L, new Object[]{this.mPrefix.mPrefixedItems.get(this.mRotationIndex = (this.mRotationIndex + 1) % this.mPrefix.mPrefixedItems.size())});
-                if (this.mInventory[9].getItemDamage() == 32767) {
+                this.mInventory[9] = GT_Utility.copyAmount(1L, this.mPrefix.mPrefixedItems.get(this.mRotationIndex = (this.mRotationIndex + 1) % this.mPrefix.mPrefixedItems.size()));
+                if (this.mInventory[9].getItemDamage() == OreDictionary.WILDCARD_VALUE) {
                     this.mInventory[9].setItemDamage(0);
                 }
                 this.mInventory[9].setStackDisplayName(this.mPrefix.toString());
@@ -126,7 +127,9 @@ public class GT_MetaTileEntity_TypeFilter
                         tFix == OrePrefixes.orePoor ||
                         tFix == OrePrefixes.oreRedgranite ||
                         tFix == OrePrefixes.oreRich ||
-                        tFix == OrePrefixes.oreSmall) tAllowPrefix = true;
+                        tFix == OrePrefixes.oreSmall ||
+                        tFix == OrePrefixes.oreBasalt ||
+                        tFix == OrePrefixes.oreMarble) tAllowPrefix = true;
             }
         }
         return (super.allowPutStack(aBaseMetaTileEntity, aIndex, aSide, aStack)) && ((this.bNBTAllowed) || (!aStack.hasTagCompound())) && (tAllowPrefix != this.bInvertFilter);

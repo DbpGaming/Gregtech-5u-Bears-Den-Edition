@@ -1,12 +1,10 @@
 package gregtech.common.items;
 
-import gregtech.api.enums.GT_Values;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.enums.ItemList;
 import gregtech.api.items.GT_Generic_Item;
 import gregtech.api.util.GT_Utility;
-
-import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -16,8 +14,11 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import static gregtech.api.enums.GT_Values.DEBUG_LEVEL_1;
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+
+import java.util.List;
 
 public class GT_FluidDisplayItem
         extends GT_Generic_Item {
@@ -28,7 +29,7 @@ public class GT_FluidDisplayItem
 
     protected void addAdditionalToolTips(List aList, ItemStack aStack) {
         NBTTagCompound aNBT = aStack.getTagCompound();
-        if (GT_Values.D1) {
+        if (DEBUG_LEVEL_1) {
             Fluid tFluid = FluidRegistry.getFluid(aStack.getItemDamage());
             if (tFluid != null) {
                 aList.add("Registry: " + tFluid.getName());
@@ -67,19 +68,19 @@ public class GT_FluidDisplayItem
         if (aStack != null) {
             return GT_Utility.getFluidName(FluidRegistry.getFluid(aStack.getItemDamage()), false);
         }
-        return "";
+        return EMPTY_STRING;
     }
 
     public String getItemStackDisplayName(ItemStack aStack) {
         if (aStack != null) {
             return GT_Utility.getFluidName(FluidRegistry.getFluid(aStack.getItemDamage()), true);
         }
-        return "";
+        return EMPTY_STRING;
     }
 
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item aItem, CreativeTabs aTab, List aList) {
-        if (GT_Values.D1) {
+        if (DEBUG_LEVEL_1) {
             int i = 0;
             for (int j = FluidRegistry.getMaxID(); i < j; i++) {
                 ItemStack tStack = GT_Utility.getFluidDisplayStack(FluidRegistry.getFluid(i));

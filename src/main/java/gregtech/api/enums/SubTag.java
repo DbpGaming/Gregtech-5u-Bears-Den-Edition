@@ -1,11 +1,11 @@
 package gregtech.api.enums;
 
-import gregtech.api.interfaces.ICondition;
-import gregtech.api.interfaces.ISubTagContainer;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+
+import gregtech.api.interfaces.ICondition;
+import gregtech.api.interfaces.ISubTagContainer;
 
 /**
  * Just a simple Class to be able to add special Tags for Materials.
@@ -45,6 +45,18 @@ public final class SubTag implements ICondition<ISubTagContainer> {
      * Gold, Silver, Osmium, Mithril, Platinum, Midasium, Cooperite and AstralSilver.
      */
     public static final SubTag WASHING_MERCURY = getNewSubTag("WASHING_MERCURY");
+    /**
+     * Add this to your Material if you want to have its Ore bathed into Green Vitriol.
+     */
+    public static final SubTag WASHING_GREENV = getNewSubTag("WASHING_GREENV");
+    /**
+     * Add this to your Material if you want to have its Ore bathed into Blue Vitriol.
+     */
+    public static final SubTag WASHING_BLUEV = getNewSubTag("WASHING_BLUEV");
+    /**
+     * Add this to your Material if you want to have its Ore bathed into Nickel Sulfate.
+     */
+    public static final SubTag WASHING_NICKELS = getNewSubTag("WASHING_NICKELS");
     /**
      * Add this to your Material if you want to have its Ore electromagnetically separated to give Gold.
      */

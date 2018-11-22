@@ -1,6 +1,7 @@
 package gregtech.common.tileentities.machines.basic;
 
-import static gregtech.api.enums.GT_Values.V;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
 import gregtech.api.enums.Textures;
 import gregtech.api.interfaces.ITexture;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
@@ -91,12 +92,12 @@ public class GT_MetaTileEntity_MonsterRepellent extends GT_MetaTileEntity_Tiered
 
     @Override
     public long maxEUStore() {
-        return 512 + V[mTier] * 50;
+        return 512 + TIERED_VOLTAGES[mTier] * 50;
     }
 
     @Override
     public long maxEUInput() {
-        return V[mTier];
+        return TIERED_VOLTAGES[mTier];
     }
 
     @Override

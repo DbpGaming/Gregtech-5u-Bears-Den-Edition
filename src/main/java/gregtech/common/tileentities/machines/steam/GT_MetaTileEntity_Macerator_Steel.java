@@ -1,6 +1,12 @@
 package gregtech.common.tileentities.machines.steam;
 
-import static gregtech.api.enums.GT_Values.V;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import java.util.Random;
+
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_GUIContainer_BasicMachine;
@@ -11,13 +17,8 @@ import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachin
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
 import gregtech.api.util.GT_Utility;
-
-import java.util.Random;
-
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
+import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
 
 public class GT_MetaTileEntity_Macerator_Steel
         extends GT_MetaTileEntity_BasicMachine_Steel {
@@ -48,7 +49,7 @@ public class GT_MetaTileEntity_Macerator_Steel
     public int checkRecipe() {
         GT_Recipe_Map tMap = GT_Recipe.GT_Recipe_Map.sMaceratorRecipes;
         if (tMap == null) return DID_NOT_FIND_RECIPE;
-        GT_Recipe tRecipe = tMap.findRecipe(getBaseMetaTileEntity(), mLastRecipe, false, V[1], null, null, getAllInputs());
+        GT_Recipe tRecipe = tMap.findRecipe(getBaseMetaTileEntity(), mLastRecipe, false, TIERED_VOLTAGES[1], null, null, getAllInputs());
         if (tRecipe == null) return DID_NOT_FIND_RECIPE;
         if (tRecipe.mCanBeBuffered) mLastRecipe = tRecipe;
         if (!canOutput(tRecipe)) {
@@ -66,13 +67,13 @@ public class GT_MetaTileEntity_Macerator_Steel
         if (!super.allowPutStack(aBaseMetaTileEntity, aIndex, aSide, aStack)) {
             return false;
         }
-        return GT_ModHandler.getMaceratorOutput(GT_Utility.copyAmount(64L, new Object[]{aStack}), false, null) != null;
+        return GT_ModHandler.getMaceratorOutput(GT_Utility.copyAmount(64L, aStack), false, null) != null;
     }
 
     public void startSoundLoop(byte aIndex, double aX, double aY, double aZ) {
         super.startSoundLoop(aIndex, aX, aY, aZ);
         if (aIndex == 1) {
-            GT_Utility.doSoundAtClient((String) GregTech_API.sSoundList.get(Integer.valueOf(201)), 10, 1.0F, aX, aY, aZ);
+            GT_Utility.doSoundAtClient(GregTech_API.sSoundList.get(201), 10, 1.0F, aX, aY, aZ);
         }
     }
 

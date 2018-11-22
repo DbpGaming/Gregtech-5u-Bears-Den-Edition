@@ -1,6 +1,7 @@
 package gregtech.common.gui;
 
 import static gregtech.api.enums.GT_Values.RES_PATH_GUI;
+
 import gregtech.api.gui.GT_GUIContainerMetaTile_Machine;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.util.GT_Utility;

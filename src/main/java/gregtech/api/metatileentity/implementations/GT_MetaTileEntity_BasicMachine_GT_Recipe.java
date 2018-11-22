@@ -1,7 +1,17 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.V;
-import static gregtech.api.enums.GT_Values.W;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+
+import static gregtech.api.enums.GT_Values.DIR_BASICMACHINES;
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import java.util.Random;
+
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -14,16 +24,9 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_ModHandler;
+import gregtech.api.util.GT_Utility;
 import gregtech.api.util.GT_ModHandler.RecipeBits;
 import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
-import gregtech.api.util.GT_Utility;
-
-import java.util.Random;
-
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -38,7 +41,7 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
     private final boolean mSharedTank, mRequiresFluidForFiltering;
     private final byte mGUIParameterA, mGUIParameterB;
     public GT_MetaTileEntity_BasicMachine_GT_Recipe(int aID, String aName, String aNameRegional, int aTier, String aDescription, GT_Recipe_Map aRecipes, int aInputSlots, int aOutputSlots, int aTankCapacity, int aGUIParameterA, int aGUIParameterB, String aGUIName, String aSound, boolean aSharedTank, boolean aRequiresFluidForFiltering, int aSpecialEffect, String aOverlays, Object[] aRecipe) {
-        super(aID, aName, aNameRegional, aTier, aRecipes.mAmperage, aDescription, aInputSlots, aOutputSlots, aGUIName, aRecipes.mNEIName, new ITexture[]{new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_SIDE_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_SIDE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_FRONT_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_FRONT")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_TOP_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_TOP")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_BOTTOM_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon("basicmachines/" + aOverlays.toLowerCase() + "/OVERLAY_BOTTOM"))});
+        super(aID, aName, aNameRegional, aTier, aRecipes.mAmperage, aDescription, aInputSlots, aOutputSlots, aGUIName, aRecipes.mNEIName, new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_SIDE_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_SIDE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_FRONT_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_FRONT")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_TOP_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_TOP")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_BOTTOM_ACTIVE")), new GT_RenderedTexture(new Textures.BlockIcons.CustomIcon(DIR_BASICMACHINES + aOverlays.toLowerCase() + "/OVERLAY_BOTTOM")));
         mSharedTank = aSharedTank;
         mTankCapacity = aTankCapacity;
         mSpecialEffect = aSpecialEffect;
@@ -74,7 +77,7 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
                 if (aRecipe[i] == X.GLASS) {
                     switch (mTier) {
                         default:
-                            aRecipe[i] = new ItemStack(Blocks.glass, 1, W);
+                            aRecipe[i] = new ItemStack(Blocks.glass, 1, OreDictionary.WILDCARD_VALUE);
                             break;
                     }
                     continue;
@@ -128,19 +131,19 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
                     switch (mTier) {
                         case 0:
                         case 1:
-                            aRecipe[i] = OrePrefixes.wireGt02.get(Materials.AnyCopper);
+                            aRecipe[i] = OrePrefixes.wireGt502.get(Materials.AnyCopper);
                             break;
                         case 2:
-                            aRecipe[i] = OrePrefixes.wireGt02.get(Materials.Cupronickel);
+                            aRecipe[i] = OrePrefixes.wireGt502.get(Materials.Cupronickel);
                             break;
                         case 3:
-                            aRecipe[i] = OrePrefixes.wireGt02.get(Materials.Kanthal);
+                            aRecipe[i] = OrePrefixes.wireGt502.get(Materials.Kanthal);
                             break;
                         case 4:
-                            aRecipe[i] = OrePrefixes.wireGt02.get(Materials.Nichrome);
+                            aRecipe[i] = OrePrefixes.wireGt502.get(Materials.Nichrome);
                             break;
                         default:
-                            aRecipe[i] = OrePrefixes.wireGt08.get(Materials.Nichrome);
+                            aRecipe[i] = OrePrefixes.wireGt508.get(Materials.Nichrome);
                             break;
                     }
                     continue;
@@ -150,19 +153,19 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
                     switch (mTier) {
                         case 0:
                         case 1:
-                            aRecipe[i] = OrePrefixes.wireGt04.get(Materials.AnyCopper);
+                            aRecipe[i] = OrePrefixes.wireGt504.get(Materials.AnyCopper);
                             break;
                         case 2:
-                            aRecipe[i] = OrePrefixes.wireGt04.get(Materials.Cupronickel);
+                            aRecipe[i] = OrePrefixes.wireGt504.get(Materials.Cupronickel);
                             break;
                         case 3:
-                            aRecipe[i] = OrePrefixes.wireGt04.get(Materials.Kanthal);
+                            aRecipe[i] = OrePrefixes.wireGt504.get(Materials.Kanthal);
                             break;
                         case 4:
-                            aRecipe[i] = OrePrefixes.wireGt04.get(Materials.Nichrome);
+                            aRecipe[i] = OrePrefixes.wireGt504.get(Materials.Nichrome);
                             break;
                         default:
-                            aRecipe[i] = OrePrefixes.wireGt16.get(Materials.Nichrome);
+                            aRecipe[i] = OrePrefixes.wireGt516.get(Materials.Nichrome);
                             break;
                     }
                     continue;
@@ -217,22 +220,22 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
                 if (aRecipe[i] == X.COIL_ELECTRIC) {
                     switch (mTier) {
                         case 0:
-                            aRecipe[i] = OrePrefixes.wireGt01.get(Materials.Tin);
+                            aRecipe[i] = OrePrefixes.wireGt501.get(Materials.Tin);
                             break;
                         case 1:
-                            aRecipe[i] = OrePrefixes.wireGt02.get(Materials.Tin);
+                            aRecipe[i] = OrePrefixes.wireGt502.get(Materials.Tin);
                             break;
                         case 2:
-                            aRecipe[i] = OrePrefixes.wireGt02.get(Materials.AnyCopper);
+                            aRecipe[i] = OrePrefixes.wireGt502.get(Materials.AnyCopper);
                             break;
                         case 3:
-                            aRecipe[i] = OrePrefixes.wireGt04.get(Materials.AnyCopper);
+                            aRecipe[i] = OrePrefixes.wireGt504.get(Materials.AnyCopper);
                             break;
                         case 4:
-                            aRecipe[i] = OrePrefixes.wireGt08.get(Materials.AnnealedCopper);
+                            aRecipe[i] = OrePrefixes.wireGt508.get(Materials.AnnealedCopper);
                             break;
                         default:
-                            aRecipe[i] = OrePrefixes.wireGt16.get(Materials.AnnealedCopper);
+                            aRecipe[i] = OrePrefixes.wireGt516.get(Materials.AnnealedCopper);
                             break;
                     }
                     continue;
@@ -551,7 +554,7 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
 
     @Override
     public Object getClientGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
-        return new GT_GUIContainer_BasicMachine(aPlayerInventory, aBaseMetaTileEntity, getLocalName(), mGUIName, GT_Utility.isStringValid(mNEIName) ? mNEIName : getRecipeList() != null ? getRecipeList().mUnlocalizedName : "", mGUIParameterA, mGUIParameterB);
+        return new GT_GUIContainer_BasicMachine(aPlayerInventory, aBaseMetaTileEntity, getLocalName(), mGUIName, GT_Utility.isStringValid(mNEIName) ? mNEIName : getRecipeList() != null ? getRecipeList().mUnlocalizedName : EMPTY_STRING, mGUIParameterA, mGUIParameterB);
     }
 
 	@Override
@@ -560,8 +563,8 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
 		if (mInventory[aIndex] != null) return true;
 		switch (mInputSlotCount) {
 		case  0: return false;
-		case  1: return getFillableStack() == null ? !mRequiresFluidForFiltering && getRecipeList().containsInput(aStack) : null!=getRecipeList().findRecipe(getBaseMetaTileEntity(), mLastRecipe, true, V[mTier], new FluidStack[] {getFillableStack()}, getSpecialSlot(), new ItemStack[] {aStack});
-		case  2: return (!mRequiresFluidForFiltering || getFillableStack() != null) && (((getInputAt(0)!=null&&getInputAt(1)!=null) || (getInputAt(0)==null&&getInputAt(1)==null?getRecipeList().containsInput(aStack):(getRecipeList().containsInput(aStack)&&null!=getRecipeList().findRecipe(getBaseMetaTileEntity(), mLastRecipe, true, V[mTier], new FluidStack[] {getFillableStack()}, getSpecialSlot(), aIndex == getInputSlot() ? new ItemStack[] {aStack, getInputAt(1)} : new ItemStack[] {getInputAt(0), aStack})))));
+		case  1: return getFillableStack() == null ? !mRequiresFluidForFiltering && getRecipeList().containsInput(aStack) : null!=getRecipeList().findRecipe(getBaseMetaTileEntity(), mLastRecipe, true, TIERED_VOLTAGES[mTier], new FluidStack[] {getFillableStack()}, getSpecialSlot(), new ItemStack[] {aStack});
+		case  2: return (!mRequiresFluidForFiltering || getFillableStack() != null) && (((getInputAt(0)!=null&&getInputAt(1)!=null) || (getInputAt(0)==null&&getInputAt(1)==null?getRecipeList().containsInput(aStack):(getRecipeList().containsInput(aStack)&&null!=getRecipeList().findRecipe(getBaseMetaTileEntity(), mLastRecipe, true, TIERED_VOLTAGES[mTier], new FluidStack[] {getFillableStack()}, getSpecialSlot(), aIndex == getInputSlot() ? new ItemStack[] {aStack, getInputAt(1)} : new ItemStack[] {getInputAt(0), aStack})))));
 		default: return getRecipeList().containsInput(aStack);
 		}
 	}
@@ -619,5 +622,5 @@ public class GT_MetaTileEntity_BasicMachine_GT_Recipe extends GT_MetaTileEntity_
         return !mSharedTank;
     }
 
-    public static enum X {PUMP, WIRE, WIRE4, HULL, PIPE, GLASS, PLATE, MOTOR, ROTOR, SENSOR, PISTON, CIRCUIT, EMITTER, CONVEYOR, ROBOT_ARM, COIL_HEATING, COIL_ELECTRIC, STICK_MAGNETIC, STICK_DISTILLATION, BETTER_CIRCUIT, FIELD_GENERATOR, COIL_HEATING_DOUBLE, STICK_ELECTROMAGNETIC;}
+    public enum X {PUMP, WIRE, WIRE4, HULL, PIPE, GLASS, PLATE, MOTOR, ROTOR, SENSOR, PISTON, CIRCUIT, EMITTER, CONVEYOR, ROBOT_ARM, COIL_HEATING, COIL_ELECTRIC, STICK_MAGNETIC, STICK_DISTILLATION, BETTER_CIRCUIT, FIELD_GENERATOR, COIL_HEATING_DOUBLE, STICK_ELECTROMAGNETIC}
 }

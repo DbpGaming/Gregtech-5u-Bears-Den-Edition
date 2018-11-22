@@ -1,7 +1,8 @@
 package gregtech.common.items.behaviors;
 
+import static gregtech.api.enums.GT_Values.GT_MOD_INSTANCE;
+
 import gregtech.api.GregTech_API;
-import gregtech.api.enums.GT_Values;
 import gregtech.api.interfaces.IItemBehaviour;
 import gregtech.api.items.GT_MetaBase_Item;
 import gregtech.api.util.GT_Utility;
@@ -92,7 +93,7 @@ public class Behaviour_Sonictron
             if (aNewContent[i] == null) {
                 aInventory[i] = null;
             } else {
-                aInventory[i] = GT_Utility.copy(new Object[]{aNewContent[i]});
+                aInventory[i] = GT_Utility.copy(aNewContent[i]);
             }
         }
     }
@@ -114,7 +115,7 @@ public class Behaviour_Sonictron
         int tCurrentIndex = getCurrentIndex(aStack);
         if ((tTickTimer++ % 2 == 0) && (tCurrentIndex > -1)) {
             ItemStack[] tInventory = getNBTInventory(aStack);
-            GT_Values.GT.doSonictronSound(tInventory[tCurrentIndex], aPlayer.worldObj, aPlayer.posX, aPlayer.posY, aPlayer.posZ);
+            GT_MOD_INSTANCE.doSonictronSound(tInventory[tCurrentIndex], aPlayer.worldObj, aPlayer.posX, aPlayer.posY, aPlayer.posZ);
             tCurrentIndex++;
             if (tCurrentIndex > 63) {
                 tCurrentIndex = -1;

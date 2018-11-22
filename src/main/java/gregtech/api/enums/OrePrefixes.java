@@ -1,8 +1,16 @@
 package gregtech.api.enums;
 
-import static gregtech.api.enums.GT_Values.B;
-import static gregtech.api.enums.GT_Values.D2;
-import static gregtech.api.enums.GT_Values.M;
+import net.minecraft.item.ItemStack;
+
+import static gregtech.api.enums.GT_Values.BITS_32;
+import static gregtech.api.enums.GT_Values.DEBUG_LEVEL_2;
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
 import gregtech.api.enums.TC_Aspects.TC_AspectStack;
 import gregtech.api.interfaces.ICondition;
 import gregtech.api.interfaces.IOreRecipeRegistrator;
@@ -12,198 +20,195 @@ import gregtech.api.objects.MaterialStack;
 import gregtech.api.util.GT_Log;
 import gregtech.api.util.GT_Utility;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
-import net.minecraft.item.ItemStack;
-
 public enum OrePrefixes {
-    @Deprecated pulp("Pulps", "", "", false, false, false, false, false, false, false, false, false, false, B[0] | B[1] | B[2] | B[3], -1, 64, -1),
-    @Deprecated leaves("Leaves", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    @Deprecated sapling("Saplings", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    @Deprecated itemDust("Dusts", "", "", false, false, false, false, false, false, false, false, false, false, B[0] | B[1] | B[2] | B[3], -1, 64, -1),
-    oreBlackgranite("Black Granite Ores", "Granite ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
-    oreRedgranite("Red Granite Ores", "Granite ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
-    oreNetherrack("Netherrack Ores", "Nether ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // Prefix of the Nether-Ores Mod. Causes Ores to double. Ore -> Material is a Oneway Operation!
-    oreNether("Nether Ores", "Nether ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // Prefix of the Nether-Ores Mod. Causes Ores to double. Ore -> Material is a Oneway Operation!
-    @Deprecated denseore("Dense Ores", "", "", false, false, false, false, false, true, false, false, false, true, B[3], -1, 64, -1),
-    oreDense("Dense Ores", "Dense ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // Prefix of the Dense-Ores Mod. Causes Ores to double. Ore -> Material is a Oneway Operation!
-    oreRich("Rich Ores", "Rich ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // Prefix of TFC
-    oreNormal("Normal Ores", "Normal ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // Prefix of TFC
-    oreSmall("Small Ores", "Small ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, 67), // Prefix of Railcraft.
-    orePoor("Poor Ores", "Poor ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // Prefix of Railcraft.
-    oreEndstone("Endstone Ores", "End ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
-    oreEnd("End Ores", "End ", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
-    @Deprecated oreGem("Ores", "", "", false, false, false, false, false, true, false, false, false, true, B[3], -1, 64, -1),
-    ore("Ores", "", " Ore", true, true, false, false, false, true, false, false, false, true, B[3], -1, 64, 68), // Regular Ore Prefix. Ore -> Material is a Oneway Operation! Introduced by Eloraam
-    crushedCentrifuged("Centrifuged Ores", "Centrifuged ", " Ore", true, true, false, false, false, false, false, true, false, true, B[3], -1, 64, 7),
-    crushedPurified("Purified Ores", "Purified ", " Ore", true, true, false, false, false, false, false, true, false, true, B[3], -1, 64, 6),
-    crushed("Crushed Ores", "Crushed ", " Ore", true, true, false, false, false, false, false, true, false, true, B[3], -1, 64, 5),
-    shard("Crystallised Shards", "", "", true, true, false, false, false, false, false, false, false, true, B[3], -1, 64, -1), // Introduced by Mekanism
-    clump("Clumps", "", "", true, true, false, false, false, false, false, false, false, true, B[3], -1, 64, -1),
-    reduced("Reduced Gravels", "", "", true, true, false, false, false, false, false, false, false, true, B[3], -1, 64, -1),
-    crystalline("Crystallised Metals", "", "", true, true, false, false, false, false, false, false, false, true, B[3], -1, 64, -1),
-    cleanGravel("Clean Gravels", "", "", true, true, false, false, false, false, false, false, false, true, B[3], -1, 64, -1),
-    dirtyGravel("Dirty Gravels", "", "", true, true, false, false, false, false, false, false, false, true, B[3], -1, 64, -1),
-    ingotQuintuple("5x Ingots", "Quintuple ", " Ingot", true, true, false, false, false, false, true, true, false, false, B[1], M * 5, 12, 16), // A quintuple Ingot.
-    ingotQuadruple("4x Ingots", "Quadruple ", " Ingot", true, true, false, false, false, false, true, true, false, false, B[1], M * 4, 16, 15), // A quadruple Ingot.
-    @Deprecated ingotQuad("4x Ingots", "Quadruple ", " Ingot", false, false, false, false, false, false, false, false, false, false, B[1], -1, 16, 15),
-    ingotTriple("3x Ingots", "Triple ", " Ingot", true, true, false, false, false, false, true, false, false, false, B[1], M * 3, 21, 14), // A triple Ingot.
-    ingotDouble("2x Ingots", "Double ", " Ingot", true, true, false, false, false, false, true, true, false, false, B[1], M * 2, 32, 13), // A double Ingot. Introduced by TerraFirmaCraft
-    ingotHot("Hot Ingots", "Hot ", " Ingot", true, true, false, false, false, false, false, true, false, false, B[1], M * 1, 16, 12), // A hot Ingot, which has to be cooled down by a Vacuum Freezer.
-    ingot("Ingots", "", " Ingot", true, true, false, false, false, false, false, true, false, false, B[1], M * 1, 64, 11), // A regular Ingot. Introduced by Eloraam
-    gemChipped("Chipped Gemstones", "Chipped ", "", true, true, true, false, false, false, true, true, false, false, B[2], M / 4, 64, 59), // A regular Gem worth one small Dust. Introduced by TerraFirmaCraft
-    gemFlawed("Flawed Gemstones", "Flawed ", "", true, true, true, false, false, false, true, true, false, false, B[2], M / 2, 64, 60), // A regular Gem worth two small Dusts. Introduced by TerraFirmaCraft
-    gemFlawless("Flawless Gemstones", "Flawless ", "", true, true, true, false, false, false, true, true, false, false, B[2], M * 2, 32, 61), // A regular Gem worth two Dusts. Introduced by TerraFirmaCraft
-    gemExquisite("Exquisite Gemstones", "Exquisite ", "", true, true, true, false, false, false, true, true, false, false, B[2], M * 4, 16, 62), // A regular Gem worth four Dusts. Introduced by TerraFirmaCraft
-    gem("Gemstones", "", "", true, true, true, false, false, false, true, true, false, false, B[2], M * 1, 64, 8), // A regular Gem worth one Dust. Introduced by Eloraam
-    @Deprecated dustDirty("Impure Dusts", "", "", false, false, false, false, false, false, false, false, false, true, B[3], -1, 64, 3),
-    dustTiny("Tiny Dusts", "Tiny Pile of ", " Dust", true, true, false, false, false, false, false, true, false, false, B[0] | B[1] | B[2] | B[3], M / 9, 64, 0), // 1/9th of a Dust.
-    dustSmall("Small Dusts", "Small Pile of ", " Dust", true, true, false, false, false, false, false, true, false, false, B[0] | B[1] | B[2] | B[3], M / 4, 64, 1), // 1/4th of a Dust.
-    dustImpure("Impure Dusts", "Impure Pile of ", " Dust", true, true, false, false, false, false, false, true, false, true, B[3], M * 1, 64, 3), // Dust with impurities. 1 Unit of Main Material and 1/9 - 1/4 Unit of secondary Material
-    dustRefined("Refined Dusts", "Refined Pile of ", " Dust", true, true, false, false, false, false, false, true, false, true, B[3], M * 1, 64, 2),
-    dustPure("Purified Dusts", "Purified Pile of ", " Dust", true, true, false, false, false, false, false, true, false, true, B[3], M * 1, 64, 4),
-    dust("Dusts", "", " Dust", true, true, false, false, false, false, false, true, false, false, B[0] | B[1] | B[2] | B[3], M * 1, 64, 2), // Pure Dust worth of one Ingot or Gem. Introduced by Alblaka.
-    nugget("Nuggets", "", " Nugget", true, true, false, false, false, false, false, true, false, false, B[1], M / 9, 64, 9), // A Nugget. Introduced by Eloraam
-    plateAlloy("Alloy Plates", "", "", true, false, false, false, false, false, false, false, false, false, B[1], -1, 64, 17), // Special Alloys have this prefix.
-    plateSteamcraft("Steamcraft Plates", "", "", false, false, false, false, false, false, false, false, false, false, B[1], -1, 64, 17),
-    plateDense("Dense Plates", "Dense ", " Plate", true, true, false, false, false, false, true, true, false, false, B[1], M * 9, 8, 22), // 9 Plates combined in one Item.
-    plateQuintuple("5x Plates", "Quintuple ", " Plate", true, true, false, false, false, false, true, true, false, false, B[1], M * 5, 12, 21),
-    plateQuadruple("4x Plates", "Quadruple ", " Plate", true, true, false, false, false, false, true, true, false, false, B[1], M * 4, 16, 20),
-    @Deprecated plateQuad("4x Plates", "", "", false, false, false, false, false, false, false, false, false, false, B[1], -1, 16, 20),
-    plateTriple("3x Plates", "Triple ", " Plate", true, true, false, false, false, false, true, true, false, false, B[1], M * 3, 21, 19),
-    plateDouble("2x Plates", "Double ", " Plate", true, true, false, false, false, false, true, true, false, false, B[1], M * 2, 32, 18),
-    plate("Plates", "", " Plate", true, true, false, false, false, false, true, true, false, false, B[1] | B[2], M * 1, 64, 17), // Regular Plate made of one Ingot/Dust. Introduced by Calclavia
-    foil("Foils", "", " Foil", true, true, false, false, false, false, true, true, false, false, B[1], M / 4, 64, 29), // Foil made of 1/4 Ingot/Dust.
-    stickLong("Long Sticks/Rods", "Long ", " Rod", true, true, false, false, false, false, true, true, false, false, B[1] | B[2], M * 1, 64, 54), // Stick made of an Ingot.
-    stick("Sticks/Rods", "", " Rod", true, true, false, false, false, false, true, true, false, false, B[1] | B[2], M / 2, 64, 23), // Stick made of half an Ingot. Introduced by Eloraam
-    round("Rounds", "", " Round", true, true, false, false, false, false, true, true, false, false, B[1], M / 9, 64, 25), // consisting out of one Nugget.
-    bolt("Bolts", "", " Bolt", true, true, false, false, false, false, true, true, false, false, B[1] | B[2], M / 8, 64, 26), // consisting out of 1/8 Ingot or 1/4 Stick.
-    screw("Screws", "", " Screw", true, true, false, false, false, false, true, true, false, false, B[1] | B[2], M / 9, 64, 27), // consisting out of a Bolt.
-    ring("Rings", "", " Ring", true, true, false, false, false, false, true, true, false, false, B[1], M / 4, 64, 28), // consisting out of 1/2 Stick.
-    springSmall("Small Springs", "Small ", " Spring", true, true, false, false, false, false, true, true, false, false, B[1], M / 4, 64, 55), // consisting out of 1 Fine Wire.
-    spring("Springs", "", " Spring", true, true, false, false, false, false, true, true, false, false, B[1], M * 1, 64, 56), // consisting out of 2 Sticks.
-    wireFine("Fine Wires", "Fine ", " Wire", true, true, false, false, false, false, true, true, false, false, B[1], M / 8, 64, 51), // consisting out of 1/8 Ingot or 1/4 Wire.
-    rotor("Rotors", "", " Rotor", true, true, false, false, false, false, true, true, false, false, B[7], M * 4 + M / 4, 16, 53), // consisting out of 4 Plates, 1 Ring and 1 Screw.
-    gearGtSmall("Small Gears", "Small ", " Gear", true, true, false, false, false, false, true, true, false, false, B[7], M * 1, 64, 52),
-    gearGt("Gears", "", " Gear", true, true, false, false, false, false, true, true, false, false, B[7], M * 4, 16, 63), // Introduced by me because BuildCraft has ruined the gear Prefix...
-    lens("Lenses", "", " Lens", true, true, false, false, false, false, true, true, false, false, B[2], (M * 3) / 4, 64, 24), // 3/4 of a Plate or Gem used to shape a Lense. Normally only used on Transparent Materials.
-    crateGtDust("Crates of Dust", "Crate of ", " Dust", true, true, false, true, false, false, false, true, false, false, B[0] | B[1] | B[2] | B[3], -1, 64, 96), // consisting out of 16 Dusts.
-    crateGtPlate("Crates of Plates", "Crate of ", " Plate", true, true, false, true, false, false, false, true, false, false, B[1] | B[2], -1, 64, 99), // consisting out of 16 Plates.
-    crateGtIngot("Crates of Ingots", "Crate of ", " Ingot", true, true, false, true, false, false, false, true, false, false, B[1], -1, 64, 97), // consisting out of 16 Ingots.
-    crateGtGem("Crates of Gems", "Crate of ", " Gem", true, true, false, true, false, false, false, true, false, false, B[2], -1, 64, 98), // consisting out of 16 Gems.
-    cellPlasma("Cells of Plasma", "", " Plasma Cell", true, true, true, true, false, false, false, true, false, false, B[5], M * 1, 64, 31), // Hot Cell full of Plasma, which can be used in the Plasma Generator.
-    cell("Cells", "", " Cell", true, true, true, true, false, false, true, true, false, false, B[4] | B[8], M * 1, 64, 30), // Regular Gas/Fluid Cell. Introduced by Calclavia
-    bucket("Buckets", "", " Bucket", true, true, true, true, false, false, true, false, false, false, B[4] | B[8], M * 1, 16, -1), // A vanilla Iron Bucket filled with the Material.
-    bottle("Bottles", "", " Bottle", true, true, true, true, false, false, false, false, false, false, B[4] | B[8], -1, 16, -1), // Glass Bottle containing a Fluid.
-    capsule("Capsules", "", " Capsule", false, true, true, true, false, false, false, false, false, false, B[4] | B[8], M * 1, 16, -1),
-    crystal("Crystals", "", " Crystal", false, true, false, false, false, false, true, false, false, false, B[2], M * 1, 64, -1),
-    bulletGtSmall("Small Bullets", "Small ", " Bullet", true, true, false, false, true, false, true, false, true, false, B[6] | B[8], M / 9, 64, -1),
-    bulletGtMedium("Medium Bullets", "Medium ", " Bullet", true, true, false, false, true, false, true, false, true, false, B[6] | B[8], M / 6, 64, -1),
-    bulletGtLarge("Large Bullets", "Large ", " Bullet", true, true, false, false, true, false, true, false, true, false, B[6] | B[8], M / 3, 64, -1),
-    arrowGtWood("Regular Arrows", "", " Arrow", true, true, false, false, true, false, true, false, true, false, B[6], M / 4, 64, 57), // Arrow made of 1/4 Ingot/Dust + Wooden Stick.
-    arrowGtPlastic("Light Arrows", "Light ", " Arrow", true, true, false, false, true, false, true, false, true, false, B[6], M / 4, 64, 58), // Arrow made of 1/4 Ingot/Dust + Plastic Stick.
-    arrow("Arrows", "", "", false, false, true, false, false, false, false, false, true, false, B[6], -1, 64, 57),
-    toolHeadArrow("Arrow Heads", "", " Arrow Head", true, true, false, false, false, false, true, true, false, false, B[6], M / 4, 64, 46), // consisting out of 1/4 Ingot.
-    toolHeadSword("Sword Blades", "", " Sword Blade", true, true, false, false, false, false, true, true, false, false, B[6], M * 2, 16, 32), // consisting out of 2 Ingots.
-    toolHeadPickaxe("Pickaxe Heads", "", " Pickaxe Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 3, 16, 33), // consisting out of 3 Ingots.
-    toolHeadShovel("Shovel Heads", "", " Shovel Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 1, 16, 34), // consisting out of 1 Ingots.
-    toolHeadUniversalSpade("Universal Spade Heads", "", " Universal Spade Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 1, 16, 43), // consisting out of 1 Ingots.
-    toolHeadAxe("Axe Heads", "", " Axe Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 3, 16, 35), // consisting out of 3 Ingots.
-    toolHeadHoe("Hoe Heads", "", " Hoe Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 2, 16, 36), // consisting out of 2 Ingots.
-    toolHeadSense("Sense Blades", "", " Sense Blade", true, true, false, false, false, false, true, true, false, false, B[6], M * 3, 16, 44), // consisting out of 3 Ingots.
-    toolHeadFile("File Heads", "", " File Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 2, 16, 38), // consisting out of 2 Ingots.
-    toolHeadHammer("Hammer Heads", "", " Hammer Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 6, 16, 37), // consisting out of 6 Ingots.
-    toolHeadPlow("Plow Heads", "", " Plow Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 4, 16, 45), // consisting out of 4 Ingots.
-    toolHeadSaw("Saw Blades", "", " Saw Blade", true, true, false, false, false, false, true, true, false, false, B[6], M * 2, 16, 39), // consisting out of 2 Ingots.
-    toolHeadBuzzSaw("Buzzsaw Blades", "", " Buzzsaw Blade", true, true, false, false, false, false, true, true, false, false, B[6], M * 4, 16, 48), // consisting out of 4 Ingots.
-    toolHeadScrewdriver("Screwdriver Tips", "", " Screwdriver Tip", true, true, false, false, false, false, true, false, false, false, B[6], M * 1, 16, 47), // consisting out of 1 Ingots.
-    toolHeadDrill("Drill Tips", "", " Drill Tip", true, true, false, false, false, false, true, true, false, false, B[6], M * 4, 16, 40), // consisting out of 4 Ingots.
-    toolHeadChainsaw("Chainsaw Tips", "", " Chainsaw Tip", true, true, false, false, false, false, true, true, false, false, B[6], M * 2, 16, 41), // consisting out of 2 Ingots.
-    toolHeadWrench("Wrench Tips", "", " Wrench Tip", true, true, false, false, false, false, true, true, false, false, B[6], M * 4, 16, 42), // consisting out of 4 Ingots.
-    turbineBlade("Turbine Blades", "", " Turbine Blade", true, true, false, false, false, false, true, true, false, false, B[6], M * 6, 64, 100), // consisting out of 6 Ingots.
-    toolSword("Swords", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 2, 1, -1), // vanilly Sword
-    toolPickaxe("Pickaxes", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 3, 1, -1), // vanilly Pickaxe
-    toolShovel("Shovels", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 1, 1, -1), // vanilly Shovel
-    toolAxe("Axes", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 3, 1, -1), // vanilly Axe
-    toolHoe("Hoes", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 2, 1, -1), // vanilly Hoe
-    toolShears("Shears", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 2, 1, -1), // vanilly Shears
-    tool("Tools", "", "", false, false, false, false, false, false, false, false, true, false, B[6], -1, 1, -1), // toolPot, toolSkillet, toolSaucepan, toolBakeware, toolCuttingboard, toolMortarandpestle, toolMixingbowl, toolJuicer
-    compressedCobblestone("9^X Compressed Cobblestones", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    compressedStone("9^X Compressed Stones", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    compressedDirt("9^X Compressed Dirt", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    compressedGravel("9^X Compressed Gravel", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    compressedSand("9^X Compressed Sand", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    compressed("Compressed Materials", "Compressed ", "", true, true, false, false, false, false, true, false, false, false, 0, M * 2, 64, -1), // Compressed Material, worth 1 Unit. Introduced by Galacticraft
-    glass("Glasses", "", "", false, false, true, false, true, false, false, false, false, false, 0, -1, 64, -1),
-    paneGlass("Glass Panes", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    blockGlass("Glass Blocks", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    blockWool("Wool Blocks", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    block_("Random Blocks", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // IGNORE
-    block("Storage Blocks", "Block of ", "", true, true, false, false, false, true, true, false, false, false, 0, M * 9, 64, 71), // Storage Block consisting out of 9 Ingots/Gems/Dusts. Introduced by CovertJaguar
-    craftingTool("Crafting Tools", "", "", false, false, false, false, false, false, false, false, true, false, 0, -1, 64, -1), // Special Prefix used mainly for the Crafting Handler.
-    crafting("Crafting Ingredients", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Special Prefix used mainly for the Crafting Handler.
-    craft("Crafting Stuff?", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Special Prefix used mainly for the Crafting Handler.
-    log("Logs", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix used for Logs. Usually as "logWood". Introduced by Eloraam
-    slab("Slabs", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix used for Slabs. Usually as "slabWood" or "slabStone". Introduced by SirSengir
-    stair("Stairs", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix used for Stairs. Usually as "stairWood" or "stairStone". Introduced by SirSengir
-    fence("Fences", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Prefix used for Fences. Usually as "fenceWood". Introduced by Forge
-    plank("Planks", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix for Planks. Usually "plankWood". Introduced by Eloraam
-    treeSapling("Saplings", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix for Saplings.
-    treeLeaves("Leaves", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix for Leaves.
-    tree("Tree Parts", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Prefix for Tree Parts.
-    stoneCobble("Cobblestones", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Cobblestone Prefix for all Cobblestones.
-    stoneSmooth("Smoothstones", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Smoothstone Prefix.
-    stoneMossyBricks("mossy Stone Bricks", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Mossy Stone Bricks.
-    stoneMossy("Mossy Stones", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Mossy Cobble.
-    @Deprecated stoneBricksMossy("Mossy Stone Bricks", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    stoneBricks("Stone Bricks", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Stone Bricks.
-    @Deprecated stoneBrick("Stone Bricks", "", "", false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    stoneCracked("Cracked Stones", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Cracked Bricks.
-    stoneChiseled("Chiseled Stones", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Chiseled Stone.
-    stone("Stones", "", "", false, true, true, false, true, true, false, false, false, false, 0, -1, 64, -1), // Prefix to determine which kind of Rock this is.
-    cobblestone("Cobblestones", "", "", false, true, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    rock("Rocks", "", "", false, true, true, false, true, true, false, false, false, false, 0, -1, 64, -1), // Prefix to determine which kind of Rock this is.
-    record("Records", "", "", false, false, true, false, false, false, false, false, false, false, 0, -1, 1, -1),
-    rubble("Rubbles", "", "", true, true, true, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    scraps("Scraps", "", "", true, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    scrap("Scraps", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    item_("Items", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // IGNORE
-    item("Items", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Random Item. Introduced by Alblaka
-    book("Books", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Used for Books of any kind.
-    paper("Papers", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Used for Papers of any kind.
-    dye("Dyes", "", "", false, false, true, false, false, false, false, false, false, false, 0, -1, 64, -1), // Used for the 16 dyes. Introduced by Eloraam
-    stainedClay("Stained Clays", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Used for the 16 colors of Stained Clay. Introduced by Forge
-    armorHelmet("Helmets", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 5, 1, -1), // vanilly Helmet
-    armorChestplate("Chestplates", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 8, 1, -1), // vanilly Chestplate
-    armorLeggings("Leggings", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 7, 1, -1), // vanilly Pants
-    armorBoots("Boots", "", "", false, true, false, false, false, false, true, false, true, false, B[6], M * 4, 1, -1), // vanilly Boots
-    armor("Armor Parts", "", "", false, false, false, false, false, false, false, false, true, false, B[6], -1, 1, -1),
-    frameGt("Frame Boxes", "", "", true, true, false, false, true, false, true, false, false, false, 0, M * 2, 64, 83),
-    pipeTiny("Tiny Pipes", "Tiny ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M / 2, 64, 78),
-    pipeSmall("Small Pipes", "Small ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 1, 64, 79),
-    pipeMedium("Medium Pipes", "Medium ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 3, 64, 80),
-    pipeLarge("Large pipes", "Large ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 6, 64, 81),
-    pipeHuge("Huge Pipes", "Huge ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 12, 64, 82),
-    pipeRestrictiveTiny("Tiny Restrictive Pipes", "Tiny Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M / 2, 64, 78),
-    pipeRestrictiveSmall("Small Restrictive Pipes", "Small Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 1, 64, 79),
-    pipeRestrictiveMedium("Medium Restrictive Pipes", "Medium Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 3, 64, 80),
-    pipeRestrictiveLarge("Large Restrictive Pipes", "Large Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 6, 64, 81),
-    pipeRestrictiveHuge("Huge Restrictive Pipes", "Huge Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, M * 12, 64, 82),
-    pipe("Pipes", "", " Pipe", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, 77),
-    wireGt16("16x Wires", "16x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, M * 8, 64, -1),
-    wireGt12("12x Wires", "12x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, M * 6, 64, -1),
-    wireGt08("8x Wires", "8x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, M * 4, 64, -1),
-    wireGt04("4x Wires", "4x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, M * 2, 64, -1),
-    wireGt02("2x Wires", "2x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, M * 1, 64, -1),
-    wireGt01("1x Wires", "1x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, M / 2, 64, -1),
-    cableGt12("12x Cables", "12x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, M * 6, 64, -1),
-    cableGt08("8x Cables", "8x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, M * 4, 64, -1),
-    cableGt04("4x Cables", "4x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, M * 2, 64, -1),
-    cableGt02("2x Cables", "2x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, M * 1, 64, -1),
-    cableGt01("1x Cables", "1x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, M / 2, 64, -1),
+    @Deprecated pulp("Pulps", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, BITS_32[0] | BITS_32[1] | BITS_32[2] | BITS_32[3], -1, 64, -1),
+    @Deprecated leaves("Leaves", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    @Deprecated sapling("Saplings", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    @Deprecated itemDust("Dusts", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, BITS_32[0] | BITS_32[1] | BITS_32[2] | BITS_32[3], -1, 64, -1),
+    oreBlackgranite("Black Granite Ores", "Granite ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
+    oreRedgranite("Red Granite Ores", "Granite ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
+    oreMarble("Marble Ores", "Marble ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
+    oreBasalt("Basalt Ores", "Basalt ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
+    oreNetherrack("Netherrack Ores", "Nether ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // Prefix of the Nether-Ores Mod. Causes Ores to double. Ore -> Material is a Oneway Operation!
+    oreNether("Nether Ores", "Nether ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // Prefix of the Nether-Ores Mod. Causes Ores to double. Ore -> Material is a Oneway Operation!
+    @Deprecated denseore("Dense Ores", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1),
+    oreDense("Dense Ores", "Dense ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // Prefix of the Dense-Ores Mod. Causes Ores to double. Ore -> Material is a Oneway Operation!
+    oreRich("Rich Ores", "Rich ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // Prefix of TFC
+    oreNormal("Normal Ores", "Normal ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // Prefix of TFC
+    oreSmall("Small Ores", "Small ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, 67), // Prefix of Railcraft.
+    orePoor("Poor Ores", "Poor ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // Prefix of Railcraft.
+    oreEndstone("Endstone Ores", "End ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
+    oreEnd("End Ores", "End ", " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1), // In case of an End-Ores Mod. Ore -> Material is a Oneway Operation!
+    @Deprecated oreGem("Ores", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, -1),
+    ore("Ores", EMPTY_STRING, " Ore", true, true, false, false, false, true, false, false, false, true, BITS_32[3], -1, 64, 68), // Regular Ore Prefix. Ore -> Material is a Oneway Operation! Introduced by Eloraam
+    crushedCentrifuged("Centrifuged Ores", "Centrifuged ", " Ore", true, true, false, false, false, false, false, true, false, true, BITS_32[3], -1, 64, 7),
+    crushedPurified("Purified Ores", "Purified ", " Ore", true, true, false, false, false, false, false, true, false, true, BITS_32[3], -1, 64, 6),
+    crushed("Crushed Ores", "Crushed ", " Ore", true, true, false, false, false, false, false, true, false, true, BITS_32[3], -1, 64, 5),
+    shard("Crystallised Shards", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, -1), // Introduced by Mekanism
+    clump("Clumps", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, -1),
+    reduced("Reduced Gravels", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, -1),
+    crystalline("Crystallised Metals", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, -1),
+    cleanGravel("Clean Gravels", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, -1),
+    dirtyGravel("Dirty Gravels", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, -1),
+    ingotQuintuple("5x Ingots", "Quintuple ", " Ingot", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 5, 12, 16), // A quintuple Ingot.
+    ingotQuadruple("4x Ingots", "Quadruple ", " Ingot", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 4, 16, 15), // A quadruple Ingot.
+    @Deprecated ingotQuad("4x Ingots", "Quadruple ", " Ingot", false, false, false, false, false, false, false, false, false, false, BITS_32[1], -1, 16, 15),
+    ingotTriple("3x Ingots", "Triple ", " Ingot", true, true, false, false, false, false, true, false, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 3, 21, 14), // A triple Ingot.
+    ingotDouble("2x Ingots", "Double ", " Ingot", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 2, 32, 13), // A double Ingot. Introduced by TerraFirmaCraft
+    ingotHot("Hot Ingots", "Hot ", " Ingot", true, true, false, false, false, false, false, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 1, 16, 12), // A hot Ingot, which has to be cooled down by a Vacuum Freezer.
+    ingot("Ingots", EMPTY_STRING, " Ingot", true, true, false, false, false, false, false, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 1, 64, 11), // A regular Ingot. Introduced by Eloraam
+    gemChipped("Chipped Gemstones", "Chipped ", EMPTY_STRING, true, true, true, false, false, false, true, true, false, false, BITS_32[2], GT_Values.MATERIAL_UNIT / 4, 64, 59), // A regular Gem worth one small Dust. Introduced by TerraFirmaCraft
+    gemFlawed("Flawed Gemstones", "Flawed ", EMPTY_STRING, true, true, true, false, false, false, true, true, false, false, BITS_32[2], GT_Values.MATERIAL_UNIT / 2, 64, 60), // A regular Gem worth two small Dusts. Introduced by TerraFirmaCraft
+    gemFlawless("Flawless Gemstones", "Flawless ", EMPTY_STRING, true, true, true, false, false, false, true, true, false, false, BITS_32[2], GT_Values.MATERIAL_UNIT * 2, 32, 61), // A regular Gem worth two Dusts. Introduced by TerraFirmaCraft
+    gemExquisite("Exquisite Gemstones", "Exquisite ", EMPTY_STRING, true, true, true, false, false, false, true, true, false, false, BITS_32[2], GT_Values.MATERIAL_UNIT * 4, 16, 62), // A regular Gem worth four Dusts. Introduced by TerraFirmaCraft
+    gem("Gemstones", EMPTY_STRING, EMPTY_STRING, true, true, true, false, false, false, true, true, false, false, BITS_32[2], GT_Values.MATERIAL_UNIT * 1, 64, 8), // A regular Gem worth one Dust. Introduced by Eloraam
+    @Deprecated dustDirty("Impure Dusts", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, true, BITS_32[3], -1, 64, 3),
+    dustTiny("Tiny Dusts", "Tiny Pile of ", " Dust", true, true, false, false, false, false, false, true, false, false, BITS_32[0] | BITS_32[1] | BITS_32[2] | BITS_32[3], GT_Values.MATERIAL_UNIT / 9, 64, 0), // 1/9th of a Dust.
+    dustSmall("Small Dusts", "Small Pile of ", " Dust", true, true, false, false, false, false, false, true, false, false, BITS_32[0] | BITS_32[1] | BITS_32[2] | BITS_32[3], GT_Values.MATERIAL_UNIT / 4, 64, 1), // 1/4th of a Dust.
+    dustImpure("Impure Dusts", "Impure Pile of ", " Dust", true, true, false, false, false, false, false, true, false, true, BITS_32[3], GT_Values.MATERIAL_UNIT * 1, 64, 3), // Dust with impurities. 1 Unit of Main Material and 1/9 - 1/4 Unit of secondary Material
+    dustRefined("Refined Dusts", "Refined Pile of ", " Dust", true, true, false, false, false, false, false, true, false, true, BITS_32[3], GT_Values.MATERIAL_UNIT * 1, 64, 2),
+    dustPure("Purified Dusts", "Purified Pile of ", " Dust", true, true, false, false, false, false, false, true, false, true, BITS_32[3], GT_Values.MATERIAL_UNIT * 1, 64, 4),
+    dust("Dusts", EMPTY_STRING, " Dust", true, true, false, false, false, false, false, true, false, false, BITS_32[0] | BITS_32[1] | BITS_32[2] | BITS_32[3], GT_Values.MATERIAL_UNIT * 1, 64, 2), // Pure Dust worth of one Ingot or Gem. Introduced by Alblaka.
+    nugget("Nuggets", EMPTY_STRING, " Nugget", true, true, false, false, false, false, false, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT / 9, 64, 9), // A Nugget. Introduced by Eloraam
+    plateAlloy("Alloy Plates", EMPTY_STRING, EMPTY_STRING, true, false, false, false, false, false, false, false, false, false, BITS_32[1], -1, 64, 17), // Special Alloys have this prefix.
+    plateSteamcraft("Steamcraft Plates", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, BITS_32[1], -1, 64, 17),
+    plateDense("Dense Plates", "Dense ", " Plate", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 9, 8, 22), // 9 Plates combined in one Item.
+    plateQuintuple("5x Plates", "Quintuple ", " Plate", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 5, 12, 21),
+    plateQuadruple("4x Plates", "Quadruple ", " Plate", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 4, 16, 20),
+    @Deprecated plateQuad("4x Plates", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, BITS_32[1], -1, 16, 20),
+    plateTriple("3x Plates", "Triple ", " Plate", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 3, 21, 19),
+    plateDouble("2x Plates", "Double ", " Plate", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 2, 32, 18),
+    plate("Plates", EMPTY_STRING, " Plate", true, true, false, false, false, false, true, true, false, false, BITS_32[1] | BITS_32[2], GT_Values.MATERIAL_UNIT * 1, 64, 17), // Regular Plate made of one Ingot/Dust. Introduced by Calclavia
+    foil("Foils", EMPTY_STRING, " Foil", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT / 4, 64, 29), // Foil made of 1/4 Ingot/Dust.
+    stickLong("Long Sticks/Rods", "Long ", " Rod", true, true, false, false, false, false, true, true, false, false, BITS_32[1] | BITS_32[2], GT_Values.MATERIAL_UNIT * 1, 64, 54), // Stick made of an Ingot.
+    stick("Sticks/Rods", EMPTY_STRING, " Rod", true, true, false, false, false, false, true, true, false, false, BITS_32[1] | BITS_32[2], GT_Values.MATERIAL_UNIT / 2, 64, 23), // Stick made of half an Ingot. Introduced by Eloraam
+    round("Rounds", EMPTY_STRING, " Round", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT / 9, 64, 25), // consisting out of one Nugget.
+    bolt("Bolts", EMPTY_STRING, " Bolt", true, true, false, false, false, false, true, true, false, false, BITS_32[1] | BITS_32[2], GT_Values.MATERIAL_UNIT / 8, 64, 26), // consisting out of 1/8 Ingot or 1/4 Stick.
+    screw("Screws", EMPTY_STRING, " Screw", true, true, false, false, false, false, true, true, false, false, BITS_32[1] | BITS_32[2], GT_Values.MATERIAL_UNIT / 9, 64, 27), // consisting out of a Bolt.
+    ring("Rings", EMPTY_STRING, " Ring", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT / 4, 64, 28), // consisting out of 1/2 Stick.
+    springSmall("Small Springs", "Small ", " Spring", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT / 4, 64, 55), // consisting out of 1 Fine Wire.
+    spring("Springs", EMPTY_STRING, " Spring", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT * 1, 64, 56), // consisting out of 2 Sticks.
+    wireFine("Fine Wires", "Fine ", " Wire", true, true, false, false, false, false, true, true, false, false, BITS_32[1], GT_Values.MATERIAL_UNIT / 8, 64, 51), // consisting out of 1/8 Ingot or 1/4 Wire.
+    rotor("Rotors", EMPTY_STRING, " Rotor", true, true, false, false, false, false, true, true, false, false, BITS_32[7], GT_Values.MATERIAL_UNIT * 4 + GT_Values.MATERIAL_UNIT / 4, 16, 53), // consisting out of 4 Plates, 1 Ring and 1 Screw.
+    gearGtSmall("Small Gears", "Small ", " Gear", true, true, false, false, false, false, true, true, false, false, BITS_32[7], GT_Values.MATERIAL_UNIT * 1, 64, 52),
+    gearGt("Gears", EMPTY_STRING, " Gear", true, true, false, false, false, false, true, true, false, false, BITS_32[7], GT_Values.MATERIAL_UNIT * 4, 16, 63), // Introduced by me because BuildCraft has ruined the gear Prefix...
+    lens("Lenses", EMPTY_STRING, " Lens", true, true, false, false, false, false, true, true, false, false, BITS_32[2], (GT_Values.MATERIAL_UNIT * 3) / 4, 64, 24), // 3/4 of a Plate or Gem used to shape a Lense. Normally only used on Transparent Materials.
+    crateGtDust("Crates of Dust", "Crate of ", " Dust", true, true, false, true, false, false, false, true, false, false, BITS_32[0] | BITS_32[1] | BITS_32[2] | BITS_32[3], -1, 64, 96), // consisting out of 16 Dusts.
+    crateGtPlate("Crates of Plates", "Crate of ", " Plate", true, true, false, true, false, false, false, true, false, false, BITS_32[1] | BITS_32[2], -1, 64, 99), // consisting out of 16 Plates.
+    crateGtIngot("Crates of Ingots", "Crate of ", " Ingot", true, true, false, true, false, false, false, true, false, false, BITS_32[1], -1, 64, 97), // consisting out of 16 Ingots.
+    crateGtGem("Crates of Gems", "Crate of ", " Gem", true, true, false, true, false, false, false, true, false, false, BITS_32[2], -1, 64, 98), // consisting out of 16 Gems.
+    cellPlasma("Cells of Plasma", EMPTY_STRING, " Plasma Cell", true, true, true, true, false, false, false, true, false, false, BITS_32[5], GT_Values.MATERIAL_UNIT * 1, 64, 31), // Hot Cell full of Plasma, which can be used in the Plasma Generator.
+    cell("Cells", EMPTY_STRING, " Cell", true, true, true, true, false, false, true, true, false, false, BITS_32[4] | BITS_32[8], GT_Values.MATERIAL_UNIT * 1, 64, 30), // Regular Gas/Fluid Cell. Introduced by Calclavia
+    bucket("Buckets", EMPTY_STRING, " Bucket", true, true, true, true, false, false, true, false, false, false, BITS_32[4] | BITS_32[8], GT_Values.MATERIAL_UNIT * 1, 16, -1), // A vanilla Iron Bucket filled with the Material.
+    bottle("Bottles", EMPTY_STRING, " Bottle", true, true, true, true, false, false, false, false, false, false, BITS_32[4] | BITS_32[8], -1, 16, -1), // Glass Bottle containing a Fluid.
+    capsule("Capsules", EMPTY_STRING, " Capsule", false, true, true, true, false, false, false, false, false, false, BITS_32[4] | BITS_32[8], GT_Values.MATERIAL_UNIT * 1, 16, -1),
+    crystal("Crystals", EMPTY_STRING, " Crystal", false, true, false, false, false, false, true, false, false, false, BITS_32[2], GT_Values.MATERIAL_UNIT * 1, 64, -1),
+    bulletGtSmall("Small Bullets", "Small ", " Bullet", true, true, false, false, true, false, true, false, true, false, BITS_32[6] | BITS_32[8], GT_Values.MATERIAL_UNIT / 9, 64, -1),
+    bulletGtMedium("Medium Bullets", "Medium ", " Bullet", true, true, false, false, true, false, true, false, true, false, BITS_32[6] | BITS_32[8], GT_Values.MATERIAL_UNIT / 6, 64, -1),
+    bulletGtLarge("Large Bullets", "Large ", " Bullet", true, true, false, false, true, false, true, false, true, false, BITS_32[6] | BITS_32[8], GT_Values.MATERIAL_UNIT / 3, 64, -1),
+    arrowGtWood("Regular Arrows", EMPTY_STRING, " Arrow", true, true, false, false, true, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT / 4, 64, 57), // Arrow made of 1/4 Ingot/Dust + Wooden Stick.
+    arrowGtPlastic("Light Arrows", "Light ", " Arrow", true, true, false, false, true, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT / 4, 64, 58), // Arrow made of 1/4 Ingot/Dust + Plastic Stick.
+    arrow("Arrows", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, false, false, false, true, false, BITS_32[6], -1, 64, 57),
+    toolHeadArrow("Arrow Heads", EMPTY_STRING, " Arrow Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT / 4, 64, 46), // consisting out of 1/4 Ingot.
+    toolHeadSword("Sword Blades", EMPTY_STRING, " Sword Blade", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 16, 32), // consisting out of 2 Ingots.
+    toolHeadPickaxe("Pickaxe Heads", EMPTY_STRING, " Pickaxe Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 3, 16, 33), // consisting out of 3 Ingots.
+    toolHeadShovel("Shovel Heads", EMPTY_STRING, " Shovel Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 1, 16, 34), // consisting out of 1 Ingots.
+    toolHeadUniversalSpade("Universal Spade Heads", EMPTY_STRING, " Universal Spade Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 1, 16, 43), // consisting out of 1 Ingots.
+    toolHeadAxe("Axe Heads", EMPTY_STRING, " Axe Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 3, 16, 35), // consisting out of 3 Ingots.
+    toolHeadHoe("Hoe Heads", EMPTY_STRING, " Hoe Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 16, 36), // consisting out of 2 Ingots.
+    toolHeadSense("Sense Blades", EMPTY_STRING, " Sense Blade", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 3, 16, 44), // consisting out of 3 Ingots.
+    toolHeadFile("File Heads", EMPTY_STRING, " File Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 16, 38), // consisting out of 2 Ingots.
+    toolHeadHammer("Hammer Heads", EMPTY_STRING, " Hammer Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 6, 16, 37), // consisting out of 6 Ingots.
+    toolHeadPlow("Plow Heads", EMPTY_STRING, " Plow Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 4, 16, 45), // consisting out of 4 Ingots.
+    toolHeadSaw("Saw Blades", EMPTY_STRING, " Saw Blade", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 16, 39), // consisting out of 2 Ingots.
+    toolHeadBuzzSaw("Buzzsaw Blades", EMPTY_STRING, " Buzzsaw Blade", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 4, 16, 48), // consisting out of 4 Ingots.
+    toolHeadScrewdriver("Screwdriver Tips", EMPTY_STRING, " Screwdriver Tip", true, true, false, false, false, false, true, false, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 1, 16, 47), // consisting out of 1 Ingots.
+    toolHeadDrill("Drill Tips", EMPTY_STRING, " Drill Tip", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 4, 16, 40), // consisting out of 4 Ingots.
+    toolHeadChainsaw("Chainsaw Tips", EMPTY_STRING, " Chainsaw Tip", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 16, 41), // consisting out of 2 Ingots.
+    toolHeadWrench("Wrench Tips", EMPTY_STRING, " Wrench Tip", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 4, 16, 42), // consisting out of 4 Ingots.
+    turbineBlade("Turbine Blades", EMPTY_STRING, " Turbine Blade", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 6, 64, 100), // consisting out of 6 Ingots.
+    toolSword("Swords", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 1, -1), // vanilly Sword
+    toolPickaxe("Pickaxes", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 3, 1, -1), // vanilly Pickaxe
+    toolShovel("Shovels", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 1, 1, -1), // vanilly Shovel
+    toolAxe("Axes", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 3, 1, -1), // vanilly Axe
+    toolHoe("Hoes", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 1, -1), // vanilly Hoe
+    toolShears("Shears", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 2, 1, -1), // vanilly Shears
+    tool("Tools", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, true, false, BITS_32[6], -1, 1, -1), // toolPot, toolSkillet, toolSaucepan, toolBakeware, toolCuttingboard, toolMortarandpestle, toolMixingbowl, toolJuicer
+    compressedCobblestone("9^X Compressed Cobblestones", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    compressedStone("9^X Compressed Stones", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    compressedDirt("9^X Compressed Dirt", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    compressedGravel("9^X Compressed Gravel", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    compressedSand("9^X Compressed Sand", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    compressed("Compressed Materials", "Compressed ", EMPTY_STRING, true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 2, 64, -1), // Compressed Material, worth 1 Unit. Introduced by Galacticraft
+    glass("Glasses", EMPTY_STRING, EMPTY_STRING, false, false, true, false, true, false, false, false, false, false, 0, -1, 64, -1),
+    paneGlass("Glass Panes", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    blockGlass("Glass Blocks", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    blockWool("Wool Blocks", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    block_("Random Blocks", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // IGNORE
+    block("Storage Blocks", "Block of ", EMPTY_STRING, true, true, false, false, false, true, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 9, 64, 71), // Storage Block consisting out of 9 Ingots/Gems/Dusts. Introduced by CovertJaguar
+    craftingTool("Crafting Tools", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, true, false, 0, -1, 64, -1), // Special Prefix used mainly for the Crafting Handler.
+    crafting("Crafting Ingredients", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Special Prefix used mainly for the Crafting Handler.
+    craft("Crafting Stuff?", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Special Prefix used mainly for the Crafting Handler.
+    log("Logs", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix used for Logs. Usually as "logWood". Introduced by Eloraam
+    slab("Slabs", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix used for Slabs. Usually as "slabWood" or "slabStone". Introduced by SirSengir
+    stair("Stairs", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix used for Stairs. Usually as "stairWood" or "stairStone". Introduced by SirSengir
+    fence("Fences", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Prefix used for Fences. Usually as "fenceWood". Introduced by Forge
+    plank("Planks", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix for Planks. Usually "plankWood". Introduced by Eloraam
+    treeSapling("Saplings", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix for Saplings.
+    treeLeaves("Leaves", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Prefix for Leaves.
+    tree("Tree Parts", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Prefix for Tree Parts.
+    stoneCobble("Cobblestones", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Cobblestone Prefix for all Cobblestones.
+    stoneSmooth("Smoothstones", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Smoothstone Prefix.
+    stoneMossyBricks("mossy Stone Bricks", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Mossy Stone Bricks.
+    stoneMossy("Mossy Stones", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Mossy Cobble.
+    @Deprecated stoneBricksMossy("Mossy Stone Bricks", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    stoneBricks("Stone Bricks", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Stone Bricks.
+    @Deprecated stoneBrick("Stone Bricks", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    stoneCracked("Cracked Stones", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Cracked Bricks.
+    stoneChiseled("Chiseled Stones", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Chiseled Stone.
+    stone("Stones", EMPTY_STRING, EMPTY_STRING, false, true, true, false, true, true, false, false, false, false, 0, -1, 64, -1), // Prefix to determine which kind of Rock this is.
+    cobblestone("Cobblestones", EMPTY_STRING, EMPTY_STRING, false, true, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    rock("Rocks", EMPTY_STRING, EMPTY_STRING, false, true, true, false, true, true, false, false, false, false, 0, -1, 64, -1), // Prefix to determine which kind of Rock this is.
+    record("Records", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, false, false, false, false, false, 0, -1, 1, -1),
+    rubble("Rubbles", EMPTY_STRING, EMPTY_STRING, true, true, true, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    scraps("Scraps", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    scrap("Scraps", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    item_("Items", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // IGNORE
+    item("Items", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Random Item. Introduced by Alblaka
+    book("Books", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Used for Books of any kind.
+    paper("Papers", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Used for Papers of any kind.
+    dye("Dyes", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, false, false, false, false, false, 0, -1, 64, -1), // Used for the 16 dyes. Introduced by Eloraam
+    stainedClay("Stained Clays", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1), // Used for the 16 colors of Stained Clay. Introduced by Forge
+    armorHelmet("Helmets", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 5, 1, -1), // vanilly Helmet
+    armorChestplate("Chestplates", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 8, 1, -1), // vanilly Chestplate
+    armorLeggings("Leggings", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 7, 1, -1), // vanilly Pants
+    armorBoots("Boots", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, true, false, true, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 4, 1, -1), // vanilly Boots
+    armor("Armor Parts", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, true, false, BITS_32[6], -1, 1, -1),
+    frameGt("Frame Boxes", EMPTY_STRING, EMPTY_STRING, true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 2, 64, 83),
+    pipeTiny("Tiny Pipes", "Tiny ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT / 2, 64, 78),
+    pipeSmall("Small Pipes", "Small ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 1, 64, 79),
+    pipeMedium("Medium Pipes", "Medium ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 3, 64, 80),
+    pipeLarge("Large pipes", "Large ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 6, 64, 81),
+    pipeHuge("Huge Pipes", "Huge ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 12, 64, 82),
+    pipeQuadruple("Quadruple Pipes", "Quadruple ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT *12, 64, 84),
+    pipeNonuple("Nonuple Pipes", "Nonuple ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 9, 64, 85),
+    pipeRestrictiveTiny("Tiny Restrictive Pipes", "Tiny Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT / 2, 64, 78),
+    pipeRestrictiveSmall("Small Restrictive Pipes", "Small Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 1, 64, 79),
+    pipeRestrictiveMedium("Medium Restrictive Pipes", "Medium Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 3, 64, 80),
+    pipeRestrictiveLarge("Large Restrictive Pipes", "Large Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 6, 64, 81),
+    pipeRestrictiveHuge("Huge Restrictive Pipes", "Huge Restrictive ", " Pipe", true, true, false, false, true, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 12, 64, 82),
+    pipe("Pipes", EMPTY_STRING, " Pipe", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, 77),
+    wireGt516("16x Wires", "16x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 8, 64, -1),
+    wireGt512("12x Wires", "12x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 6, 64, -1),
+    wireGt508("8x Wires", "8x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 4, 64, -1),
+    wireGt504("4x Wires", "4x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 2, 64, -1),
+    wireGt502("2x Wires", "2x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 1, 64, -1),
+    wireGt501("1x Wires", "1x ", " Wire", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT / 2, 64, -1),
+    cableGt512("12x Cables", "12x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 6, 64, -1),
+    cableGt508("8x Cables", "8x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 4, 64, -1),
+    cableGt504("4x Cables", "4x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 2, 64, -1),
+    cableGt502("2x Cables", "2x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT * 1, 64, -1),
+    cableGt501("1x Cables", "1x ", " Cable", true, true, false, false, false, false, true, false, false, false, 0, GT_Values.MATERIAL_UNIT / 2, 64, -1),
 
     /* Electric Components.
      *
@@ -218,101 +223,101 @@ public enum OrePrefixes {
 	 * Ultimate (Tier 8) : Data Orb and Lapotronic Energy Orb
 	 * Infinite (Cheaty)
 	 */
-    batterySingleuse("Single Use Batteries", "", "", false, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    battery("Reusable Batteries", "", "", false, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Calclavia
-    circuit("Circuits", "", "", true, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Calclavia
-    chipset("Chipsets", "", "", true, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Buildcraft
-    computer("Computers", "", "", true, true, false, false, true, false, false, false, false, false, 0, -1, 64, -1), // A whole Computer. "computerMaster" = ComputerCube
+    batterySingleuse("Single Use Batteries", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    battery("Reusable Batteries", EMPTY_STRING, EMPTY_STRING, false, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Calclavia
+    circuit("Circuits", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Calclavia
+    chipset("Chipsets", EMPTY_STRING, EMPTY_STRING, true, true, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Buildcraft
+    computer("Computers", EMPTY_STRING, EMPTY_STRING, true, true, false, false, true, false, false, false, false, false, 0, -1, 64, -1), // A whole Computer. "computerMaster" = ComputerCube
 
     // random known prefixes without special abilities.
-    skull("Skulls", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    plating("Platings", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    dinosaur("Dinosaurs", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    travelgear("Travel Gear", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    bauble("Baubles", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    cluster("Clusters", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    grafter("Grafters", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    scoop("Scoops", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    frame("Frames", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    tome("Tomes", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    junk("Junk", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    bee("Bees", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    rod("Rods", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    dirt("Dirts", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    sand("Sands", "", "", false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
-    grass("Grasses", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    gravel("Gravels", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    mushroom("Mushrooms", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    wood("Woods", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Eloraam
-    drop("Drops", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    fuel("Fuels", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    panel("Panels", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    brick("Bricks", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    chunk("Chunks", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    wire("Wires", "", "", false, false, false, false, true, false, false, false, false, false, 0, -1, 64, -1),
-    seed("Seeds", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    reed("Reeds", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    sheetDouble("2x Sheets", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    sheet("Sheets", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    crop("Crops", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    plant("Plants", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    coin("Coins", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    lumar("Lumars", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    ground("Grounded Stuff", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    cable("Cables", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    component("Components", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    wax("Waxes", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    wall("Walls", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    tube("Tubes", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    list("Lists", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    food("Foods", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    gear("Gears", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by SirSengir
-    coral("Corals", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    flower("Flowers", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    storage("Storages", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    material("Materials", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    plasma("Plasmas", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    element("Elements", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    molecule("Molecules", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    wafer("Wafers", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    orb("Orbs", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    handle("Handles", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    blade("Blades", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    head("Heads", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    motor("Motors", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    bit("Bits", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    shears("Shears", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    turbine("Turbines", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    fertilizer("Fertilizers", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    chest("Chests", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    raw("Raw Things", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    stainedGlass("Stained Glasses", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    mystic("Mystic Stuff", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    mana("Mana Stuff", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    rune("Runes", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    petal("Petals", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    pearl("Pearls", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    powder("Powders", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    soulsand("Soulsands", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    obsidian("Obsidians", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    glowstone("Glowstones", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    beans("Beans", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    br("br", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    essence("Essences", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    alloy("Alloys", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    cooking("Cooked Things", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    elven("Elven Stuff", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    reactor("Reactors", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    mffs("MFFS", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    projred("Project Red", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    ganys("Ganys Stuff", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    liquid("Liquids", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    bars("Bars", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
-    bar("Bars", "", "", false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), 
-    
-    toolHeadMallet("Mallet Heads", "", " Mallet Head", true, true, false, false, false, false, true, true, false, false, B[6], M * 6, 16, 127), // consisting out of 6 Ingots.
-    handleMallet("Mallet Handle", "", " Handle", true, true, false, false, false, false, true, true, false, false, B[1] | B[2], M / 2, 64, 126); // Stick made of half an Ingot. Introduced by Eloraam
-  
+    skull("Skulls", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    plating("Platings", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    dinosaur("Dinosaurs", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    travelgear("Travel Gear", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    bauble("Baubles", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    cluster("Clusters", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    grafter("Grafters", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    scoop("Scoops", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    frame("Frames", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    tome("Tomes", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    junk("Junk", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    bee("Bees", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    rod("Rods", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    dirt("Dirts", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    sand("Sands", EMPTY_STRING, EMPTY_STRING, false, false, true, false, false, true, false, false, false, false, 0, -1, 64, -1),
+    grass("Grasses", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    gravel("Gravels", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    mushroom("Mushrooms", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    wood("Woods", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by Eloraam
+    drop("Drops", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    fuel("Fuels", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    panel("Panels", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    brick("Bricks", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    chunk("Chunks", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    wire("Wires", EMPTY_STRING, EMPTY_STRING, false, false, false, false, true, false, false, false, false, false, 0, -1, 64, -1),
+    seed("Seeds", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    reed("Reeds", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    sheetDouble("2x Sheets", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    sheet("Sheets", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    crop("Crops", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    plant("Plants", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    coin("Coins", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    lumar("Lumars", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    ground("Grounded Stuff", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    cable("Cables", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    component("Components", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    wax("Waxes", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    wall("Walls", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    tube("Tubes", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    list("Lists", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    food("Foods", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    gear("Gears", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1), // Introduced by SirSengir
+    coral("Corals", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    flower("Flowers", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    storage("Storages", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    material("Materials", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    plasma("Plasmas", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    element("Elements", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    molecule("Molecules", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    wafer("Wafers", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    orb("Orbs", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    handle("Handles", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    blade("Blades", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    head("Heads", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    motor("Motors", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    bit("Bits", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    shears("Shears", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    turbine("Turbines", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    fertilizer("Fertilizers", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    chest("Chests", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    raw("Raw Things", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    stainedGlass("Stained Glasses", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    mystic("Mystic Stuff", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    mana("Mana Stuff", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    rune("Runes", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    petal("Petals", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    pearl("Pearls", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    powder("Powders", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    soulsand("Soulsands", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    obsidian("Obsidians", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    glowstone("Glowstones", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    beans("Beans", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    br("br", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    essence("Essences", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    alloy("Alloys", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    cooking("Cooked Things", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    elven("Elven Stuff", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    reactor("Reactors", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    mffs("MFFS", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    projred("Project Red", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    ganys("Ganys Stuff", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    liquid("Liquids", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    bars("Bars", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+    bar("Bars", EMPTY_STRING, EMPTY_STRING, false, false, false, false, false, false, false, false, false, false, 0, -1, 64, -1),
+
+    toolHeadMallet("Mallet Heads", EMPTY_STRING, " Mallet Head", true, true, false, false, false, false, true, true, false, false, BITS_32[6], GT_Values.MATERIAL_UNIT * 6, 16, 127), // consisting out of 6 Ingots.
+    handleMallet("Mallet Handle", EMPTY_STRING, " Handle", true, true, false, false, false, false, true, true, false, false, BITS_32[1] | BITS_32[2], GT_Values.MATERIAL_UNIT / 2, 64, 126); // Stick made of half an Ingot. Introduced by Eloraam
+
     public static volatile int VERSION = 508;
 
     static {
@@ -426,9 +431,8 @@ public enum OrePrefixes {
         plate.mGeneratedItems.add(Materials.GraniteRed);
         plate.mGeneratedItems.add(Materials.GraniteBlack);
         plate.mGeneratedItems.add(Materials.Glowstone);
-        plate.mGeneratedItems.add(Materials.Nikolite);
+        plate.mGeneratedItems.add(Materials.Teslatite);
         plate.mGeneratedItems.add(Materials.Obsidian);
-
         plate.mGeneratedItems.add(Materials.Paper);
         plateDouble.mGeneratedItems.add(Materials.Paper);
         plateTriple.mGeneratedItems.add(Materials.Paper);
@@ -494,11 +498,11 @@ public enum OrePrefixes {
         pipeRestrictiveMedium.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 3);
         pipeRestrictiveLarge.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 4);
         pipeRestrictiveHuge.mSecondaryMaterial = new MaterialStack(Materials.Steel, ring.mMaterialAmount * 5);
-        cableGt12.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 4);
-        cableGt08.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 3);
-        cableGt04.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 2);
-        cableGt02.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount);
-        cableGt01.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount);
+        cableGt512.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 4);
+        cableGt508.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 3);
+        cableGt504.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount * 2);
+        cableGt502.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount);
+        cableGt501.mSecondaryMaterial = new MaterialStack(Materials.Rubber, plate.mMaterialAmount);
         bucket.mSecondaryMaterial = new MaterialStack(Materials.Iron, ingot.mMaterialAmount * 3);
         cell.mSecondaryMaterial = new MaterialStack(Materials.Tin, plate.mMaterialAmount * 2);
         cellPlasma.mSecondaryMaterial = new MaterialStack(Materials.Tin, plate.mMaterialAmount * 2);
@@ -550,7 +554,7 @@ public enum OrePrefixes {
      * Yes this Value can be changed to add Bits for the MetaGenerated-Item-Check.
      */
     public int mMaterialGenerationBits = 0;
-    private OrePrefixes(String aRegularLocalName, String aLocalizedMaterialPre, String aLocalizedMaterialPost, boolean aIsUnificatable, boolean aIsMaterialBased, boolean aIsSelfReferencing, boolean aIsContainer, boolean aDontUnificateActively, boolean aIsUsedForBlocks, boolean aAllowNormalRecycling, boolean aGenerateDefaultItem, boolean aIsEnchantable, boolean aIsUsedForOreProcessing, int aMaterialGenerationBits, long aMaterialAmount, int aDefaultStackSize, int aTextureindex) {
+    OrePrefixes(String aRegularLocalName, String aLocalizedMaterialPre, String aLocalizedMaterialPost, boolean aIsUnificatable, boolean aIsMaterialBased, boolean aIsSelfReferencing, boolean aIsContainer, boolean aDontUnificateActively, boolean aIsUsedForBlocks, boolean aAllowNormalRecycling, boolean aGenerateDefaultItem, boolean aIsEnchantable, boolean aIsUsedForOreProcessing, int aMaterialGenerationBits, long aMaterialAmount, int aDefaultStackSize, int aTextureindex) {
         mIsUnificatable = aIsUnificatable;
         mIsMaterialBased = aIsMaterialBased;
         mIsSelfReferencing = aIsSelfReferencing;
@@ -609,6 +613,7 @@ public enum OrePrefixes {
         for (OrePrefixes tPrefix : values())
             if (aOre.startsWith(tPrefix.toString())) {
                 if (tPrefix == oreNether && aOre.equals("oreNetherQuartz")) return ore;
+                if (tPrefix == oreBasalt && aOre.equals("oreBasalticMineralSand")) return ore;
                 return tPrefix;
             }
         return null;
@@ -617,7 +622,7 @@ public enum OrePrefixes {
     public static String stripPrefix(String aOre) {
         for (OrePrefixes tPrefix : values()) {
             if (aOre.startsWith(tPrefix.toString())) {
-                return aOre.replaceFirst(tPrefix.toString(), "");
+                return aOre.replaceFirst(tPrefix.toString(), EMPTY_STRING);
             }
         }
         return aOre;
@@ -629,7 +634,7 @@ public enum OrePrefixes {
                 return aOre.replaceFirst(tPrefix.toString(), aPrefix.toString());
             }
         }
-        return "";
+        return EMPTY_STRING;
     }
 
     public static OrePrefixes getPrefix(String aPrefixName) {
@@ -647,15 +652,15 @@ public enum OrePrefixes {
     }
 
     public static Materials getMaterial(String aOre, OrePrefixes aPrefix) {
-        return Materials.get(aOre.replaceFirst(aPrefix.toString(), ""));
+        return Materials.get(aOre.replaceFirst(aPrefix.toString(), EMPTY_STRING));
     }
 
     public static Materials getRealMaterial(String aOre, OrePrefixes aPrefix) {
-        return Materials.getRealMaterial(aOre.replaceFirst(aPrefix.toString(), ""));
+        return Materials.getRealMaterial(aOre.replaceFirst(aPrefix.toString(), EMPTY_STRING));
     }
 
     public static boolean isInstanceOf(String aName, OrePrefixes aPrefix) {
-        return aName == null ? false : aName.startsWith(aPrefix.toString());
+        return aName != null && aName.startsWith(aPrefix.toString());
     }
 
     public boolean add(ItemStack aStack) {
@@ -699,7 +704,7 @@ public enum OrePrefixes {
     public void processOre(Materials aMaterial, String aOreDictName, String aModName, ItemStack aStack) {
         if (aMaterial != null && (aMaterial != Materials._NULL || mIsSelfReferencing || !mIsMaterialBased) && GT_Utility.isStackValid(aStack))
             for (IOreRecipeRegistrator tRegistrator : mOreProcessing) {
-                if (D2)
+                if (DEBUG_LEVEL_2)
                     GT_Log.ore.println("Processing '" + aOreDictName + "' with the Prefix '" + name() + "' and the Material '" + aMaterial.name() + "' at " + GT_Utility.getClassName(tRegistrator));
                 tRegistrator.registerOre(this, aMaterial, aOreDictName, aModName, GT_Utility.copyAmount(1, aStack));
             }

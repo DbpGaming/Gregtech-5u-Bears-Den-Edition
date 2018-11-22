@@ -1,5 +1,14 @@
 package gregtech.common.items.behaviors;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.IFluidHandler;
+
+import java.util.List;
+
 import gregtech.api.GregTech_API;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
@@ -8,15 +17,6 @@ import gregtech.api.items.GT_MetaGenerated_Tool;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicTank;
 import gregtech.api.util.GT_LanguageManager;
 import gregtech.api.util.GT_Utility;
-
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.IFluidHandler;
 
 public class Behaviour_Plunger_Fluid
 extends Behaviour_None {
@@ -37,7 +37,7 @@ extends Behaviour_None {
 				if (((IFluidHandler) aTileEntity).drain(tDirection, 1000, false) != null) {
 					if ((aPlayer.capabilities.isCreativeMode) || (((GT_MetaGenerated_Tool) aItem).doDamage(aStack, this.mCosts))) {
 						((IFluidHandler) aTileEntity).drain(tDirection, 1000, true);
-						GT_Utility.sendSoundToPlayers(aWorld, (String) GregTech_API.sSoundList.get(Integer.valueOf(101)), 1.0F, -1.0F, aX, aY, aZ);
+						GT_Utility.sendSoundToPlayers(aWorld, GregTech_API.sSoundList.get(101), 1.0F, -1.0F, aX, aY, aZ);
 						return true;
 					}
 				}
@@ -50,6 +50,7 @@ extends Behaviour_None {
 				GT_MetaTileEntity_BasicTank machine = (GT_MetaTileEntity_BasicTank) mTileEntity;
 				if(machine.mFluid!=null&&machine.mFluid.amount>0)
 					machine.mFluid.amount = machine.mFluid.amount - Math.min(machine.mFluid.amount, 1000);
+				GT_Utility.sendSoundToPlayers(aWorld, GregTech_API.sSoundList.get(101), 1.0F, -1.0F, aX, aY, aZ);
 				return true;
 			}
 		}

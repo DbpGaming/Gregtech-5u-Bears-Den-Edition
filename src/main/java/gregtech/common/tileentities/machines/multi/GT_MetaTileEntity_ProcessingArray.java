@@ -1,5 +1,11 @@
 package gregtech.common.tileentities.machines.multi;
 
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.lang3.ArrayUtils;
+
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Textures;
 import gregtech.api.gui.GT_GUIContainer_MultiMachine;
@@ -11,16 +17,12 @@ import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_Recipe;
 import gregtech.api.util.GT_Utility;
 
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBlockBase {
 
@@ -64,7 +66,7 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 
 	public GT_Recipe.GT_Recipe_Map getRecipeMap() {
 		if (mInventory[1] == null) return null;
-		String tmp = mInventory[1].getUnlocalizedName().replaceAll("gt.blockmachines.basicmachine.", "");
+		String tmp = mInventory[1].getUnlocalizedName().replaceAll("gt.blockmachines.basicmachine.", EMPTY_STRING);
 		if (tmp.startsWith("centrifuge")) {
 			return GT_Recipe.GT_Recipe_Map.sCentrifugeRecipes;
 		} else if (tmp.startsWith("electrolyzer")) {
@@ -73,6 +75,8 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 			return GT_Recipe.GT_Recipe_Map.sAlloySmelterRecipes;
 		} else if (tmp.startsWith("assembler")) {
 			return GT_Recipe.GT_Recipe_Map.sAssemblerRecipes;
+		} else if (tmp.startsWith("partfactory")) {
+			return GT_Recipe.GT_Recipe_Map.sPartFactoryRecipes;
 		} else if (tmp.startsWith("compressor")) {
 			return GT_Recipe.GT_Recipe_Map.sCompressorRecipes;
 		} else if (tmp.startsWith("extractor")) {
@@ -109,9 +113,9 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 			return GT_Recipe.GT_Recipe_Map.sWiremillRecipes;
 		} else if (tmp.startsWith("arcfurnace")) {
 			return GT_Recipe.GT_Recipe_Map.sArcFurnaceRecipes;
-		}
-
-		else if (tmp.startsWith("plasmaarcfurnace")) {
+		} else if (tmp.startsWith("roaster")) {
+			return GT_Recipe.GT_Recipe_Map.sRoasterRecipes;
+		} else if (tmp.startsWith("plasmaarcfurnace")) {
 			return GT_Recipe.GT_Recipe_Map.sPlasmaArcFurnaceRecipes;
 		} else if (tmp.startsWith("printer")) {
 			return GT_Recipe.GT_Recipe_Map.sPrinterRecipes;
@@ -155,10 +159,7 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 	}
 
 	public boolean isCorrectMachinePart(ItemStack aStack) {
-		if (aStack != null && aStack.getUnlocalizedName().startsWith("gt.blockmachines.basicmachine.")) {
-			return true;
-		}
-		return false;
+		return aStack != null && aStack.getUnlocalizedName().startsWith("gt.blockmachines.basicmachine.");
 	}
 
 	public boolean isFacingValid(byte aFacing) {
@@ -192,8 +193,8 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 		}
 		for (int i = 0; i < tInputList.size() - 1; i++) {
 			for (int j = i + 1; j < tInputList.size(); j++) {
-				if (GT_Utility.areStacksEqual((ItemStack) tInputList.get(i), (ItemStack) tInputList.get(j))) {
-					if (((ItemStack) tInputList.get(i)).stackSize >= ((ItemStack) tInputList.get(j)).stackSize) {
+				if (GT_Utility.areStacksEqual(tInputList.get(i), tInputList.get(j))) {
+					if (tInputList.get(i).stackSize >= tInputList.get(j).stackSize) {
 						tInputList.remove(j--);
 					} else {
 						tInputList.remove(i--);
@@ -202,13 +203,13 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 				}
 			}
 		}
-		ItemStack[] tInputs = (ItemStack[]) Arrays.copyOfRange(tInputList.toArray(new ItemStack[tInputList.size()]), 0, 2);
+		ItemStack[] tInputs = Arrays.copyOfRange(tInputList.toArray(new ItemStack[tInputList.size()]), 0, 2);
 
 		ArrayList<FluidStack> tFluidList = getStoredFluids();
 		for (int i = 0; i < tFluidList.size() - 1; i++) {
 			for (int j = i + 1; j < tFluidList.size(); j++) {
-				if (GT_Utility.areFluidsEqual((FluidStack) tFluidList.get(i), (FluidStack) tFluidList.get(j))) {
-					if (((FluidStack) tFluidList.get(i)).amount >= ((FluidStack) tFluidList.get(j)).amount) {
+				if (GT_Utility.areFluidsEqual(tFluidList.get(i), tFluidList.get(j))) {
+					if (tFluidList.get(i).amount >= tFluidList.get(j).amount) {
 						tFluidList.remove(j--);
 					} else {
 						tFluidList.remove(i--);
@@ -217,9 +218,9 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 				}
 			}
 		}
-		FluidStack[] tFluids = (FluidStack[]) Arrays.copyOfRange(tFluidList.toArray(new FluidStack[tInputList.size()]), 0, 1);
+		FluidStack[] tFluids = Arrays.copyOfRange(tFluidList.toArray(new FluidStack[tInputList.size()]), 0, 1);
 		if (tInputList.size() > 0 || tFluids.length > 0) {
-			GT_Recipe tRecipe = map.findRecipe(getBaseMetaTileEntity(), mLastRecipe, false, gregtech.api.enums.GT_Values.V[tTier], tFluids, tInputs);
+			GT_Recipe tRecipe = map.findRecipe(getBaseMetaTileEntity(), mLastRecipe, false, TIERED_VOLTAGES[tTier], tFluids, tInputs);
 			if (tRecipe != null) {
 				if (tRecipe.mFluidInputs != null) {
 
@@ -247,7 +248,7 @@ public class GT_MetaTileEntity_ProcessingArray extends GT_MetaTileEntity_MultiBl
 				} else {
 					this.mEUt = tRecipe.mEUt;
 					this.mMaxProgresstime = tRecipe.mDuration;
-					while (this.mEUt <= gregtech.api.enums.GT_Values.V[(tTier - 1)]) {
+					while (this.mEUt <= TIERED_VOLTAGES[(tTier - 1)]) {
 						this.mEUt *= 4;
 						this.mMaxProgresstime /= 2;
 					}

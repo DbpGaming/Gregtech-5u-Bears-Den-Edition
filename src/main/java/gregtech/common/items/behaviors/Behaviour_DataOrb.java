@@ -1,13 +1,15 @@
 package gregtech.common.items.behaviors;
 
-import gregtech.api.items.GT_MetaBase_Item;
-import gregtech.api.util.GT_Utility;
-
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+
+import java.util.List;
+
+import gregtech.api.items.GT_MetaBase_Item;
+import gregtech.api.util.GT_Utility;
 
 public class Behaviour_DataOrb
         extends Behaviour_None {
@@ -16,7 +18,7 @@ public class Behaviour_DataOrb
             if (aNewContent[i] == null) {
                 aInventory[i] = null;
             } else {
-                aInventory[i] = GT_Utility.copy(new Object[]{aNewContent[i]});
+                aInventory[i] = GT_Utility.copy(aNewContent[i]);
             }
         }
     }
@@ -24,7 +26,7 @@ public class Behaviour_DataOrb
     public static String getDataName(ItemStack aStack) {
         NBTTagCompound tNBT = aStack.getTagCompound();
         if (tNBT == null) {
-            return "";
+            return EMPTY_STRING;
         }
         return tNBT.getString("mDataName");
     }
@@ -32,7 +34,7 @@ public class Behaviour_DataOrb
     public static String getDataTitle(ItemStack aStack) {
         NBTTagCompound tNBT = aStack.getTagCompound();
         if (tNBT == null) {
-            return "";
+            return EMPTY_STRING;
         }
         return tNBT.getString("mDataTitle");
     }
@@ -95,7 +97,7 @@ public class Behaviour_DataOrb
     }
 
     public List<String> getAdditionalToolTips(GT_MetaBase_Item aItem, List<String> aList, ItemStack aStack) {
-        if (!getDataTitle(aStack).equals("")) {
+        if (!getDataTitle(aStack).equals(EMPTY_STRING)) {
             aList.add(getDataTitle(aStack));
             aList.add(getDataName(aStack));
         }

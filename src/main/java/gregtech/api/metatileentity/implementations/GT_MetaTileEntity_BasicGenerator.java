@@ -1,19 +1,20 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.V;
-import gregtech.api.enums.Textures;
-import gregtech.api.interfaces.ITexture;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
-import gregtech.api.util.GT_Utility;
-
-import java.util.Collection;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import java.util.Collection;
+
+import gregtech.api.enums.Textures;
+import gregtech.api.interfaces.ITexture;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.util.GT_Recipe;
+import gregtech.api.util.GT_Utility;
+import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
 
 public abstract class GT_MetaTileEntity_BasicGenerator extends GT_MetaTileEntity_BasicTank {
     public GT_MetaTileEntity_BasicGenerator(int aID, String aName, String aNameRegional, int aTier, String aDescription, ITexture... aTextures) {
@@ -131,12 +132,12 @@ public abstract class GT_MetaTileEntity_BasicGenerator extends GT_MetaTileEntity
 
     @Override
     public long maxEUOutput() {
-        return getBaseMetaTileEntity().isAllowedToWork() ? V[mTier] : 0;
+        return getBaseMetaTileEntity().isAllowedToWork() ? TIERED_VOLTAGES[mTier] : 0;
     }
 
     @Override
     public long maxEUStore() {
-        return Math.max(getEUVar(), V[mTier] * 40 + getMinimumStoredEU());
+        return Math.max(getEUVar(), TIERED_VOLTAGES[mTier] * 40 + getMinimumStoredEU());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.RA;
+import static gregtech.api.enums.GT_Values.RECIPE_ADDER_INSTANCE;
+
 import gregtech.api.enums.Dyes;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Materials;
@@ -12,8 +13,8 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaPipeEntity;
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_ModHandler;
-import gregtech.api.util.GT_ModHandler.RecipeBits;
 import gregtech.api.util.GT_OreDictUnificator;
+import gregtech.api.util.GT_ModHandler.RecipeBits;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -26,7 +27,7 @@ public class GT_MetaPipeEntity_Frame extends MetaPipeEntity {
 
         GT_OreDictUnificator.registerOre(OrePrefixes.frameGt, aMaterial, getStackForm(1));
         GT_ModHandler.addCraftingRecipe(getStackForm(2), RecipeBits.NOT_REMOVABLE | GT_ModHandler.RecipeBits.BUFFERED, new Object[]{"SSS", "SwS", "SSS", 'S', OrePrefixes.stick.get(mMaterial)});
-        RA.addAssemblerRecipe(GT_OreDictUnificator.get(OrePrefixes.stick, aMaterial, 4), ItemList.Circuit_Integrated.getWithDamage(0, 4), getStackForm(1), 64, 8);
+        RECIPE_ADDER_INSTANCE.addAssemblerRecipe(GT_OreDictUnificator.get(OrePrefixes.stick, aMaterial, 4), ItemList.Circuit_Integrated.getWithDamage(0, 4), getStackForm(1), 64, 8);
     }
 
     public GT_MetaPipeEntity_Frame(String aName, Materials aMaterial) {

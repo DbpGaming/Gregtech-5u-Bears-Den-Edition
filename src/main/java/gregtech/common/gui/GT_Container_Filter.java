@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class GT_Container_Filter
         extends GT_ContainerMetaTile_Machine {
@@ -60,11 +61,11 @@ public class GT_Container_Filter
                     if (aMouseclick == 0) {
                         tSlot.putStack(null);
                     } else if (tStack != null) {
-                    	tStack = GT_Utility.copyAmountAndMetaData(tStack.stackSize, 32767, tStack);
+                    	tStack = GT_Utility.copyAmountAndMetaData(tStack.stackSize, OreDictionary.WILDCARD_VALUE, tStack);
                     	if(GT_Utility.isStackInvalid(tStack)){tStack=null;}
                     }
                 } else {
-                    tSlot.putStack(GT_Utility.copyAmount(1L, new Object[]{tStack}));
+                    tSlot.putStack(GT_Utility.copyAmount(1L, tStack));
                 }
                 return null;
             }

@@ -1,6 +1,7 @@
 package gregtech.api.items;
 
-import static gregtech.api.enums.GT_Values.M;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.Materials;
 import gregtech.api.enums.OrePrefixes;
@@ -8,16 +9,15 @@ import gregtech.api.interfaces.IIconContainer;
 import gregtech.api.util.GT_LanguageManager;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Utility;
-
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import static gregtech.api.enums.GT_Values.MATERIAL_UNIT;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Gregorius Techneticies
@@ -53,7 +53,7 @@ public abstract class GT_MetaGenerated_Item_X32 extends GT_MetaGenerated_Item {
             if (doesMaterialAllowGeneration(tPrefix, tMaterial)) {
                 ItemStack tStack = new ItemStack(this, 1, i);
                 GT_LanguageManager.addStringLocalization(getUnlocalizedName(tStack) + ".name", getDefaultLocalization(tPrefix, tMaterial, i));
-                GT_LanguageManager.addStringLocalization(getUnlocalizedName(tStack) + ".tooltip", tMaterial.getToolTip(tPrefix.mMaterialAmount / M));
+                GT_LanguageManager.addStringLocalization(getUnlocalizedName(tStack) + ".tooltip", tMaterial.getToolTip(tPrefix.mMaterialAmount / MATERIAL_UNIT));
                 if (tPrefix.mIsUnificatable) {
                     GT_OreDictUnificator.set(tPrefix, tMaterial, tStack);
                 } else {

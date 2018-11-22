@@ -1,6 +1,7 @@
 package gregtech.api.util;
 
-import static gregtech.api.enums.GT_Values.E;
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+
 import gregtech.api.interfaces.tileentity.ICoverable;
 import gregtech.api.objects.GT_ItemStack;
 import net.minecraft.entity.player.EntityPlayer;
@@ -64,7 +65,7 @@ public abstract class GT_CoverBehavior {
      * Gives a small Text for the status of the Cover.
      */
     public String getDescription(byte aSide, int aCoverID, int aCoverVariable, ICoverable aTileEntity) {
-        return E;
+        return EMPTY_STRING;
     }
 
     /**

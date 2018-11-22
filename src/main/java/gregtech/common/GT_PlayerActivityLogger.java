@@ -1,9 +1,11 @@
 package gregtech.common;
 
-import gregtech.GT_Mod;
-import gregtech.api.util.GT_Log;
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 
 import java.util.ArrayList;
+
+import gregtech.GT5_Mod;
+import gregtech.api.util.GT_Log;
 
 public class GT_PlayerActivityLogger
         implements Runnable {
@@ -13,15 +15,15 @@ public class GT_PlayerActivityLogger
                 if (GT_Log.pal == null) {
                     return;
                 }
-                ArrayList<String> tList = GT_Mod.gregtechproxy.mBufferedPlayerActivity;
-                GT_Mod.gregtechproxy.mBufferedPlayerActivity = new ArrayList();
-                String tLastOutput = "";
+                ArrayList<String> tList = GT5_Mod.gregtechproxy.mBufferedPlayerActivity;
+                GT5_Mod.gregtechproxy.mBufferedPlayerActivity = new ArrayList();
+                String tLastOutput = EMPTY_STRING;
                 int i = 0;
                 for (int j = tList.size(); i < j; i++) {
                     if (!tLastOutput.equals(tList.get(i))) {
-                        GT_Log.pal.println((String) tList.get(i));
+                        GT_Log.pal.println(tList.get(i));
                     }
-                    tLastOutput = (String) tList.get(i);
+                    tLastOutput = tList.get(i);
                 }
                 Thread.sleep(10000L);
             }

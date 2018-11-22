@@ -1,6 +1,19 @@
 package gregtech.api.metatileentity.implementations;
 
-import static gregtech.api.enums.GT_Values.V;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
+
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import java.util.Arrays;
+
 import gregtech.api.GregTech_API;
 import gregtech.api.enums.ItemList;
 import gregtech.api.enums.Textures;
@@ -12,19 +25,8 @@ import gregtech.api.objects.GT_ItemStack;
 import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Recipe;
-import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
 import gregtech.api.util.GT_Utility;
-
-import java.util.Arrays;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidHandler;
+import gregtech.api.util.GT_Recipe.GT_Recipe_Map;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
@@ -46,7 +48,7 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
     public boolean mAllowInputFromOutputSide = false, mFluidTransfer = false, mItemTransfer = false, mHasBeenUpdated = false, mStuttering = false, mCharge = false, mDecharge = false;
     public int mMainFacing = -1, mProgresstime = 0, mMaxProgresstime = 0, mEUt = 0, mOutputBlocked = 0;
     public FluidStack mOutputFluid;
-    public String mGUIName = "", mNEIName = "";
+    public String mGUIName = EMPTY_STRING, mNEIName = EMPTY_STRING;
     private NBTTagCompound mRecipeStuff = new NBTTagCompound();
     /**
      * Contains the Recipe which has been previously used, or null if there was no previous Recipe, which could have been buffered
@@ -87,6 +89,16 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
         mAmperage = aAmperage;
         mGUIName = aGUIName;
         mNEIName = aNEIName;
+    }
+
+    public boolean setMainFacing(byte aDirection){
+        mMainFacing = aDirection;
+        if(getBaseMetaTileEntity().getFrontFacing() == mMainFacing){
+            getBaseMetaTileEntity().setFrontFacing(GT_Utility.getOppositeSide(aDirection));
+        }
+        onFacingChange();
+        onMachineBlockUpdate();
+        return true;
     }
 
     @Override
@@ -186,17 +198,17 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
 
     @Override
     public long getMinimumStoredEU() {
-        return V[mTier] * 16;
+        return TIERED_VOLTAGES[mTier] * 16;
     }
 
     @Override
     public long maxEUStore() {
-        return V[mTier] * 64;
+        return TIERED_VOLTAGES[mTier] * 64;
     }
 
     @Override
     public long maxEUInput() {
-        return V[mTier];
+        return TIERED_VOLTAGES[mTier];
     }
 
     @Override
@@ -206,7 +218,7 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
 
     @Override
     public long maxAmperesIn() {
-        return (mEUt * 2) / V[mTier] + 1;
+        return (mEUt * 2) / TIERED_VOLTAGES[mTier] + 1;
     }
 
     @Override
@@ -335,7 +347,7 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
 
     @Override
     public Object getClientGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
-        return new GT_GUIContainer_BasicMachine(aPlayerInventory, aBaseMetaTileEntity, getLocalName(), mGUIName, GT_Utility.isStringValid(mNEIName) ? mNEIName : getRecipeList() != null ? getRecipeList().mUnlocalizedName : "");
+        return new GT_GUIContainer_BasicMachine(aPlayerInventory, aBaseMetaTileEntity, getLocalName(), mGUIName, GT_Utility.isStringValid(mNEIName) ? mNEIName : getRecipeList() != null ? getRecipeList().mUnlocalizedName : EMPTY_STRING);
     }
 
     @Override
@@ -524,7 +536,7 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
         } else {
             mEUt = aEUt;
             mMaxProgresstime = aDuration;
-            while (mEUt <= V[mTier - 1] * mAmperage) {
+            while (mEUt <= TIERED_VOLTAGES[mTier - 1] * mAmperage) {
                 mEUt *= 4;
                 mMaxProgresstime /= 2;
             }
@@ -722,7 +734,7 @@ public abstract class GT_MetaTileEntity_BasicMachine extends GT_MetaTileEntity_B
     public int checkRecipe() {
         GT_Recipe_Map tMap = getRecipeList();
         if (tMap == null) return DID_NOT_FIND_RECIPE;
-        GT_Recipe tRecipe = tMap.findRecipe(getBaseMetaTileEntity(), mLastRecipe, false, V[mTier], new FluidStack[]{getFillableStack()}, getSpecialSlot(), getAllInputs());
+        GT_Recipe tRecipe = tMap.findRecipe(getBaseMetaTileEntity(), mLastRecipe, false, TIERED_VOLTAGES[mTier], new FluidStack[]{getFillableStack()}, getSpecialSlot(), getAllInputs());
         if (tRecipe == null) return DID_NOT_FIND_RECIPE;
         if (tRecipe.mCanBeBuffered) mLastRecipe = tRecipe;
         if (!canOutput(tRecipe)) {

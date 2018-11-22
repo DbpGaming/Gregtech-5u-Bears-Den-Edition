@@ -1,6 +1,8 @@
 package gregtech.api.interfaces.tileentity;
 
-import static gregtech.api.enums.GT_Values.V;
+import static gregtech.api.enums.GT_Values.TIERED_VOLTAGES;
+
+import cofh.api.energy.IEnergyReceiver;
 import gregtech.api.GregTech_API;
 import gregtech.api.util.GT_Utility;
 import ic2.api.energy.tile.IEnergySink;
@@ -8,7 +10,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cofh.api.energy.IEnergyReceiver;
 
 /**
  * Interface for getting Connected to the GregTech Energy Network.
@@ -26,22 +27,30 @@ public interface IEnergyConnected extends IColoredTileEntity, IHasWorldObjectAnd
      * @param aSide 0 - 5 = Vanilla Directions of YOUR Block the Energy gets inserted to. 6 = No specific Side (don't do Side checks for this Side)
      * @return amount of used Amperes. 0 if not accepted anything.
      */
-    public long injectEnergyUnits(byte aSide, long aVoltage, long aAmperage);
+    long injectEnergyUnits(byte aSide, long aVoltage, long aAmperage);
 
     /**
      * Sided Energy Input
      */
-    public boolean inputEnergyFrom(byte aSide);
+    boolean inputEnergyFrom(byte aSide);
+    //remove this and cast shit like greg said to fix crashes
+    default boolean inputEnergyFrom(byte aSide, boolean waitForActive) {
+        return inputEnergyFrom(aSide);
+    }
 
     /**
      * Sided Energy Output
      */
-    public boolean outputsEnergyTo(byte aSide);
+    boolean outputsEnergyTo(byte aSide);
+    //remove this and cast shit like greg said to fix crashes
+    default boolean outputsEnergyTo(byte aSide, boolean waitForActive) {
+        return outputsEnergyTo(aSide);
+    }
 
     /**
      * Utility for the Network
      */
-    public static class Util {
+    class Util {
         /**
          * Emits Energy to the E-net. Also compatible with adjacent IC2 TileEntities.
          *
@@ -59,10 +68,6 @@ public interface IEnergyConnected extends IColoredTileEntity, IHasWorldObjectAnd
                             if (tColor >= 0 && tColor != aEmitter.getColorization()) continue;
                         }
                         rUsedAmperes += ((IEnergyConnected) tTileEntity).injectEnergyUnits(j, aVoltage, aAmperage - rUsedAmperes);
-//				} else if (tTileEntity instanceof IEnergySink) {
-//	        		if (((IEnergySink)tTileEntity).acceptsEnergyFrom((TileEntity)aEmitter, ForgeDirection.getOrientation(j))) {
-//	        			while (aAmperage > rUsedAmperes && ((IEnergySink)tTileEntity).demandedEnergyUnits() > 0 && ((IEnergySink)tTileEntity).injectEnergyUnits(ForgeDirection.getOrientation(j), aVoltage) < aVoltage) rUsedAmperes++;
-//	        		}
                     } else if (tTileEntity instanceof IEnergySink) {
                         if (((IEnergySink) tTileEntity).acceptsEnergyFrom((TileEntity) aEmitter, ForgeDirection.getOrientation(j))) {
                             while (aAmperage > rUsedAmperes && ((IEnergySink) tTileEntity).getDemandedEnergy() > 0 && ((IEnergySink) tTileEntity).injectEnergy(ForgeDirection.getOrientation(j), aVoltage, aVoltage) < aVoltage)
@@ -78,7 +83,7 @@ public interface IEnergyConnected extends IColoredTileEntity, IHasWorldObjectAnd
                         if (GregTech_API.mRFExplosions && GregTech_API.sMachineExplosions && ((IEnergyReceiver) tTileEntity).getMaxEnergyStored(tDirection) < rfOut * 600) {
                             if (rfOut > 32 * GregTech_API.mEUtoRF / 100) {
                                 int aExplosionPower = rfOut;
-                                float tStrength = aExplosionPower < V[0] ? 1.0F : aExplosionPower < V[1] ? 2.0F : aExplosionPower < V[2] ? 3.0F : aExplosionPower < V[3] ? 4.0F : aExplosionPower < V[4] ? 5.0F : aExplosionPower < V[4] * 2 ? 6.0F : aExplosionPower < V[5] ? 7.0F : aExplosionPower < V[6] ? 8.0F : aExplosionPower < V[7] ? 9.0F : 10.0F;
+                                float tStrength = aExplosionPower < TIERED_VOLTAGES[0] ? 1.0F : aExplosionPower < TIERED_VOLTAGES[1] ? 2.0F : aExplosionPower < TIERED_VOLTAGES[2] ? 3.0F : aExplosionPower < TIERED_VOLTAGES[3] ? 4.0F : aExplosionPower < TIERED_VOLTAGES[4] ? 5.0F : aExplosionPower < TIERED_VOLTAGES[4] * 2 ? 6.0F : aExplosionPower < TIERED_VOLTAGES[5] ? 7.0F : aExplosionPower < TIERED_VOLTAGES[6] ? 8.0F : aExplosionPower < TIERED_VOLTAGES[7] ? 9.0F : 10.0F;
                                 int tX = tTileEntity.xCoord, tY = tTileEntity.yCoord, tZ = tTileEntity.zCoord;
                                 World tWorld = tTileEntity.getWorldObj();
                                 GT_Utility.sendSoundToPlayers(tWorld, GregTech_API.sSoundList.get(209), 1.0F, -1, tX, tY, tZ);

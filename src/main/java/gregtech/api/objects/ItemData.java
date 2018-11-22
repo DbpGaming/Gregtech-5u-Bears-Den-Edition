@@ -1,7 +1,8 @@
 package gregtech.api.objects;
 
-import gregtech.api.enums.Materials;
-import gregtech.api.enums.OrePrefixes;
+import net.minecraft.item.ItemStack;
+
+import static gregtech.api.enums.GT_Values.EMPTY_STRING;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.minecraft.item.ItemStack;
+import gregtech.api.enums.Materials;
+import gregtech.api.enums.OrePrefixes;
 
 public class ItemData {
     private static final MaterialStack[] EMPTY_MATERIALSTACK_ARRAY = new MaterialStack[0];
@@ -123,7 +125,7 @@ public class ItemData {
 
     @Override
     public String toString() {
-        if (mPrefix == null || mMaterial == null || mMaterial.mMaterial == null) return "";
+        if (mPrefix == null || mMaterial == null || mMaterial.mMaterial == null) return EMPTY_STRING;
         return mPrefix.name() + mMaterial.mMaterial.name();
     }
 }

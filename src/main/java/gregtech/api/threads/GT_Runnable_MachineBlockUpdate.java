@@ -1,13 +1,13 @@
 package gregtech.api.threads;
 
-import gregtech.api.GregTech_API;
-import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
-
-import java.util.ArrayList;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+
+import gregtech.api.GregTech_API;
+import gregtech.api.interfaces.tileentity.IMachineBlockUpdateable;
 
 public class GT_Runnable_MachineBlockUpdate implements Runnable {
     private final int mX, mY, mZ;

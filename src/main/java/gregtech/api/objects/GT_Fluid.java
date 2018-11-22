@@ -1,6 +1,7 @@
 package gregtech.api.objects;
 
 import static gregtech.api.enums.GT_Values.RES_PATH_BLOCK;
+
 import gregtech.api.GregTech_API;
 import net.minecraftforge.fluids.Fluid;
 

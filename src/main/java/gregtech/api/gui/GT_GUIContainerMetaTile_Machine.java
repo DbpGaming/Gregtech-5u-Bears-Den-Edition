@@ -1,11 +1,11 @@
 package gregtech.api.gui;
 
-import gregtech.api.GregTech_API;
-import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemDye;
-
 import org.lwjgl.opengl.GL11;
+
+import gregtech.api.GregTech_API;
+import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 
 /**
  * NEVER INCLUDE THIS FILE IN YOUR MOD!!!
