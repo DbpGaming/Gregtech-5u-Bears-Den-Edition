@@ -17,7 +17,7 @@ GT Plastics/Rubber Processing Chain (Default is better for my players, cannot ad
 
 ## Downloads
 
-https://github.com/e99999/GT5u-BDE-latestbuilds
+N/A
 
 ## Installation
 
