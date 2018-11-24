@@ -35,3 +35,8 @@ I cannot emphasize the above point enough, don't bother them!
 ## Contribution
 
 Please do! However, please take a note of current issues and what is currently being worked on.
+
+## Discords For Gregtech 546
+
+Dbp's discord https://discord.gg/3vADubk
+Supercoder's discord https://discord.gg/PhrEtVk
