@@ -38,5 +38,5 @@ Please do! However, please take a note of current issues and what is currently b
 
 ## Discords For Gregtech 546
 
-Dbp's discord https://discord.gg/3vADubk
+Dbp's discord https://discord.gg/VDyqraG
 Supercoder's discord https://discord.gg/PhrEtVk
